@@ -1,6 +1,12 @@
 {
-  "db": {
-    "name": "db",
-    "connector": "memory"
+  "mysqlDs": {
+    "host": "localhost",
+    "port": 3306,
+    "url": "mysql://zlk:052980@localhost:3306/groupal2",
+    "database": "groupal2",
+    "password": "root",
+    "name": "mysqlDs",
+    "user": "root",
+    "connector": "mysql"
   }
 }

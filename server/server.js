@@ -2,6 +2,7 @@
 
 var loopback = require('loopback');
 var boot = require('loopback-boot');
+var prompt = require('prompt');
 
 var app = module.exports = loopback();
 
@@ -15,6 +16,9 @@ app.start = function() {
       var explorerPath = app.get('loopback-component-explorer').mountPath;
       console.log('Browse your REST API at %s%s', baseUrl, explorerPath);
     }
+
+    autoMigratePrompt(app.dataSources.mysqlDs);
+    // autoMigrateAction(app.dataSources.mysqlDs);
   });
 };
 
@@ -27,3 +31,128 @@ boot(app, __dirname, function(err) {
   if (require.main === module)
     app.start();
 });
+
+
+
+var autoUpdate = function(tables) {
+  var ds = app.dataSources.db;
+  // if tables list is not supplied - try and extract them from datasource
+  if (!tables || tables.length == 0) {
+    tables = getTablesFromDataSource(ds);
+  }
+  console.log(`Starting autoupdate of tables into database ${ds.connector.settings.database}`);
+
+  ds.autoupdate(tables, function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(`Completed auto update of tables: ${tables.join(', ')}.`);
+    }
+  });
+};
+
+var getTablesFromDataSource = function(ds) {
+  let modelnames = Object.keys(ds.models);
+  let tables = modelnames.filter(function(modelname) {
+    let model = ds.models[modelname];
+    if (model && model.dataSource && model.dataSource.name === 'db') {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  return tables;
+};
+
+
+var autoMigratePrompt = function(dataSource) {
+  prompt.start();
+  prompt.get([{
+    name: 'reply', description: 'Do you want to reset database? (y/n)',
+  }], function(err, res) {
+    if (res.reply == 'y') {
+      // reset data in database
+      autoMigrateAction(dataSource);
+    } else {
+      console.log('skipping automigrate');
+      autoUpdate([]);
+    }
+  });
+};
+
+var autoMigrateAction = function(dataSource) {
+  dataSource.automigrate(function() {
+    createData(dataSource)
+      .then(function() {
+        console.log('auto migrate completed');
+      });
+  });
+};
+
+// If required to load data when intializing db
+var createData = function(ds) {
+    return ds.models.Account.create({ username: 'admin', email: 'admin@example.com', password: 'admin', type: 'super' }
+  )
+    .then(function() {
+      return ds.models.Role.create({ name: 'super' });
+    })
+    .then(function(role) {
+      return role.principals.create({
+        principalType: 'USER',
+        principalId: 1,
+      });
+    })
+    .then(function() {
+      return ds.models.Account.create([
+        { username: 'organizer', email: 'organizer@example.com', password: 'organizer', type: 'organizer' },
+        { username: 'user', email: 'user@example.com', password: 'user', type: 'user' },
+      ]);
+    })
+    .then(function() {
+      return ds.models.Group.create([
+        {
+          name: 'group 1',
+          description: 'group 1 description',
+        },
+        {
+          name: 'group 2',
+          description: 'group 2 description',
+        },
+        {
+          name: 'group 3',
+          description: 'group 3 description',
+        },
+      ]);
+    })
+    .then(function() {
+      return ds.models.Category.create([
+        {
+          name: 'category 1',
+          description: 'category 1',
+        },
+        {
+          name: 'category 2',
+          description: 'category 2',
+        },
+      ]);
+    })
+    .then(function() {
+      return ds.models.Event.create([
+        {
+          name: 'evnet 1',
+          description: 'event 1',
+        },
+        {
+          name: 'evnet 2',
+          description: 'event 2',
+        },
+        {
+          name: 'evnet 3',
+          description: 'event 3',
+        },
+      ]);
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+};

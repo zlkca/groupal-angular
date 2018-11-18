@@ -1,0 +1,113 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+$navbar-height:60px;
+$label-color:#585858;//#212529
+
+.page{
+  margin-top:$navbar-height;
+  min-height:560px;
+  padding:0px;
+}
+
+form {
+  padding: 20px;
+
+  .field-label{
+    width:100%;
+    float:left;
+  }
+  // remove bootstrap focus blue outline
+  .form-control:focus {
+    outline: 0;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+  }
+
+  input{
+    max-width: 480px;
+  }
+
+  .btn-holder{
+    padding-top: 20px;
+  }
+}
+
+.title-xl{
+  font-family: "Roboto", "Microsoft Yahei", Helvetica, Arial, sans-serif;
+  font-size: 58px;
+  font-weight: 300;
+  line-height: 64px;
+  color: #8dbf41;//#9ca1a8;
+  padding: 20px 0px;
+}
+
+.title-lg{
+  font-family: "Microsoft Yahei", "Roboto", Helvetica, Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #7c7c7c;
+  padding: 20px 0px; 
+}
+
+.title-bg{
+  font-family: "Microsoft Yahei", 'Raleway', sans-serif;
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 30px;
+  color: #414851;//#8dbf41;
+  padding: 10px 0px;
+}
+
+.title-md{
+  font-family: "Microsoft Yahei",'Raleway', sans-serif;
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 400;
+  color: #414851;
+}
+
+.label-md{
+  font-size:16px;
+  color: $label-color;
+}
+
+.label-sm{
+  font-size:14px;
+  color: $label-color;
+}
+
+.label-lg{
+  font-size:24px;
+  color: $label-color;
+}
+
+.link-holder{
+  padding: 20px 0px;
+}
+
+@media (max-width: 767px){
+  form {
+    .row{
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+
+    .btn{
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 480px){
+  form {
+    .row{
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+
+    .btn{
+      width: 100%;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "Group",
-  "plural": "Groups",
+  "plural": "groups",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -8,21 +8,13 @@
   },
   "properties": {
     "name": {
-      "type": "string",
-      "required": true,
-      "default": "''"
+      "type": "string"
     },
     "description": {
-      "type": "string",
-      "default": "''"
+      "type": "string"
     },
     "created": {
-      "type": "date",
-      "defaultFn": "now"
-    },
-    "modified": {
-      "type": "date",
-      "defaultFn": "now"
+      "type": "date"
     }
   },
   "validations": [],

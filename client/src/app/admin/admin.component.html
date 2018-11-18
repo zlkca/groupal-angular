@@ -1,0 +1,37 @@
+<div class="page container">
+  <!-- <app-header></app-header> -->
+
+  <div class="admin-content">
+    <ngb-tabset>
+      <ngb-tab *ngIf="account">
+        <ng-template ngbTabTitle>
+          <span class="tab-title" i18n="@@Events">Events</span>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <!-- <app-admin-event [event]="event" [account]="account"></app-admin-event> -->
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab *ngIf="account && account.type === 'super'">
+        <ng-template ngbTabTitle>
+          <span class="tab-title" i18n="@@Account">Account</span>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <!-- <app-admin-user></app-admin-user> -->
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab *ngIf="account && (account.type === 'business' || account.type === 'super') && orders">
+        <ng-template ngbTabTitle>
+          <span class="tab-title" i18n="@@Categories">Categories</span>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <!-- <app-admin-category></app-admin-category> -->
+        </ng-template>
+      </ngb-tab>
+
+    </ngb-tabset>
+  </div>
+
+  <!-- <app-footer></app-footer> -->
+</div>
