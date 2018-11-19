@@ -1,10 +1,10 @@
 import { AccountActions } from './account.actions';
-import { User } from '../lb-sdk';
+import { Account } from '../lb-sdk';
 
 
-export const DEFAULT_USER = new User();
+export const DEFAULT_USER = new Account();
 
-export function accountReducer(state: User = DEFAULT_USER, action: any) {
+export function accountReducer(state: Account = DEFAULT_USER, action: any) {
   if (action.payload) {
     const payload = action.payload;
 

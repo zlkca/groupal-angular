@@ -13,6 +13,8 @@ import { AdminModule } from './admin/admin.module';
 import { SharedModule } from './shared/shared.module';
 
 import { AdminComponent } from './admin/admin.component';
+import { AdminEventComponent } from './admin/admin-event/admin-event.component';
+
 import { HomeComponent } from './home/home.component';
 import { LoginFormComponent } from './account/login-form/login-form.component';
 import { SignupFormComponent } from './account/signup-form/signup-form.component';
@@ -21,8 +23,8 @@ const appRoutes: Routes = [
   { path: 'admin', component: AdminComponent },
   // // { path: 'admin/restaurant/:id', component: AdminRestaurantFormPageComponent },
   // // { path: 'admin/restaurant', component: AdminRestaurantFormPageComponent },
-  // { path: 'admin/products/:id', component: AdminProductFormPageComponent },
-  // { path: 'admin/product', component: AdminProductFormPageComponent },
+  { path: 'admin/events/:id', component: AdminEventComponent },
+  { path: 'admin/events', component: AdminEventComponent },
   // { path: 'admin/products', component: AdminProductPageComponent },
   // { path: 'admin/edit-products', component: MultiProductFormComponent },
   // { path: 'admin/user', component: AdminAccountPageComponent },
@@ -38,7 +40,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginFormComponent },
   { path: 'signup', component: SignupFormComponent },
   // { path: 'institution-signup', component: InstitutionSignupComponent },
-  // { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   // { path: 'my-address', component: MyAddressComponent },
   // { path: '', component: MyAddressComponent}
 ];

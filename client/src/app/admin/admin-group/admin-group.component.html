@@ -1,3 +1,17 @@
-<p>
-  admin-group works!
-</p>
+<div class="admin-group-page">
+  <div class="row">
+    <div class="col-sm-4 col-xs-12 list-block">
+      <app-group-list [groups]="groups" 
+      (select)="onSelect($event)" (afterDelete)="onAfterDelete($event)">
+      </app-group-list>
+      <div class="btn-holder">
+        <div class="btn btn-secondary btn-add" (click)="add()" i18n="@@AddGroup">Add Group</div>
+      </div>
+    </div>
+    <div class="col-sm-8 col-xs-12">
+      <app-group-form [group]="group" 
+      (afterSave)="onAfterSave($event)"></app-group-form>
+    </div>
+  </div>
+  <!-- <ngb-alert *ngIf="alertClosed" [type]="alert.type" (close)="alertClosed = true">{{ alert.message }}</ngb-alert> -->
+</div>

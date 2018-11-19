@@ -1,3 +1,52 @@
-<p>
-  event-form works!
-</p>
+<form [formGroup]="form" class="admin-event-form">
+  <div class="row form-group">
+      <div class="field-label label-sm" i18n="@@Name">Name:</div>
+      <input class="form-control" name="name" formControlName="name"/>
+      <!-- <div *ngIf="name.touched && name.invalid" class="alert alert-danger">
+          <div *ngIf="name.errors.required">Event Name is required</div>
+          <div *ngIf="name.errors.minlength">Event Name should be minimum 3 characters.</div>
+      </div> -->
+  </div>
+
+  <div class="row form-group">
+      <div class="field-label label-sm" i18n="@@Description">Description</div>
+      <textarea class="form-control" name="description" formControlName="description"></textarea>
+      <!-- <div *ngIf="description.touched && description.invalid" class="alert alert-danger">Description should be maximum 980 chars.</div> -->
+  </div>
+
+  <div class="row form-group">
+      <div class="field-label label-sm" i18n="@@Price">Price</div>
+      <input class="form-control" type="number" name="price" formControlName="price"/>
+      <!-- <div *ngIf="price.touched && price.invalid" class="alert alert-danger">Price is required.</div> -->
+  </div>
+
+  <div class="row from-group">
+      <div class="field-label label-sm" i18n="@@Group">Group</div>
+      <select class="form-control" name="group" formControlName="groupId">
+          <option *ngFor="let m of groupList" [value]="m.id">{{m.name}}</option>
+      </select>
+  </div>
+
+  <div class="row from-group">
+      <div class="field-label label-sm" i18n="@@Category">Category</div>
+      <select class="form-control" name="category" formControlName="categoryId">
+          <option *ngFor="let c of categoryList" [value]="c.id">{{c.name}}</option>
+      </select>
+  </div>
+  <!-- <div class="row">
+    <div class="label-sm">Category</div>
+    <div formArrayName="categories" class="row categroy-group">
+        <div class="col-2 col-xs-12" *ngFor="let cat of categoryList; let i=index">
+            <input type="checkbox" formControlName="{{i}}" (change)="onToggleCategory(cat)">
+            <div class="checkbox-label">{{cat.name}}</div>
+        </div>
+    </div>
+  </div> -->
+
+  <!-- <app-image-uploader [data]="pictures" #uploader></app-image-uploader> -->
+  <!-- <image-upload [url]="uploadUrl" [uploadedFiles]="uploadedPictures" (uploadFinished)="onUploadFinished($event)" (removed)="onRemoved($event)"></image-upload> -->
+
+  <div class="btn-holder">
+      <div class="btn btn-primary" (click)="save()" i18n="@@Save">Save</div>
+  </div>
+</form>

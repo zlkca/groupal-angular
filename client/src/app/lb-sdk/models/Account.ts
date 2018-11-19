@@ -2,6 +2,7 @@
 
 declare var Object: any;
 export interface AccountInterface {
+  "phone"?: string;
   "type"?: string;
   "created"?: Date;
   "modified"?: Date;
@@ -15,6 +16,7 @@ export interface AccountInterface {
 }
 
 export class Account implements AccountInterface {
+  "phone": string;
   "type": string;
   "created": Date;
   "modified": Date;
@@ -58,6 +60,11 @@ export class Account implements AccountInterface {
       path: 'accounts',
       idName: 'id',
       properties: {
+        "phone": {
+          name: 'phone',
+          type: 'string',
+          default: 'null'
+        },
         "type": {
           name: 'type',
           type: 'string'

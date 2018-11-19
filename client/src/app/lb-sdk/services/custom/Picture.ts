@@ -61,7 +61,7 @@ export class PictureApi extends BaseLoopBackApi {
   /**
    * Patch attributes for a model instance and persist it into the data source.
    *
-   * @param {any} id picture id
+   * @param {any} id Picture id
    *
    * @param {object} data Request data.
    *

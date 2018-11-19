@@ -1,3 +1,20 @@
-<p>
-  event-list works!
-</p>
+<div class="event-list">
+    <div class="list-group list-body" *ngIf="events && events.length>0">
+      <div class="list-group-item" *ngFor="let p of events; let i = index;" (click)="onSelect(p)" [ngClass]="{'active': selected == p}">
+        <div class="row">
+          <div class="col-4">
+              <!-- <img [src]="p.pictures[0]?.url || placeholder" alt="{{p.name}}" /> -->
+          </div>
+    
+          <div class="col-4 text-block">
+            <div class="title-sm">{{p.name}}</div>
+          </div>
+    
+          <div class="col-4 btn-holder">
+            <div class="btn btn-sm btn-secondary" (click)="delete(p)" i18n="@@Delete">Delete</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>

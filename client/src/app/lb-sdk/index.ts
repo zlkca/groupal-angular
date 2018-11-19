@@ -48,12 +48,12 @@ import { SocketBrowser } from './sockets/socket.browser';
 import { SocketDriver } from './sockets/socket.driver';
 import { SocketConnection } from './sockets/socket.connections';
 import { RealTime } from './services/core/real.time';
-import { UserApi } from './services/custom/User';
+import { AccountApi } from './services/custom/Account';
 import { GroupApi } from './services/custom/Group';
 import { EventApi } from './services/custom/Event';
 import { PictureApi } from './services/custom/Picture';
 import { CategoryApi } from './services/custom/Category';
-import { AccountApi } from './services/custom/Account';
+import { AddressApi } from './services/custom/Address';
 /**
 * @module SDKBrowserModule
 * @description
@@ -84,12 +84,12 @@ export class SDKBrowserModule {
         LoggerService,
         SDKModels,
         RealTime,
-        UserApi,
+        AccountApi,
         GroupApi,
         EventApi,
         PictureApi,
         CategoryApi,
-        AccountApi,
+        AddressApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

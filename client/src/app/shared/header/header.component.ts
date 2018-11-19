@@ -31,16 +31,16 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router,
     private authSvc: AuthService,
     // private locationSvc: LocationService,
-    private accountServ: AccountService) {
+    private accountSvc: AccountService) {
 
     }
 
   ngOnInit() {
-    this.accountServ.getCurrent().subscribe(
+    this.accountSvc.getCurrent().subscribe(
       (account: Account) => {
         if (account && account.id) {
           this.user = account;
-          // this.type = account.type;
+          this.type = account.type;
           this.isLogin = true;
         } else {
           this.user = null;
@@ -101,7 +101,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.closeNavMenu();
-    this.accountServ.logout()
+    this.accountSvc.logout()
       .subscribe((sad: any) => {
         console.log(sad);
         this.user = null;
@@ -142,13 +142,13 @@ export class HeaderComponent implements OnInit {
     this.closeNavMenu();
 
     // check from token
-    this.accountServ.getCurrent().subscribe((r: Account) => {
+    this.accountSvc.getCurrent().subscribe((r: Account) => {
         // self.isLogin = r && r.id ? true : false;
         // if (self.isLogin) {
         //   if (r.type === 'business' || r.type === 'super') {
         //     self.router.navigate(['admin']);
         //   } else {
-        //     self.accountServ.logout().subscribe(() => {
+        //     self.accountSvc.logout().subscribe(() => {
         //       self.router.navigate(['institution-signup']);
         //     });
         //   }

@@ -1,3 +1,17 @@
-<p>
-  group-list works!
-</p>
+<div class="group-list">
+  <div class="list-group" *ngIf="groups.length>0">
+    <div class="list-group-item" *ngFor="let m of groups" (click)="onSelect(m)" [ngClass]="{'active': selected == m}">
+      <div class="row">
+        <!-- <div class="col-3>">
+          <img [src]="getImageSrc(m.image)" />
+        </div> -->
+        <div class="col-6">{{m.name}}</div>
+        <!-- <div class="col-md-3">{{m.address.street}},{{m.address.sub_locality}}</div> -->
+        <div class="col-6 btn-holder">
+          <div class="btn btn-sm btn-secondary" (click)="viewEvents(m)" i18n="@@Events">Events</div>
+          <div class="btn btn-sm btn-secondary" (click)="delete(m)" i18n="@@Delete">Delete</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

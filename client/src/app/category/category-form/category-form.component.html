@@ -1,12 +1,12 @@
 <form [formGroup]="form" class="category-form">
-  <div class="row">
-    <div class="label-sm" i18n="@@Name">Name:</div>
-    <input name="name" formControlName="name" />
+  <div class="row form-group">
+    <div class="field-label label-sm" i18n="@@Name">Name:</div>
+    <input class="form-control" name="name" formControlName="name" />
   </div>
   
-  <div class="row">
-    <div class="label-sm" i18n="@@Description">Description</div>
-    <textarea name="description" formControlName="description"></textarea>
+  <div class="row form-group">
+    <div class="field-label label-sm" i18n="@@Description">Description</div>
+    <textarea class="form-control" name="description" formControlName="description"></textarea>
   </div>
 
   <div class="row btn-holder">

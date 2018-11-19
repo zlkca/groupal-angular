@@ -3,8 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  APP: 'groupal',
   production: false,
   API_URL: window.location.origin + '/api/',
+  MEDIA_URL: window.location.origin + '/media/',
 };
 
 /*

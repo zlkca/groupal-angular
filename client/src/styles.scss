@@ -27,10 +27,6 @@ form {
   input{
     max-width: 480px;
   }
-
-  .btn-holder{
-    padding-top: 20px;
-  }
 }
 
 .title-xl{
@@ -82,8 +78,25 @@ form {
   color: $label-color;
 }
 
+.btn-holder{
+  padding-top: 20px;
+  .btn{
+    margin-right: 8px;
+  }
+}
+
 .link-holder{
   padding: 20px 0px;
+}
+
+.list-group{
+  .btn-holder{
+    padding-top:0px;
+  }
+}
+
+.list-block{
+  padding-top:26px;
 }
 
 @media (max-width: 767px){

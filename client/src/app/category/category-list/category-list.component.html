@@ -1,3 +1,12 @@
-<p>
-  category-list works!
-</p>
+<div class="list-group category-list">
+    <div class="list-group-item category" *ngFor="let c of categories" [ngClass]="{'active': selected == c}">
+      <div class="row">
+        <div class="col-8">
+            <div (click)="onSelect(c)">{{c.name}}</div>
+        </div>
+        <div class="col-4">
+          <div class="btn btn-sm btn-secondary" (click)="delete(c)" i18n="@@Delete">Delete</div>
+        </div>
+      </div>
+    </div>
+  </div>

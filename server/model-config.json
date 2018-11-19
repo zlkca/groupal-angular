@@ -50,5 +50,9 @@
   "Category": {
     "dataSource": "mysqlDs",
     "public": true
+  },
+  "Address": {
+    "dataSource": "mysqlDs",
+    "public": true
   }
 }

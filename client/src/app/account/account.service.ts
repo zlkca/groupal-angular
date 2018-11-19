@@ -36,16 +36,16 @@ export class AccountService {
       password: password
     };
     const self = this;
-    return this.accountApi.login(credentials, null, rememberMe);
-      // .pipe(
-      //   mergeMap(() => {
-      //     return self.accountApi.getCurrent();
-      //   }),
-      //   map((acc: Account) => {
-      //     // self.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: acc });
-      //     return acc;
-      //   })
-      // );
+    return this.accountApi.login(credentials, null, rememberMe)
+      .pipe(
+        mergeMap(() => {
+          return self.accountApi.getCurrent();
+        }),
+        map((acc: Account) => {
+          // self.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: acc });
+          return acc;
+        })
+      );
   }
 
   logout(): Observable<any> {

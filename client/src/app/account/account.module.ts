@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgReduxModule, NgRedux } from '@angular-redux/store';
@@ -15,6 +15,11 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
     ReactiveFormsModule,
     NgReduxModule
   ],
-  declarations: [UserFormComponent, UserListComponent, LoginFormComponent, SignupFormComponent]
+  declarations: [UserFormComponent, UserListComponent, LoginFormComponent, SignupFormComponent],
+  exports: [
+    UserFormComponent,
+    UserListComponent
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AccountModule { }

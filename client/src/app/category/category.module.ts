@@ -10,10 +10,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  exports: [
+  declarations: [
+    CategoryFormComponent,
     CategoryListComponent
   ],
-  declarations: [CategoryFormComponent, CategoryListComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  exports: [
+    CategoryListComponent,
+    CategoryFormComponent,
+  ],
 })
 export class CategoryModule { }

@@ -61,7 +61,7 @@ export class CategoryApi extends BaseLoopBackApi {
   /**
    * Patch attributes for a model instance and persist it into the data source.
    *
-   * @param {any} id category id
+   * @param {any} id Category id
    *
    * @param {object} data Request data.
    *

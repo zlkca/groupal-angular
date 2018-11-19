@@ -25,17 +25,17 @@ export class LoginFormComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-      private fb: FormBuilder,
-      private authServ: AuthService,
-      private router: Router,
-      // private sharedServ: SharedService,
-      private accountServ: AccountService,
+    private fb: FormBuilder,
+    private authServ: AuthService,
+    private router: Router,
+    // private sharedServ: SharedService,
+    private accountServ: AccountService,
   ) {
 
-      this.form = this.fb.group({
-          account: ['', Validators.required],
-          password: ['', Validators.required]
-      });
+    this.form = this.fb.group({
+      account: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
   ngOnInit() {
   }
@@ -43,41 +43,41 @@ export class LoginFormComponent implements OnInit {
     const v = this.form.value;
     // if (this.form.valid) {
     this.accountServ.login(v.account, v.password)
-        .subscribe((account: Account) => {
-            if (account.type === 'user') {
-                this.router.navigate(['home']);
-            } else {
-                if (account.type === 'super') {
-                    this.router.navigate(['admin']);
-                } else {
-                    this.router.navigate(['home']);
-                }
-            }
-        },
-            (error) => {
-                this.errMsg = error.message || 'login failed.';
-                console.error('An error occurred', error);
-            });
-}
+      .subscribe((account: Account) => {
+        if (account.type === 'user') {
+          this.router.navigate(['home']);
+        } else {
+          if (account.type === 'super') {
+            this.router.navigate(['admin']);
+          } else {
+            this.router.navigate(['home']);
+          }
+        }
+      },
+        (error) => {
+          this.errMsg = error.message || 'login failed.';
+          console.error('An error occurred', error);
+        });
+  }
 
 
-onForgetPassword() {
+  onForgetPassword() {
     // this.router.navigate(["/forget-password"]);;
     // return false;
-}
+  }
 
-onChangeAccount() {
+  onChangeAccount() {
     this.errMsg = '';
-}
+  }
 
-onChangePassword() {
+  onChangePassword() {
     this.errMsg = '';
-}
+  }
 
 
-toPage(page: string) {
+  toPage(page: string) {
     this.router.navigate([page]);
-}
+  }
 }
 
 

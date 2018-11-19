@@ -34,15 +34,14 @@ boot(app, __dirname, function(err) {
 
 
 
-var autoUpdate = function(tables) {
-  var ds = app.dataSources.db;
+var autoUpdate = function(dataSource, tables) {
   // if tables list is not supplied - try and extract them from datasource
   if (!tables || tables.length == 0) {
-    tables = getTablesFromDataSource(ds);
+    tables = getTablesFromDataSource(dataSource);
   }
-  console.log(`Starting autoupdate of tables into database ${ds.connector.settings.database}`);
+  console.log(`Starting autoupdate of tables into database ${dataSource.connector.settings.database}`);
 
-  ds.autoupdate(tables, function(err) {
+  dataSource.autoupdate(tables, function(err) {
     if (err) {
       console.log(err);
     } else {
@@ -75,7 +74,7 @@ var autoMigratePrompt = function(dataSource) {
       autoMigrateAction(dataSource);
     } else {
       console.log('skipping automigrate');
-      autoUpdate([]);
+      autoUpdate(dataSource, []);
     }
   });
 };
