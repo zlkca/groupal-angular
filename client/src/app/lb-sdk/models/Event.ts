@@ -1,18 +1,31 @@
 /* tslint:disable */
+import {
+  Account,
+  Group,
+  Category
+} from '../index';
 
 declare var Object: any;
 export interface EventInterface {
   "name"?: string;
   "description"?: string;
+  "ownerId"?: number;
   "created"?: Date;
   "id"?: number;
+  owner?: Account;
+  groups?: Group[];
+  categories?: Category[];
 }
 
 export class Event implements EventInterface {
   "name": string;
   "description": string;
+  "ownerId": number;
   "created": Date;
   "id": number;
+  owner: Account;
+  groups: Group[];
+  categories: Category[];
   constructor(data?: EventInterface) {
     Object.assign(this, data);
   }
@@ -54,6 +67,10 @@ export class Event implements EventInterface {
           name: 'description',
           type: 'string'
         },
+        "ownerId": {
+          name: 'ownerId',
+          type: 'number'
+        },
         "created": {
           name: 'created',
           type: 'Date'
@@ -64,6 +81,34 @@ export class Event implements EventInterface {
         },
       },
       relations: {
+        owner: {
+          name: 'owner',
+          type: 'Account',
+          model: 'Account',
+          relationType: 'belongsTo',
+                  keyFrom: 'ownerId',
+          keyTo: 'id'
+        },
+        groups: {
+          name: 'groups',
+          type: 'Group[]',
+          model: 'Group',
+          relationType: 'hasMany',
+          modelThrough: 'EventGroup',
+          keyThrough: 'groupId',
+          keyFrom: 'id',
+          keyTo: 'eventId'
+        },
+        categories: {
+          name: 'categories',
+          type: 'Category[]',
+          model: 'Category',
+          relationType: 'hasMany',
+          modelThrough: 'EventCategory',
+          keyThrough: 'categoryId',
+          keyFrom: 'id',
+          keyTo: 'eventId'
+        },
       }
     }
   }

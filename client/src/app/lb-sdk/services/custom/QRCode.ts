@@ -9,15 +9,15 @@ import { LoopBackFilter,  } from '../../models/BaseModels';
 import { ErrorHandler } from '../core/error.service';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Picture } from '../../models/Picture';
+import { QRCode } from '../../models/QRCode';
 import { SocketConnection } from '../../sockets/socket.connections';
 
 
 /**
- * Api services for the `Picture` model.
+ * Api services for the `QRCode` model.
  */
 @Injectable()
-export class PictureApi extends BaseLoopBackApi {
+export class QRCodeApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(HttpClient) protected http: HttpClient,
@@ -32,7 +32,7 @@ export class PictureApi extends BaseLoopBackApi {
   /**
    * Fetches belongsTo relation imageable.
    *
-   * @param {any} id Picture id
+   * @param {any} id QRCode id
    *
    * @param {boolean} refresh 
    *
@@ -42,13 +42,13 @@ export class PictureApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Picture` object.)
+   * This usually means the response is a `QRCode` object.)
    * </em>
    */
   public getImageable(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/pictures/:id/imageable";
+    "/qrcodes/:id/imageable";
     let _routeParams: any = {
       id: id
     };
@@ -72,13 +72,13 @@ export class PictureApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Picture` object.)
+   * This usually means the response is a `QRCode` object.)
    * </em>
    */
   public patchOrCreate(data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/pictures";
+    "/qrcodes";
     let _routeParams: any = {};
     let _postBody: any = {
       data: data
@@ -91,7 +91,7 @@ export class PictureApi extends BaseLoopBackApi {
   /**
    * Patch attributes for a model instance and persist it into the data source.
    *
-   * @param {any} id Picture id
+   * @param {any} id QRCode id
    *
    * @param {object} data Request data.
    *
@@ -103,13 +103,13 @@ export class PictureApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Picture` object.)
+   * This usually means the response is a `QRCode` object.)
    * </em>
    */
   public patchAttributes(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PATCH";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/pictures/:id";
+    "/qrcodes/:id";
     let _routeParams: any = {
       id: id
     };
@@ -123,9 +123,9 @@ export class PictureApi extends BaseLoopBackApi {
 
   /**
    * The name of the model represented by this $resource,
-   * i.e. `Picture`.
+   * i.e. `QRCode`.
    */
   public getModelName() {
-    return "Picture";
+    return "QRCode";
   }
 }

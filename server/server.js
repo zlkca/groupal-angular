@@ -19,6 +19,7 @@ app.start = function() {
 
     autoMigratePrompt(app.dataSources.mysqlDs);
     // autoMigrateAction(app.dataSources.mysqlDs);
+    // autoUpdate(app.dataSources.mysqlDs, []);
   });
 };
 
@@ -112,14 +113,20 @@ var createData = function(ds) {
         {
           name: 'group 1',
           description: 'group 1 description',
+          ownerId:2,
+          categoryId:1,
         },
         {
           name: 'group 2',
           description: 'group 2 description',
+          ownerId:2,
+          categoryId:2,
         },
         {
           name: 'group 3',
           description: 'group 3 description',
+          ownerId:2,
+          categoryId:3,
         },
       ]);
     })
@@ -132,6 +139,42 @@ var createData = function(ds) {
         {
           name: 'category 2',
           description: 'category 2',
+        },
+        {
+          name: 'category 3',
+          description: 'category 3',
+        },
+      ]);
+    })
+    .then(function() {
+      return ds.models.GroupCategory.create([
+        {
+          groupId: 1,
+          categoryId: 1,
+        },
+        {
+          groupId: 2,
+          categoryId: 2,
+        },
+        {
+          groupId: 3,
+          categoryId: 3,
+        },
+      ]);
+    })
+    .then(function() {
+      return ds.models.Picture.create([
+        {
+          name: 'logo1',
+          type: 'logo',
+          index: 1,
+          groupId: 1,
+        },
+        {
+          name: 'logo2',
+          type: 'logo',
+          index: 1,
+          groupId: 2
         },
       ]);
     })

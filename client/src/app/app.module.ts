@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import { SDKBrowserModule, LoopBackConfig } from './lb-sdk';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AccountModule } from './account/account.module';
@@ -11,6 +12,7 @@ import { GroupModule } from './group/group.module';
 import { EventModule } from './event/event.module';
 import { AdminModule } from './admin/admin.module';
 import { SharedModule } from './shared/shared.module';
+import { ImageUploaderModule } from './image-uploader/image-uploader.module';
 
 import { AdminComponent } from './admin/admin.component';
 import { AdminEventComponent } from './admin/admin-event/admin-event.component';
@@ -53,6 +55,7 @@ const appRoutes: Routes = [
   imports: [
     NgReduxModule,
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
@@ -66,6 +69,7 @@ const appRoutes: Routes = [
       // { enableTracing: true } // <-- debugging purposes only
     ),
     SDKBrowserModule.forRoot(),
+    ImageUploaderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -15,9 +15,18 @@ export class EventService {
 
 
   create(event: Event): Observable<Event> {
-    let eventId;
+    // let eventId;
     return this.eventApi.create(event)
       .pipe(
+        // mergeMap((r: Group) => {
+        //   return self.groupApi.linkCategories(group.id, group.categories[0].id);
+        // }),
+        // mergeMap((r: Group) => {
+        //   return self.updateLogos(r.id, group.pictures);
+        // }),
+        // mergeMap((r: Group) => {
+        //   return self.updateQRCodes(r.id, group.qrcodes);
+        // }),
         // mergeMap((prod: Event) => {
         //   eventId = prod.id;
         //   if (event.pictures && event.pictures.length) {
@@ -26,9 +35,9 @@ export class EventService {
         //     return new Observable(i => i.next());
         //   }
         // }),
-        mergeMap(() => {
-          return this.eventApi.findById(eventId, { include: 'pictures' });
-        })
+        // mergeMap(() => {
+        //   return this.eventApi.findById(eventId, { include: 'pictures' });
+        // })
       );
   }
 
@@ -59,8 +68,15 @@ export class EventService {
   }
 
   replaceById(id: number, event: Event): Observable<Event> {
+    const self = this;
     return this.eventApi.replaceById(id, event)
       .pipe(
+        mergeMap((r: Event) => {
+          return self.eventApi.linkGroups(event.id, event.groups[0].id);
+        }),
+        mergeMap((r: Event) => {
+          return self.eventApi.linkCategories(event.id, event.categories[0].id);
+        }),
         // mergeMap((prod: Event) => {
         //   if (event.pictures && event.pictures.length) {
         //     return this.updateEventImages(prod.id, event.pictures);
@@ -68,9 +84,15 @@ export class EventService {
         //     return new Observable(i => i.next());
         //   }
         // }),
-        mergeMap(() => {
-          return this.eventApi.findById(id, { include: 'pictures' });
-        })
+        // mergeMap((r: Group) => {
+        //   return self.updateLogos(id, group.pictures);
+        // }),
+        // mergeMap((r: Group) => {
+        //   return self.updateQRCodes(id, group.qrcodes);
+        // }),
+        // mergeMap(() => {
+        //   return this.eventApi.findById(id, { include: 'pictures' });
+        // })
       );
   }
 

@@ -1,4 +1,8 @@
 /* tslint:disable */
+import {
+  Group,
+  Event
+} from '../index';
 
 declare var Object: any;
 export interface CategoryInterface {
@@ -7,6 +11,8 @@ export interface CategoryInterface {
   "created"?: Date;
   "modified"?: Date;
   "id"?: number;
+  groups?: Group[];
+  events?: Event[];
 }
 
 export class Category implements CategoryInterface {
@@ -15,6 +21,8 @@ export class Category implements CategoryInterface {
   "created": Date;
   "modified": Date;
   "id": number;
+  groups: Group[];
+  events: Event[];
   constructor(data?: CategoryInterface) {
     Object.assign(this, data);
   }
@@ -70,6 +78,26 @@ export class Category implements CategoryInterface {
         },
       },
       relations: {
+        groups: {
+          name: 'groups',
+          type: 'Group[]',
+          model: 'Group',
+          relationType: 'hasMany',
+          modelThrough: 'GroupCategory',
+          keyThrough: 'groupId',
+          keyFrom: 'id',
+          keyTo: 'categoryId'
+        },
+        events: {
+          name: 'events',
+          type: 'Event[]',
+          model: 'Event',
+          relationType: 'hasMany',
+          modelThrough: 'EventCategory',
+          keyThrough: 'eventId',
+          keyFrom: 'id',
+          keyTo: 'categoryId'
+        },
       }
     }
   }

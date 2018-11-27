@@ -62,7 +62,7 @@ export class AdminEventComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
         self.groupId = params['group_id'];
         // self.groupSvc.findById(self.groupId).subscribe(
-        self.eventSvc.find().subscribe(
+        self.eventSvc.find({ include: ['groups', 'categories'] }).subscribe(
             (ps: Event[]) => {
                 self.events = ps;
             });

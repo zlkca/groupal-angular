@@ -1,14 +1,12 @@
 /* tslint:disable */
 
 declare var Object: any;
-export interface PictureInterface {
+export interface QRCodeInterface {
   "name"?: string;
   "url"?: string;
-  "type"?: string;
   "index"?: number;
-  "groupId"?: number;
-  "width"?: number;
-  "height"?: number;
+  "entityId"?: number;
+  "entityType"?: string;
   "created"?: Date;
   "modified"?: Date;
   "id"?: number;
@@ -17,38 +15,36 @@ export interface PictureInterface {
   imageable?: any;
 }
 
-export class Picture implements PictureInterface {
+export class QRCode implements QRCodeInterface {
   "name": string;
   "url": string;
-  "type": string;
   "index": number;
-  "groupId": number;
-  "width": number;
-  "height": number;
+  "entityId": number;
+  "entityType": string;
   "created": Date;
   "modified": Date;
   "id": number;
   "imageableId": number;
   "imageableType": string;
   imageable: any;
-  constructor(data?: PictureInterface) {
+  constructor(data?: QRCodeInterface) {
     Object.assign(this, data);
   }
   /**
    * The name of the model represented by this $resource,
-   * i.e. `Picture`.
+   * i.e. `QRCode`.
    */
   public static getModelName() {
-    return "Picture";
+    return "QRCode";
   }
   /**
   * @method factory
   * @author Jonathan Casarrubias
   * @license MIT
-  * This method creates an instance of Picture for dynamic purposes.
+  * This method creates an instance of QRCode for dynamic purposes.
   **/
-  public static factory(data: PictureInterface): Picture{
-    return new Picture(data);
+  public static factory(data: QRCodeInterface): QRCode{
+    return new QRCode(data);
   }
   /**
   * @method getModelDefinition
@@ -59,9 +55,9 @@ export class Picture implements PictureInterface {
   **/
   public static getModelDefinition() {
     return {
-      name: 'Picture',
-      plural: 'pictures',
-      path: 'pictures',
+      name: 'QRCode',
+      plural: 'qrcodes',
+      path: 'qrcodes',
       idName: 'id',
       properties: {
         "name": {
@@ -72,25 +68,17 @@ export class Picture implements PictureInterface {
           name: 'url',
           type: 'string'
         },
-        "type": {
-          name: 'type',
-          type: 'string'
-        },
         "index": {
           name: 'index',
           type: 'number'
         },
-        "groupId": {
-          name: 'groupId',
+        "entityId": {
+          name: 'entityId',
           type: 'number'
         },
-        "width": {
-          name: 'width',
-          type: 'number'
-        },
-        "height": {
-          name: 'height',
-          type: 'number'
+        "entityType": {
+          name: 'entityType',
+          type: 'string'
         },
         "created": {
           name: 'created',

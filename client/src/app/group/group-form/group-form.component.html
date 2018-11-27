@@ -9,35 +9,28 @@
       <!-- <div *ngIf="description.touched && description.invalid" class="alert alert-danger">Max Manufacory Description is 500 chars.</div> -->
     </div>
   
+    <!-- <div class="row form-group">
+      <div class="field-label label-sm">Category</div>
+      <div formArrayName="categories">
+          <div *ngFor="let cat of categories; let i=index">
+              <input class="form-control" type="checkbox" formControlName="{{i}}" (change)="onToggleCategory(cat)">
+              {{cat.name}}<br>
+          </div>
+      </div>
+    </div> -->
     <div class="row form-group">
-        <div class="field-label label-sm">Category</div>
-        <div formArrayName="categories">
-            <div *ngFor="let cat of categories; let i=index">
-                <input class="form-control" type="checkbox" formControlName="{{i}}" (change)="onToggleCategory(cat)">
-                {{cat.name}}<br>
-            </div>
-        </div>
+      <div class="field-label label-sm" i18n="@@Category">Category</div>
+      <!-- <div formArrayName="categories">
+        <select class="form-control" name="category" formControlName="0">
+          <option *ngFor="let c of categories" [value]="c.id">{{c.name}}</option>
+        </select>
+      </div> -->
+      <select class="form-control" name="category" formControlName="categoryId">
+          <option *ngFor="let c of categories" [value]="c.id">{{c.name}}</option>
+        </select>
     </div>
   
-    <div formGroupName="address">
-      <div class="row">
-        <div class="field-label label-sm" i18n="@@Street">Street:</div>
-        <!-- <input name="street" formControlName="street" /> -->
-        <!-- <app-address-input (addrChange)="onAddressChange($event)" placeholder="" [value]="address"></app-address-input> -->
-      </div>
-  
-      <div class="row form-group">
-        <div class="field-label label-sm" i18n="@@Suite">Suite:</div>
-        <input class="form-control" name="unit" formControlName="unit" />
-      </div>
-  
-      <div class="row form-group">
-        <div class="field-label label-sm" i18n="@@PostalCode">Postal Code:</div>
-        <input class="form-control" name="postalCode" formControlName="postalCode" />
-      </div>
-    </div>
-  
-    <div *ngIf="users?.length" class="row">
+    <div *ngIf="users?.length && currentAccount.type === 'super'" class="row">
       <div class="field-label label-sm" i18n="@@Owner">Owner</div>
       <select class="form-control" name="user" formControlName="ownerId">
         <option *ngFor="let m of users" [value]="m.id">{{m.username}}</option>
@@ -45,7 +38,18 @@
     </div>
   
     <!-- <app-image-uploader [picture]="picture" #uploader></app-image-uploader> -->
-    <!-- <image-upload [url]="uploadUrl" [uploadedFiles]="uploadedPictures" (uploadFinished)="onUploadFinished($event)" (removed)="onRemoved($event)"></image-upload> -->
+    <div class="row image-uploader">
+      <div class="field-label label-sm" i18n="@@Logo">Logo</div>
+      <app-image-uploader [uploadUrl]="logoUploadUrl" [images]="logos" 
+      (afterUpload)="onAfterLogoUpload($event)"></app-image-uploader>
+    </div>
+
+    <div class="row image-uploader">
+      <div class="field-label label-sm" i18n="@@QRCode">QR Code</div>
+      <app-image-uploader [uploadUrl]="qrcodeUploadUrl" [images]="qrcodes" 
+      (afterUpload)="onAfterQRCodeUpload($event)"></app-image-uploader>
+    </div>
+
     <div class="row btn-holder">
       <button class="btn btn-primary" (click)="save()" i18n="@@Save">Save</button>
       <button class="btn btn-secondary" (click)="cancel()" i18n="@@Cancel">Cancel</button>  

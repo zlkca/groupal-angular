@@ -6,6 +6,10 @@ import { Event } from '../../models/Event';
 import { Picture } from '../../models/Picture';
 import { Category } from '../../models/Category';
 import { Address } from '../../models/Address';
+import { Container } from '../../models/Container';
+import { QRCode } from '../../models/QRCode';
+import { EventGroup } from '../../models/EventGroup';
+import { EventCategory } from '../../models/EventCategory';
 
 export interface Models { [name: string]: any }
 
@@ -19,6 +23,10 @@ export class SDKModels {
     Picture: Picture,
     Category: Category,
     Address: Address,
+    Container: Container,
+    QRCode: QRCode,
+    EventGroup: EventGroup,
+    EventCategory: EventCategory,
     
   };
 

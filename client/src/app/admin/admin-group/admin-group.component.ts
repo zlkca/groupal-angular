@@ -113,7 +113,7 @@ export class AdminGroupComponent implements OnInit {
   loadGroupList() {
     const self = this;
     // this.groupSvc.find({ include: ['pictures', 'address'] }).subscribe(r => {
-    this.groupSvc.find().subscribe(r => {
+    this.groupSvc.find({ include: ['pictures', 'qrcodes', 'categories'] }).subscribe(r => {
       self.groups = r;
     });
   }

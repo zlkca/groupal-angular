@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 import { NgRedux } from '@angular-redux/store';
 import { IPicture } from '../../picture/picture.model';
 import { AccountService } from '../../account/account.service';
-import { GeoPoint, Group, Category, LoopBackConfig, Address, Account } from '../../lb-sdk';
+import { GeoPoint, Group, Category, LoopBackConfig, Address, Account, Picture, QRCode } from '../../lb-sdk';
 import { ILocation } from '../../address/address.model';
 import { getComponentViewDefinitionFactory } from '../../../../node_modules/@angular/core/src/view';
 
@@ -22,8 +22,8 @@ const PICTURES_FOLDER = 'pictures';
   styleUrls: ['./group-form.component.css']
 })
 export class GroupFormComponent implements OnInit, OnChanges {
-
   currentAccount: Account;
+
   location: ILocation = {
     street_name: '',
     street_number: '',
@@ -42,12 +42,11 @@ export class GroupFormComponent implements OnInit, OnChanges {
   subscriptionPicture;
   form: FormGroup;
   users;
-  uploadedPictures: string[] = [];
-  uploadUrl: string = [
-    LoopBackConfig.getPath(),
-    LoopBackConfig.getApiVersion(),
-    'Containers/pictures/upload'
-  ].join('/');
+  qrcodes: string[] = [];
+  logos: string[] = [];
+
+  logoUploadUrl: string;
+  qrcodeUploadUrl: string;
 
   @Output() afterSave: EventEmitter<any> = new EventEmitter();
   @Input() group: Group;
@@ -57,17 +56,15 @@ export class GroupFormComponent implements OnInit, OnChanges {
     return this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', Validators.maxLength(750)],
-      // street: ['', Validators.required],
-      // postal_code:['', Validators.required]
-      address: this.fb.group({
-        // street: ['', [Validators.required]],
-        unit: ['', [Validators.required]],
-        postalCode: ['', [Validators.required]],
-      }),
       ownerId: new FormControl(), // ['', Validators.required]
-      categories: this.fb.array([]),
+      categoryId: new FormControl()
+      // categories: this.fb.array([new FormControl('')]),
       // delivery_fee: ''
     });
+  }
+
+  getContainerUrl() {
+    return environment.API_BASE + '/' + environment.API_VERSION + '/Containers/';
   }
 
   constructor(private fb: FormBuilder,
@@ -79,14 +76,46 @@ export class GroupFormComponent implements OnInit, OnChanges {
     private categorySvc: CategoryService,
   ) {
     this.form = this.createForm();
+    this.logoUploadUrl = this.getContainerUrl() + 'logos/upload';
+    this.qrcodeUploadUrl = this.getContainerUrl() + 'qrcodes/upload';
+  }
+
+  fillForm(group) {
+    this.form.get('name').setValue(group.name);
+    this.form.get('description').setValue(group.description);
+    this.form.get('ownerId').setValue(group.ownerId);
+    this.form.get('categoryId').setValue(group.categories[0].id);
+    // this.form.get('categories')['controls'][0].setValue(group.categories[0].id);
+  }
+
+  setPictures(group) {
+    if (group.qrcodes.length > 0) {
+      const qrcode = group.qrcodes[0];
+      this.qrcodes = [
+        this.getContainerUrl() + qrcode.url,
+      ];
+    } else {
+      this.qrcodes = [''];
+    }
+
+    if (group.pictures.length > 0) {
+      const logo = group.pictures[0];
+      this.logos = [
+        this.getContainerUrl() + logo.url,
+      ];
+    } else {
+      this.logos = [''];
+    }
   }
 
   ngOnInit() {
     const self = this;
 
     if (this.group && this.group.id) {
+
+      this.fillForm(this.group);
       // this.uploadedPictures = (this.group.pictures || []).map(pic => pic.url);
-      this.form.patchValue(this.group);
+      // this.form.patchValue(this.group);
       // if (this.group.address) {
       //   const addr = this.group.address;
       //   this.location.city = addr.city;
@@ -121,22 +150,6 @@ export class GroupFormComponent implements OnInit, OnChanges {
     //         	self.pictures = [];
     //         }
 
-    //         self.commerceServ.getCategoryList().subscribe(catList=>{
-    //       self.categoryList = catList;
-    //       for(let cat of catList){
-    //           let c = r.categories.find(x=> x.id==cat.id );
-    //           if(c){
-    //               self.categories.push(new FormControl(true));
-    //           }else{
-    //               self.categories.push(new FormControl(false));
-    //           }
-    //           //self.categories.push(new FormControl(s.id));
-    //       }
-    //   })
-    //     },
-    //     (err:any) => {
-    //     });
-
     this.accountSvc.getCurrent().subscribe((acc: Account) => {
       this.currentAccount = acc;
       if (acc.type === 'super') {
@@ -146,12 +159,24 @@ export class GroupFormComponent implements OnInit, OnChanges {
       }
     });
 
+    this.categorySvc.find().subscribe(cats => {
+      self.categories = cats;
+    });
+
+    this.setCategories(this.group.categories);
   }
+
+  setCategories(categories) {
+    const self = this;
+    const cats = self.form.get('categories');
+  }
+
 
   ngOnChanges(changes) {
     if (this.form && changes.group.currentValue.id) {
-      this.form.patchValue(changes.group.currentValue);
-
+      const group = changes.group.currentValue;
+      this.fillForm(group);
+      this.setPictures(group);
       // const addr = changes.group.currentValue.address;
       // if (addr) {
       //   this.location.city = addr.city;
@@ -177,36 +202,46 @@ export class GroupFormComponent implements OnInit, OnChanges {
     // this.sharedSvc.emitMsg({ name: 'OnUpdateAddress', addr: e.addr });
   }
 
-  onUploadFinished(event) {
-    try {
-      const self = this;
-      const res = JSON.parse(event.serverResponse.response._body);
-      // this.group.pictures = res.result.files.image.map(img => {
-      //   return {
-      //     name: self.group.name,
-      //     url: [
-      //       LoopBackConfig.getPath(),
-      //       LoopBackConfig.getApiVersion(),
-      //       'Containers',
-      //       img.container, // pictures folder
-      //       img.name
-      //     ].join('/')
-      //   };
-      // });
-    } catch (error) {
-      console.error(error);
-    }
+  onLogoRemoved(event) {
+    // this.group.pictures.splice(this.group.pictures.findIndex(pic => pic.url === event.file.src));
   }
 
-  onRemoved(event) {
+
+  onQRCodeRemoved(event) {
     // this.group.pictures.splice(this.group.pictures.findIndex(pic => pic.url === event.file.src));
   }
 
   save() {
     // This component will be used for business admin and super admin!
     const self = this;
-    const v = this.form.value;
-    const group = new Group(this.form.value);
+    // const catIds = this.form.get('categories').value;
+    const catIds = [this.form.get('categoryId').value];
+    this.categorySvc.find({ where: { id: { inq: catIds } } }).subscribe(cats => {
+      const v = self.form.value;
+      v.categories = cats;
+      v.pictures = self.group.pictures;
+      v.qrcodes = self.group.qrcodes;
+
+      const group = new Group(v);
+      group.id = self.group ? self.group.id : null;
+
+      if (self.currentAccount.type === 'super') {
+        group.ownerId = self.form.get('ownerId').value;
+      } else {
+        group.ownerId = self.currentAccount.id;
+      }
+
+      if (group.id) {
+        self.groupSvc.replaceById(group.id, group).subscribe((r: any) => {
+          self.afterSave.emit({ group: r, action: 'update' });
+        });
+      } else {
+        self.groupSvc.create(group).subscribe((r: any) => {
+          self.afterSave.emit({ group: r, action: 'save' });
+        });
+      }
+    });
+
     // if (!this.users || !this.users.length) {
     //   group.ownerId = this.currentAccount.id;
     // }
@@ -251,16 +286,7 @@ export class GroupFormComponent implements OnInit, OnChanges {
     // }
 
     // group.location = { lat: this.location.lat, lng: this.location.lng };
-    group.id = self.group ? self.group.id : null;
-    if (group.id) {
-      self.groupSvc.replaceById(group.id, group).subscribe((r: any) => {
-        self.afterSave.emit({ group: r, action: 'update' });
-      });
-    } else {
-      self.groupSvc.create(group).subscribe((r: any) => {
-        self.afterSave.emit({ group: r, action: 'save' });
-      });
-    }
+
   }
 
   cancel() {
@@ -269,11 +295,50 @@ export class GroupFormComponent implements OnInit, OnChanges {
     // const c = localStorage.getItem('group_info-' + APP);
     // const r = JSON.parse(c);
 
-    self.form.patchValue(this.group);
+    // self.form.patchValue(this.group);
     // self.pictures = [{ index: 0, name: '', image: this.group.image }];
 
     // localStorage.removeItem('group_info-' + APP);
 
+    this.fillForm(this.group);
     self.router.navigate(['admin']);
+  }
+
+  onAfterLogoUpload(e) {
+    const self = this;
+    this.logos = [
+      this.getContainerUrl() + 'logos/download/' + e.name,
+    ];
+
+    this.group.pictures = [
+      new Picture({
+        name: self.group.name,
+        type: 'logo',
+        index: 1,
+        url: 'logos/download/' + e.name,
+        groupId: self.group.id,
+        // width: 100,
+        // height: 100,
+        // created: null,
+        // modified: null
+      })
+    ];
+  }
+
+  onAfterQRCodeUpload(e) {
+    const self = this;
+    this.qrcodes = [
+      this.getContainerUrl() + 'qrcodes/download/' + e.name,
+    ];
+
+    this.group.qrcodes = [
+      new QRCode({
+        name: self.group.name,
+        entityType: 'Group',
+        entityId: self.group.id,
+        index: 1,
+        url: 'qrcodes/download/' + e.name,
+      })
+    ];
   }
 }

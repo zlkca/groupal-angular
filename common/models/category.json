@@ -22,7 +22,26 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "groups": {
+      "type": "hasMany",
+      "model": "Group",
+      "foreignKey": "categoryId",
+      "options": {
+        "nestRemoting": true
+      },
+      "through": "GroupCategory"
+    },
+    "events": {
+      "type": "hasMany",
+      "model": "Event",
+      "foreignKey": "categoryId",
+      "options": {
+        "nestRemoting": true
+      },
+      "through": "EventCategory"
+    }
+  },
   "acls": [],
   "methods": {}
 }

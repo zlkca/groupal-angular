@@ -13,12 +13,55 @@
     "description": {
       "type": "string"
     },
+    "ownerId": {
+      "type": "number"
+    },
     "created": {
       "type": "date"
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "owner": {
+      "type": "belongsTo",
+      "model": "Account",
+      "foreignKey": "ownerId"
+    },
+    "pictures": {
+      "type": "hasMany",
+      "model": "Picture",
+      "foreignKey": "groupId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "qrcodes": {
+      "type": "hasMany",
+      "model": "QRCode",
+      "foreignKey": "entityId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "categories": {
+      "type": "hasMany",
+      "model": "Category",
+      "foreignKey": "groupId",
+      "options": {
+        "nestRemoting": true
+      },
+      "through": "GroupCategory"
+    },
+    "events": {
+      "type": "hasMany",
+      "model": "Event",
+      "foreignKey": "groupId",
+      "options": {
+        "nestRemoting": true
+      },
+      "through": "EventGroup"
+    }
+  },
   "acls": [],
   "methods": {}
 }

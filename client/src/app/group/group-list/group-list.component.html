@@ -1,6 +1,6 @@
 <div class="group-list">
   <div class="list-group" *ngIf="groups.length>0">
-    <div class="list-group-item" *ngFor="let m of groups" (click)="onSelect(m)" [ngClass]="{'active': selected == m}">
+    <div class="list-group-item" *ngFor="let m of groups" (click)="onSelect(m)" [ngClass]="{'active': selected === m}">
       <div class="row">
         <!-- <div class="col-3>">
           <img [src]="getImageSrc(m.image)" />

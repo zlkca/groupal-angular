@@ -13,12 +13,39 @@
     "description": {
       "type": "string"
     },
+    "ownerId": {
+      "type": "number"
+    },
     "created": {
       "type": "date"
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "owner": {
+      "type": "belongsTo",
+      "model": "Account",
+      "foreignKey": "ownerId"
+    },
+    "groups": {
+      "type": "hasMany",
+      "model": "Group",
+      "foreignKey": "eventId",
+      "options": {
+        "nestRemoting": true
+      },
+      "through": "EventGroup"
+    },
+    "categories": {
+      "type": "hasMany",
+      "model": "Category",
+      "foreignKey": "eventId",
+      "options": {
+        "nestRemoting": true
+      },
+      "through": "EventCategory"
+    }
+  },
   "acls": [],
   "methods": {}
 }

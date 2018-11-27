@@ -1,8 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/bootstrap/scss/bootstrap.scss";
-
+@import "~bootstrap/scss/bootstrap.scss";
+@import '~ngx-toastr/toastr.css';
 $navbar-height:60px;
 $label-color:#585858;//#212529
+
+$control-width: 580px;
+$control-short-width: 450px;
 
 .page{
   margin-top:$navbar-height;
@@ -24,8 +27,12 @@ form {
     -webkit-box-shadow: none;
   }
 
-  input{
-    max-width: 480px;
+  input, select{
+    max-width: $control-short-width;
+  }
+
+  textarea{
+    max-width: $control-width;
   }
 }
 
@@ -97,6 +104,74 @@ form {
 
 .list-block{
   padding-top:26px;
+}
+
+.uploader{
+  margin: 20px 0px 0px 0px;
+  width: $control-short-width;
+}
+
+image-upload{
+  width: $control-short-width;
+  border: #d0d0d0 dashed 1px;
+  
+  .img-ul{
+    border: none !important;
+  }
+
+  .img-ul-container{
+    width:33%;
+    float:right;
+  }
+
+  .img-ul-file-upload{
+    width: 66%;
+    float: right;
+  }
+
+  .img-ul-image{
+    width: 120px !important;
+    height: 120px !important;
+    margin: 0px !important;
+  }
+
+  .img-ul-drag-box-msg{
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size:14px !important;
+    font-weight:400 !important;
+    text-transform: none !important;
+    margin-left:0px !important;
+  }
+}
+
+.img-ul-button{
+  margin-right: 8px;
+  height:38px;
+  margin-right:8px;
+  padding:6px 12px !important;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size:16px !important;
+  font-weight:400 !important;
+  text-transform: none !important;
+  line-height:24px !important;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  background-color: #007bff !important;
+
+  span {
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size:16px;
+    font-weight:400;
+    line-height:24px;
+  }
 }
 
 @media (max-width: 767px){

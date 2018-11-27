@@ -8,5 +8,12 @@
     "name": "mysqlDs",
     "user": "root",
     "connector": "mysql"
+  },
+  "imageStorage": {
+    "name": "imageStorage",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "uploads",
+    "nameConflict": "makeUnique"
   }
 }

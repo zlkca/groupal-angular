@@ -1,4 +1,4 @@
-<form [formGroup]="form" class="admin-event-form">
+<form [formGroup]="form" class="event-form">
   <div class="row form-group">
       <div class="field-label label-sm" i18n="@@Name">Name:</div>
       <input class="form-control" name="name" formControlName="name"/>
@@ -14,11 +14,28 @@
       <!-- <div *ngIf="description.touched && description.invalid" class="alert alert-danger">Description should be maximum 980 chars.</div> -->
   </div>
 
-  <div class="row form-group">
+  <div class="row form-group" formGroupName="address">
+    <div class="row">
+      <!-- <div class="field-label label-sm" i18n="@@Street">Street:</div> -->
+      <!-- <input name="street" formControlName="street" /> -->
+      <!-- <app-address-input (addrChange)="onAddressChange($event)" placeholder="" [value]="address"></app-address-input> -->
+    </div>
+
+    <!-- <div class="row form-group">
+      <div class="field-label label-sm" i18n="@@Suite">Suite:</div>
+      <input class="form-control" name="unit" formControlName="unit" />
+    </div>
+
+    <div class="row form-group">
+      <div class="field-label label-sm" i18n="@@PostalCode">Postal Code:</div>
+      <input class="form-control" name="postalCode" formControlName="postalCode" />
+    </div> -->
+  </div>
+  
+  <!-- <div class="row form-group">
       <div class="field-label label-sm" i18n="@@Price">Price</div>
       <input class="form-control" type="number" name="price" formControlName="price"/>
-      <!-- <div *ngIf="price.touched && price.invalid" class="alert alert-danger">Price is required.</div> -->
-  </div>
+  </div> -->
 
   <div class="row from-group">
       <div class="field-label label-sm" i18n="@@Group">Group</div>

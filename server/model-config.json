@@ -54,5 +54,25 @@
   "Address": {
     "dataSource": "mysqlDs",
     "public": true
+  },
+  "Container": {
+    "dataSource": "imageStorage",
+    "public": true
+  },
+  "GroupCategory": {
+    "dataSource": "mysqlDs",
+    "public": false
+  },
+  "QRCode": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "EventGroup": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "EventCategory": {
+    "dataSource": "mysqlDs",
+    "public": true
   }
 }
