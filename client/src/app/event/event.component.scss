@@ -1,0 +1,9 @@
+.event-list{
+  padding: 0px 20px;
+}
+
+@media (max-width: 767px){
+  .event-list{
+    padding:0px;
+  }
+}

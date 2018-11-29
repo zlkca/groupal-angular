@@ -1,0 +1,24 @@
+
+
+.category-list{
+  padding:0px 5px;
+  
+  .category{
+      margin-right:5px;
+      margin-bottom:5px;
+      max-width:120px;
+      float:left;
+
+      .btn{
+          min-width:60px;
+          border: 1px solid #ccc;    
+      }
+  }
+
+}
+
+@media (max-width: 767px){
+  .category-list{
+    padding:0px;
+  }
+}

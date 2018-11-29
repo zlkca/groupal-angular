@@ -1,0 +1,101 @@
+
+$mobile: "(max-width: 767px)";
+$tablet: "(min-width: 768px) and (max-width: 1199px)";
+$desktop: "(min-width: 1200px)";
+
+$IMAGE_W:172px;
+$IMAGE_H:135px;
+
+.list-body{
+  .row{
+      padding:10px 0px;
+  }
+}
+
+.wechatgroup-list{
+  margin:0px;
+  padding:0px;
+  
+  .item-cell{
+    display:inline-block;
+    vertical-align: top;
+    // border:1px solid #eee;
+    margin-bottom:8px;
+    margin-right:10px;
+  }
+  
+  .image-block{
+    width:$IMAGE_W;
+    img{
+      width:$IMAGE_W;
+      height:$IMAGE_H;
+      display: block;
+      margin: auto;
+    }
+  }
+
+  .text-block{
+    width:$IMAGE_W;
+    padding:10px;
+    padding-bottom:5px;
+
+    // .price{
+    //     font-size: 14px;
+    //     font-weight: 700;
+    // }
+
+    // .price-row{
+    //     padding-left:15px;
+    //     height:30px;
+    // }
+
+    // .like-btn{
+    //     padding-left:20px;
+    // }
+
+    // p{
+    //   float: right;
+    //   span{
+    //       font-size: 110%; 
+    //   }
+    //   a.heart-empty{
+    //       font-size: 130%;
+    //       color: black;
+    //   }
+    //   a.heart-full{
+    //       font-size: 130%;
+    //       color: red;
+    //   }
+    // }
+  }
+
+}
+
+@media #{$desktop}{
+
+}
+
+@media #{$tablet}{
+
+}
+
+@media #{$mobile}{
+
+  .wechatgroup-list{
+      padding-left: 0px;
+      padding-right: 0px;
+
+      .item-cell{
+        margin:8px 20px 8px 0px;
+      }
+
+      .image-area{
+        img{
+          width:168px;
+          height:$IMAGE_H;
+          display: block;
+          margin: auto;
+        }
+      }
+  }
+}

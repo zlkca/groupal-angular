@@ -1,0 +1,9 @@
+
+<div class="category-list">
+    <div class="category">
+        <div class="btn text-md" (click)="find()">All</div>
+    </div>
+    <div class="category" *ngFor="let c of categoryList" >
+        <div class="btn text-md" (click)="find(c)">{{c.name}}</div>
+    </div>
+</div>
