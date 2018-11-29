@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, concat } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
 import { Group, Picture, QRCode, GroupApi, PictureApi, QRCodeApi, LoopBackFilter } from '../lb-sdk';
@@ -22,13 +22,9 @@ export class GroupService {
     return this.groupApi.create(group)
       .pipe(
         mergeMap((r: Group) => {
-          return self.groupApi.linkCategories(group.id, group.categories[0].id);
-        }),
-        mergeMap((r: Group) => {
-          return self.updateLogos(r.id, group.pictures);
-        }),
-        mergeMap((r: Group) => {
-          return self.updateQRCodes(r.id, group.qrcodes);
+          self.updateLogos(r.id, group.pictures);
+          self.updateQRCodes(r.id, group.qrcodes);
+          return self.groupApi.linkCategories(r.id, group.categories[0].id);
         })
       );
       // .pipe(
@@ -68,13 +64,9 @@ export class GroupService {
     const self = this;
     return this.groupApi.replaceById(id, group).pipe(
       mergeMap((r: Group) => {
-        return self.groupApi.linkCategories(group.id, group.categories[0].id);
-      }),
-      mergeMap((r: Group) => {
-        return self.updateLogos(id, group.pictures);
-      }),
-      mergeMap((r: Group) => {
-        return self.updateQRCodes(id, group.qrcodes);
+        self.updateLogos(id, group.pictures);
+        self.updateQRCodes(id, group.qrcodes);
+        return self.groupApi.linkCategories(id, group.categories[0].id);
       })
     );
   }
@@ -95,63 +87,59 @@ export class GroupService {
     return pictures.findIndex(p => p.id === pictureId) !== -1;
   }
 
-  updateLogos(id: number, newPictures: Picture[] = null): Observable<any> {
+  updateLogos(id: number, newPictures: Picture[] = null) {
     const self = this;
-    return this.groupApi.getPictures(id)
-      .pipe(
-        mergeMap((pictures: Picture[]) => {
-          const picturesToRemove: Picture[] = pictures ? pictures.filter(pic => !this.inPictureArray(pic.id, newPictures)) : [];
-          const picturesToUpdate: Picture[] = pictures ? pictures.filter(pic => this.inPictureArray(pic.id, newPictures)) : [];
-          const picturesToAdd: Picture[] = newPictures ? newPictures.filter(newPic => !newPic.id) : [];
+    this.groupApi.getPictures(id).subscribe((pictures: Picture[]) => {
+      const picturesToRemove: Picture[] = pictures ? pictures.filter(pic => !this.inPictureArray(pic.id, newPictures)) : [];
+      const picturesToUpdate: Picture[] = pictures ? pictures.filter(pic => this.inPictureArray(pic.id, newPictures)) : [];
+      const picturesToAdd: Picture[] = newPictures ? newPictures.filter(newPic => !newPic.id) : [];
 
-          return Promise.all(picturesToRemove.map(pic => {
-            return this.pictureApi.deleteById(pic.id).toPromise();
-          }))
-          .then(() => {
-            if (picturesToAdd.length) {
-              // return this.groupApi.createManyLogos(id, picturesToAdd);
-              picturesToAdd.map(pic => {
-                return this.pictureApi.patchOrCreate(pic).toPromise();
-              });
-            }
-            return new Observable(i => i.next());
-          })
-          .then(() => {
-            Promise.all(picturesToUpdate.map(pic => {
-              return self.pictureApi.patchOrCreate(pic);
-            }));
-          });
-        })
-      );
+      picturesToRemove.map(pic => {
+        return this.pictureApi.deleteById(pic.id).subscribe(x => {});
+      });
+
+      if (picturesToAdd.length > 0) {
+        picturesToAdd.map(pic => {
+          pic.groupId = id;
+          this.pictureApi.patchOrCreate(pic).subscribe(x => { });
+        });
+      }
+
+      if (picturesToUpdate.length > 0) {
+        picturesToUpdate.map(pic => {
+          pic.groupId = id;
+          return self.pictureApi.patchOrCreate(pic);
+        });
+      }
+
+    });
   }
 
-  updateQRCodes(id: number, newPictures: QRCode[] = null): Observable<any> {
+  updateQRCodes(id: number, newPictures: QRCode[] = null) {
     const self = this;
-    return this.groupApi.getQrcodes(id)
-      .pipe(
-        mergeMap((pictures: QRCode[]) => {
-          const picturesToRemove: QRCode[] = pictures ? pictures.filter(pic => !this.inPictureArray(pic.id, newPictures)) : [];
-          const picturesToUpdate: QRCode[] = pictures ? pictures.filter(pic => this.inPictureArray(pic.id, newPictures)) : [];
-          const picturesToAdd: QRCode[] = newPictures ? newPictures.filter(newPic => !newPic.id) : [];
+    this.groupApi.getQrcodes(id).subscribe((pictures: QRCode[]) => {
+      const picturesToRemove: QRCode[] = pictures ? pictures.filter(pic => !this.inPictureArray(pic.id, newPictures)) : [];
+      const picturesToUpdate: QRCode[] = pictures ? pictures.filter(pic => this.inPictureArray(pic.id, newPictures)) : [];
+      const picturesToAdd: QRCode[] = newPictures ? newPictures.filter(newPic => !newPic.id) : [];
 
-          return Promise.all(picturesToRemove.map(pic => {
-            return this.qrcodeApi.deleteById(pic.id).toPromise();
-          }))
-          .then(() => {
-            if (picturesToAdd.length) {
-              // return this.groupApi.createManyQRCodes(id, picturesToAdd);
-              picturesToAdd.map(pic => {
-                return this.qrcodeApi.patchOrCreate(pic).toPromise();
-              });
-            }
-            return new Observable(i => i.next());
-          })
-          .then(() => {
-            Promise.all(picturesToUpdate.map(pic => {
-              return self.qrcodeApi.patchOrCreate(pic);
-            }));
-          });
-        })
-      );
+      picturesToRemove.map(pic => {
+        this.qrcodeApi.deleteById(pic.id).subscribe();
+      });
+
+      if (picturesToAdd.length > 0) {
+        picturesToAdd.map(pic => {
+          pic.entityId = id;
+          this.qrcodeApi.patchOrCreate(pic).subscribe();
+        });
+      }
+
+      if (picturesToUpdate.length > 0) {
+        picturesToUpdate.map(pic => {
+          pic.entityId = id;
+          return self.qrcodeApi.patchOrCreate(pic);
+        });
+      }
+
+    });
   }
 }
