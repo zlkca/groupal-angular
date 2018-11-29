@@ -47,7 +47,7 @@ export class LoginFormComponent implements OnInit {
         if (account.type === 'user') {
           this.router.navigate(['home']);
         } else {
-          if (account.type === 'super') {
+          if (account.type === 'super' || account.type === 'organizer') {
             this.router.navigate(['admin']);
           } else {
             this.router.navigate(['home']);
@@ -75,8 +75,8 @@ export class LoginFormComponent implements OnInit {
   }
 
 
-  toPage(page: string) {
-    this.router.navigate([page]);
+  toSignup() {
+    this.router.navigate(['signup'], { queryParams: { mode: 'user' } });
   }
 }
 

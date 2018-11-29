@@ -134,15 +134,15 @@ var createData = function(ds) {
       return ds.models.Category.create([
         {
           name: 'category 1',
-          description: 'category 1',
+          description: 'category 1 description',
         },
         {
           name: 'category 2',
-          description: 'category 2',
+          description: 'category 2 description',
         },
         {
           name: 'category 3',
-          description: 'category 3',
+          description: 'category 3 description',
         },
       ]);
     })
@@ -182,15 +182,15 @@ var createData = function(ds) {
       return ds.models.Event.create([
         {
           name: 'evnet 1',
-          description: 'event 1',
+          description: 'event 1 description',
         },
         {
           name: 'evnet 2',
-          description: 'event 2',
+          description: 'event 2 description',
         },
         {
           name: 'evnet 3',
-          description: 'event 3',
+          description: 'event 3 description',
         },
       ]);
     })

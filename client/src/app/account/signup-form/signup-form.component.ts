@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgRedux } from '@angular-redux/store';
 import { AuthService } from '../auth.service';
 import { AccountActions } from '../account.actions';
@@ -17,11 +17,15 @@ import { Account } from '../../lb-sdk';
 export class SignupFormComponent implements OnInit {
   errMsg: string;
   form: FormGroup;
+  mode;
 
   constructor(private fb: FormBuilder,
     private authServ: AuthService,
     private accountSvc: AccountService,
-    private router: Router) {
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+
 
     this.form = this.fb.group({
       username: ['', Validators.required],
@@ -31,7 +35,10 @@ export class SignupFormComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    const self = this;
+    this.route.queryParams.subscribe(params => {
+      self.mode = params['mode'];
+    });
   }
 
   onSignup() {
@@ -40,7 +47,7 @@ export class SignupFormComponent implements OnInit {
       username: v.username,
       email: v.username + '@groupal.ca', // v.email,
       password: v.password,
-      type: 'user'
+      type: this.mode
     });
     this.accountSvc.signup(account).subscribe(
       (user: Account) => {

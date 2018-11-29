@@ -25,11 +25,11 @@
           <span class="tab-title" i18n="@@Users">Users</span>
         </ng-template>
         <ng-template ngbTabContent>
-          <app-admin-user></app-admin-user>
+          <app-admin-user [account]="account"></app-admin-user>
         </ng-template>
       </ngb-tab>
 
-      <ngb-tab *ngIf="account && (account.type === 'business' || account.type === 'super')">
+      <ngb-tab *ngIf="account && (account.type === 'super' || account.type === 'organizer')">
         <ng-template ngbTabTitle>
           <span class="tab-title" i18n="@@Categories">Categories</span>
         </ng-template>

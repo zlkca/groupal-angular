@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AccountService } from '../../account/account.service';
 import { Account } from '../../lb-sdk';
 
@@ -10,7 +10,8 @@ import { Account } from '../../lb-sdk';
 export class AdminUserComponent implements OnInit {
 
   accounts: Account[] = [];
-  account: Account;
+  selected: Account;
+  @Input() account: Account;
 
   constructor(private accountSvc: AccountService) { }
 
@@ -19,10 +20,10 @@ export class AdminUserComponent implements OnInit {
   }
 
   add() {
-    this.account = new Account();
-    this.account.id = null;
-    this.account.username = '';
-    this.account.password = '';
+    this.selected = new Account();
+    this.selected.id = null;
+    this.selected.username = '';
+    this.selected.password = '';
   }
 
   onAfterSave(event) {
@@ -31,27 +32,39 @@ export class AdminUserComponent implements OnInit {
 
   onAfterDelete(event) {
     this.loadAccountList();
-    if (event.account.id === this.account.id) {
-      this.account = new Account();
-      this.account.id = null;
-      this.account.username = '';
-      this.account.password = '';
+    if (event.account.id === this.selected.id) {
+      this.selected = new Account();
+      this.selected.id = null;
+      this.selected.username = '';
+      this.selected.password = '';
     }
   }
 
   onSelect(event) {
-    this.account = event.account;
+    this.selected = event.account;
   }
 
   loadAccountList() {
     const self = this;
-    this.accountSvc.find().subscribe(
-      (r: Account[]) => {
-        self.accounts = r;
-      },
-      (err: any) => {
-        self.accounts = [];
-      });
+    if (self.account.type === 'super') {
+      const query = { include: ['pictures', 'qrcodes', 'categories'] };
+      this.accountSvc.find().subscribe(
+        (r: Account[]) => {
+          self.accounts = r;
+        },
+        (err: any) => {
+          self.accounts = [];
+        });
+    } else if (self.account.type === 'organizer') {
+      const query = { where: { id: self.account.id }, include: ['pictures', 'qrcodes', 'categories'] };
+      this.accountSvc.find().subscribe(
+        (r: Account[]) => {
+          self.accounts = r;
+        },
+        (err: any) => {
+          self.accounts = [];
+        });
+    }
   }
 }
 

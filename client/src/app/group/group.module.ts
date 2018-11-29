@@ -16,7 +16,8 @@ import { GroupListComponent } from './group-list/group-list.component';
   ],
   exports: [
     GroupListComponent,
-    GroupFormComponent
+    GroupFormComponent,
+    GroupComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [GroupComponent, GroupFormComponent, GroupListComponent]

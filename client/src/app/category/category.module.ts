@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CategoryComponent } from './category.component';
 
 @NgModule({
   imports: [
@@ -12,12 +13,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   declarations: [
     CategoryFormComponent,
-    CategoryListComponent
+    CategoryListComponent,
+    CategoryComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [
     CategoryListComponent,
     CategoryFormComponent,
+    CategoryComponent
   ],
 })
 export class CategoryModule { }

@@ -4,7 +4,9 @@
         <app-category-list [categories]="categories" 
           (select)="onSelect($event)"
           (afterDelete)="onAfterDelete($event)"></app-category-list>
-        <div class="btn btn-secondary btn-add" (click)="add()" i18n="@@AddCategory">Add Category</div>
+        <div class="btn-holder">
+          <div class="btn btn-secondary btn-add" (click)="add()" i18n="@@AddCategory">Add Category</div>
+        </div>
       </div>
       <div class="col-sm-8 col-xs-12">
         <app-category-form [category]="category" (valueSave)="onAfterSave($event)"></app-category-form>

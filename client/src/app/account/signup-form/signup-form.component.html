@@ -1,13 +1,14 @@
 <div class="container page page-signup">
 	<form class="auth-form" [formGroup]="form" >
 		<div class="row">
-			<span class="title-lg" i18n="@@CreateNewAccount">Create New Account</span>
+      <span *ngIf="mode=='user'" class="title-lg" i18n="@@CreateNewAccount">Create New Account</span>
+      <span *ngIf="mode=='organizer'" class="title-lg" i18n="@@CreateOrganizerAccount">Create Organizer Account</span>
 		</div>
 		<div class="row">
 			<span class="error-msg">{{errMsg}}</span>
 		</div>
 
-    	<div class="row form-group">
+    <div class="row form-group">
 			<div class="field-label label-sm" i18n="@@Username">Username</div>
 			<input class="form-control" formControlName="username" type="text"/>
 		</div>

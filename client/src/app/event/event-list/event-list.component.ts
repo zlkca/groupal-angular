@@ -20,7 +20,6 @@ const ADD_IMAGE = 'add_photo.png';
 export class EventListComponent implements OnInit {
   MEDIA_URL: string = environment.MEDIA_URL;
 
-  @Input() restaurantId;
   @Input() events: Event[];
   @Input() mode: string;
   @Output() select = new EventEmitter();
@@ -80,7 +79,7 @@ export class EventListComponent implements OnInit {
 
   add() {
     // this.router.navigate(['admin/event']);
-    this.router.navigate(['admin/event'], { queryParams: { restaurant_id: this.restaurantId } });
+    this.router.navigate(['admin/event']); // { queryParams: { restaurant_id: this.restaurantId } }
   }
 
   delete(p) {

@@ -1,4 +1,30 @@
 <div class="page">
+  <div class="row filter-area">
+    <!-- <div class="row">
+      <div class="input-group search-box">
+        <input type="text" [(ngModel)]="keyword" placeholder="{{'SEARCH_BY_KEYWORD'|translate}}" aria-describedby="basic-addon2"
+          (keyup)="term$.next($event.target.value)">
+        <div class="btn btn-search" (click)="search(keyword)">
+          <i class="fa fa-search"></i>{{'SEARCH'|translate}}</div>
+      </div>
+    </div> -->
+  </div>
+  <div class="row">
+    <!-- <div class="col-12 label label-sm">Category:</div> -->
+    <div class="col-12 category-area">
+        <app-category (afterFind)="onAfterFind($event)"></app-category>
+    </div>
+  </div>
+    
+  <div class="row">
+    <div class="col-sm-8 col-xs-12 group-area">
+      <app-group></app-group>
+    </div>
+    <div class="col-sm-4 col-xs-12 event-area">
+      <app-event></app-event>
+    </div>
+  </div>
+</div>
   <!-- <div class="filter-area">
       <div class="row">
           <div class="input-group search-box">
@@ -15,7 +41,4 @@
   </div>
   
   
-  <wechatgroup-list></wechatgroup-list> -->
-  <!-- <app-category-list></app-category-list>
-  <app-group-list></app-group-list> -->
-</div>
+</div> -->

@@ -70,6 +70,41 @@ form {
   color: #414851;
 }
 
+.text-xs{
+  font-weight: 100;
+  font-size: 12px;
+  line-height: 16px;
+  font-family: Roboto, sans-serif;
+  color:#606060;
+}
+
+.text-sm{
+  font-weight: 100;
+  font-size: 14px;
+  font-family: Roboto, sans-serif;
+  color:#505050;
+}
+
+.text-md{
+ color:rgb(50,50,50);
+ font-family: Roboto, sans-serif;
+ font-size:16px;
+ font-weight:300; 
+}
+
+.text-bg{
+font-size:18px;
+font-family: Roboto, sans-serif;
+color:rgb(34, 34, 34);
+}
+
+.text-lg{
+ color:#585858;
+ font-family: Roboto, sans-serif;
+ font-size:24px;
+ font-weight:300; 
+}
+
 .label-md{
   font-size:16px;
   color: $label-color;

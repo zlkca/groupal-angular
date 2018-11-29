@@ -43,7 +43,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
       self.account = account;
 
-      if (account.type === 'business') {
+      if (account.type === 'organizer') {
           // const restaurant_id = account.restaurants[0] ? account.restaurants[0].id : null;
 
           // if (restaurant_id) {

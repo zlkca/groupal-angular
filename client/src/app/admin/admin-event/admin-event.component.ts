@@ -20,18 +20,20 @@ export class AdminEventComponent implements OnInit {
   events;
   groupId;
   event;
+  subscrAccount;
 
   constructor(private route: ActivatedRoute,
-      private groupSvc: GroupService,
-      private eventSvc: EventService,
-      private toastSvc: ToastrService,
-      // private rx: NgRedux<IAppState>
-    ) {
+    private groupSvc: GroupService,
+    private eventSvc: EventService,
+    private toastSvc: ToastrService,
+    // private rx: NgRedux<IAppState>
+  ) {
 
   }
 
   ngOnInit() {
-    this.loadEventList();
+    const self = this;
+    self.loadEventList();
   }
 
   add() {
@@ -60,12 +62,21 @@ export class AdminEventComponent implements OnInit {
   loadEventList() {
     const self = this;
     this.route.queryParams.subscribe(params => {
-        self.groupId = params['group_id'];
-        // self.groupSvc.findById(self.groupId).subscribe(
-        self.eventSvc.find({ include: ['groups', 'categories'] }).subscribe(
-            (ps: Event[]) => {
-                self.events = ps;
-            });
+      self.groupId = params['group_id'];
+
+      if (self.account.type === 'super') {
+        const query = { include: ['groups', 'categories'] };
+        self.eventSvc.find(query).subscribe(
+          (ps: Event[]) => {
+            self.events = ps;
+          });
+      } else if (self.account.type === 'organizer') {
+        const query = { where: { ownerId: self.account.id }, include: ['groups', 'categories'] };
+        self.eventSvc.find(query).subscribe(
+          (ps: Event[]) => {
+            self.events = ps;
+          });
+      }
     });
   }
 

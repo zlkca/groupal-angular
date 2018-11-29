@@ -1,3 +1,28 @@
-<p>
-  group works!
-</p>
+<div class="wechatgroup-list">
+    <!--     <div class="list-head">
+        </div>
+        <div class="list-body">
+            <div class="row" *ngFor="let r of wechatgroupList" (click)="toDetail(r)">
+                <div class="left-side">
+                    <img src="{{MEDIA_URL}}{{r.logo}}" />
+                </div>
+                <div class="right-side">
+                    <div class="row">
+                        <div class="col">{{r.title}}</div>
+                        <div class="col">{{r.description}}</div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    
+        <div class="item-cell" *ngFor="let r of wechatgroupList" (click)="toDetail(r)" >
+            <div class="image-block" >
+                <img src="{{getImageUrl(r.pictures)}}" />
+            </div>
+    
+            <div class="text-block">
+              <div class="text-sm">{{r.name}}</div>
+              <div class="text-xs">{{r.description}}</div>
+            </div>
+        </div>
+    </div>

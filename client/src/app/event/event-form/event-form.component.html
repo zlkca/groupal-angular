@@ -37,14 +37,14 @@
       <input class="form-control" type="number" name="price" formControlName="price"/>
   </div> -->
 
-  <div class="row from-group">
+  <div class="row form-group">
       <div class="field-label label-sm" i18n="@@Group">Group</div>
       <select class="form-control" name="group" formControlName="groupId">
           <option *ngFor="let m of groupList" [value]="m.id">{{m.name}}</option>
       </select>
   </div>
 
-  <div class="row from-group">
+  <div class="row form-group">
       <div class="field-label label-sm" i18n="@@Category">Category</div>
       <select class="form-control" name="category" formControlName="categoryId">
           <option *ngFor="let c of categoryList" [value]="c.id">{{c.name}}</option>

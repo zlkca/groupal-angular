@@ -1,3 +1,17 @@
-<p>
-  event works!
-</p>
+<div class="event-list">
+    <div class="list-group list-body" *ngIf="events && events.length>0">
+      <div class="list-group-item" *ngFor="let p of events; let i = index;" (click)="onSelect(p)" [ngClass]="{'active': selected == p}">
+        <div class="row">
+          <div class="col-12 text-block">
+            <div class="text-md">{{p.name}}</div>
+          </div>
+          <div class="col-12 text-block">
+              <div class="text-sm">{{p.description}}</div>
+            </div>
+          <!-- <div class="col-4 btn-holder">
+            <div class="btn btn-sm btn-secondary" (click)="delete(p)" i18n="@@Delete">Delete</div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment';
@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { Group } from '../../lb-sdk';
 import { GroupService } from '../../group/group.service';
+import { accountReducer } from '../../account/account.reducer';
 
 
 const ADD_IMAGE = 'add_photo.png';
@@ -25,6 +26,8 @@ export class AdminGroupComponent implements OnInit {
     message: 'This is an success alert',
   };
   alertClosed = false;
+  subscrAccount;
+  @Input() account;
 
   constructor(private router: Router,
     private groupSvc: GroupService,
@@ -74,7 +77,8 @@ export class AdminGroupComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadGroupList();
+    const self = this;
+    self.loadGroupList();
   }
 
   add() {
@@ -112,9 +116,18 @@ export class AdminGroupComponent implements OnInit {
 
   loadGroupList() {
     const self = this;
+    if (self.account.type === 'super') {
+      const query = { include: ['pictures', 'qrcodes', 'categories'] };
+      this.groupSvc.find(query).subscribe(r => {
+        self.groups = r;
+      });
+    } else if (self.account.type === 'organizer') {
+      const query = { where: { ownerId: self.account.id }, include: ['pictures', 'qrcodes', 'categories'] };
+      this.groupSvc.find(query).subscribe(r => {
+        self.groups = r;
+      });
+    }
     // this.groupSvc.find({ include: ['pictures', 'address'] }).subscribe(r => {
-    this.groupSvc.find({ include: ['pictures', 'qrcodes', 'categories'] }).subscribe(r => {
-      self.groups = r;
-    });
+
   }
 }

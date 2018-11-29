@@ -112,16 +112,18 @@ export class HeaderComponent implements OnInit {
 
   toLogin() {
     this.router.navigate(['login']);
+    this.closeNavMenu();
   }
 
   toSignup() {
-    this.router.navigate(['signup']);
+    this.router.navigate(['signup'], { queryParams: { mode: 'user' } });
+    this.closeNavMenu();
   }
 
   toHome() {
     // if (this.user) {
     // if (this.user.type === 'super') {
-    //     this.router.navigate(['admin']);
+    this.router.navigate(['home']);
     // } else if (this.user.type === 'business') {
     //     this.router.navigate(['dashboard']);
     // } else {
@@ -135,12 +137,17 @@ export class HeaderComponent implements OnInit {
     // }
     // }
   }
+  toAdmin() {
+    this.router.navigate(['admin']);
+    this.closeNavMenu();
+  }
 
   toBusinessCenter() {
     // if login and user is business, redirect to business center, otherwise redirect to business signup
     const self = this;
     this.closeNavMenu();
 
+    self.router.navigate(['signup'], { queryParams: { mode: 'organizer' }});
     // check from token
     this.accountSvc.getCurrent().subscribe((r: Account) => {
         // self.isLogin = r && r.id ? true : false;

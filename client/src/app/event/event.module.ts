@@ -14,7 +14,8 @@ import { EventListComponent } from './event-list/event-list.component';
   ],
   exports: [
     EventListComponent,
-    EventFormComponent
+    EventFormComponent,
+    EventComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [EventComponent, EventFormComponent, EventListComponent]

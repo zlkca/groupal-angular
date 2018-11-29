@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgReduxModule, NgRedux } from '@angular-redux/store';
@@ -20,6 +20,7 @@ import { AdminEventComponent } from './admin/admin-event/admin-event.component';
 import { HomeComponent } from './home/home.component';
 import { LoginFormComponent } from './account/login-form/login-form.component';
 import { SignupFormComponent } from './account/signup-form/signup-form.component';
+import { CategoryModule } from './category/category.module';
 
 const appRoutes: Routes = [
   { path: 'admin', component: AdminComponent },
@@ -44,7 +45,7 @@ const appRoutes: Routes = [
   // { path: 'institution-signup', component: InstitutionSignupComponent },
   { path: 'home', component: HomeComponent },
   // { path: 'my-address', component: MyAddressComponent },
-  // { path: '', component: MyAddressComponent}
+  { path: '', component: HomeComponent }
 ];
 
 @NgModule({
@@ -69,8 +70,10 @@ const appRoutes: Routes = [
       // { enableTracing: true } // <-- debugging purposes only
     ),
     SDKBrowserModule.forRoot(),
-    ImageUploaderModule
+    ImageUploaderModule,
+    CategoryModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent]
 })
