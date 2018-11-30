@@ -76,7 +76,7 @@ export class GroupComponent implements OnInit {
   }
 
   toDetail(r: any) {
-    // this.router.navigate(['wechatgroup/' + r.id]);
+    this.router.navigate(['groups/' + r.id]);
   }
 
   toQueryStr(query: any) {

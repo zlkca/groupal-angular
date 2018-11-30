@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { EventService } from './event.service';
 import { Event } from '../lb-sdk';
 
@@ -8,15 +8,11 @@ import { Event } from '../lb-sdk';
   styleUrls: ['./event.component.scss']
 })
 export class EventComponent implements OnInit {
-  events;
+  @Input() events;
   constructor(private eventSvc: EventService) { }
 
   ngOnInit() {
-    const self = this;
-    self.eventSvc.find({ include: ['groups', 'categories'] }).subscribe(
-      (ps: Event[]) => {
-          self.events = ps;
-      });
+
   }
 
 }

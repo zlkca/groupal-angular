@@ -1,0 +1,52 @@
+<div class="container page wechatgroup-detail">
+  <!--         <div class="row">
+              <div class="label-sm">n_subscription</div>
+              <input name="n_subscription" [(ngModel)]="wechatgroup.n_subscription"/>
+              <img style="width:100px;height:100px;" [src]="wechatgroup.logo"/>
+          </div> -->
+  <!--         <div class="row">
+              <div>rating</div>
+              <input name="rating" [(ngModel)]="wechatgroup.rating"/>
+          </div> -->
+          <div class="row">
+            <div class="col-md-3 qrcode-col">
+              <div class="row text-md">Wechat QR Code</div>
+                <div class="row images-row">
+                    <div *ngFor="let qr of group.qrcodes;let i=index;">
+                        <div class="image-block" >
+                            <img [src]="getQRCode(qr)" />
+                            <!-- <div class="label-sm">{{qr.name}}</div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 group-col">
+                <div class="title-bg name">{{group.name}}</div>
+                <p class="row description">
+                    <span class="title-sm">Description: &nbsp;</span>
+                    <span class="text-md">{{group.description}}</span>
+                </p>
+                  
+                <!-- <div class="row category">
+                    <span class="title-md">{{'CATEGORY'}}:&nbsp;</span>{{categoryName}}
+                </div>
+                <div class="row date">
+                    <span class="title-md">{{'CREATED'}}:&nbsp;</span>{{wechatgroup.created | date: 'dd/MM/yyyy'}}
+                </div>
+                <div class="row date">
+                    <span class="title-md">{{'UPDATED'}}:&nbsp;</span>{{wechatgroup.updated | date: 'dd/MM/yyyy'}}
+                </div> -->
+            </div>
+            <div class="col-md-4 event-col">
+              <app-event *ngIf="group.events && group.events.length>0" [events]="group.events"></app-event>
+            </div>
+          </div>
+  <!--         <div class="row">
+              <div class="label-sm">user</div>
+              <input name="user" [(ngModel)]="wechatgroup.user"/>
+          </div> -->
+  <!--         <div class="row">
+              <div>created</div>
+              <input name="created" [(ngModel)]="wechatgroup.created"/>
+          </div> -->
+  </div>

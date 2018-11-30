@@ -8,6 +8,7 @@ import { environment } from '../../../environments/environment';
 
 import { AccountService } from '../../account/account.service';
 import { Account } from '../../lb-sdk';
+import { NgRedux } from '@angular-redux/store';
 
 declare var $: any;
 
@@ -25,28 +26,29 @@ export class HeaderComponent implements OnInit {
   user: any;
   keyword: string;
   locality = '';
-  type: string;
+  // type: string;
   addr = null;
 
   constructor(private router: Router,
     private authSvc: AuthService,
+    private ngRedux: NgRedux<Account>,
     // private locationSvc: LocationService,
     private accountSvc: AccountService) {
 
     }
 
   ngOnInit() {
-    this.accountSvc.getCurrent().subscribe(
-      (account: Account) => {
-        if (account && account.id) {
-          this.user = account;
-          this.type = account.type;
-          this.isLogin = true;
-        } else {
-          this.user = null;
-          this.isLogin = false;
-        }
-      });
+    // this.accountSvc.getCurrent().subscribe(
+    //   (account: Account) => {
+    //     if (account && account.id) {
+    //       this.user = account;
+    //       this.type = account.type;
+    //       this.isLogin = true;
+    //     } else {
+    //       this.user = null;
+    //       this.isLogin = false;
+    //     }
+    //   });
 
     // this.locationSvc.get().subscribe((addr: ILocation) => {
     //     this.locality = addr && (addr.sub_locality || addr.city);
@@ -63,6 +65,10 @@ export class HeaderComponent implements OnInit {
     //     this.addr = r.addr;
     //   }
     // });
+    self.ngRedux.select<Account>('account').subscribe( account => {
+      self.user = account;
+      self.isLogin = account.id != null;
+    });
   }
 
   getCurrentCity() {

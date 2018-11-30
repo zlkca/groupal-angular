@@ -23,10 +23,9 @@ export class SignupFormComponent implements OnInit {
     private authServ: AuthService,
     private accountSvc: AccountService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private ngRedux: NgRedux<Account>
   ) {
-
-
     this.form = this.fb.group({
       username: ['', Validators.required],
       email: ['', Validators.required],
@@ -42,6 +41,7 @@ export class SignupFormComponent implements OnInit {
   }
 
   onSignup() {
+    const self = this;
     const v = this.form.value;
     const account = new Account({
       username: v.username,
@@ -50,13 +50,15 @@ export class SignupFormComponent implements OnInit {
       type: this.mode
     });
     this.accountSvc.signup(account).subscribe(
-      (user: Account) => {
-        if (user.id) {
-          this.router.navigate(['home']);
-        }
+      (acc: Account) => {
+          if (acc.id) {
+            self.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: acc });
+            self.router.navigate(['home']);
+          }
       },
       err => {
-        this.errMsg = err.message || 'Create Account Failed';
+        console.log(err.message);
+        this.errMsg = 'Create Account Failed';
       });
   }
 

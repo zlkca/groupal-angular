@@ -2,13 +2,10 @@ $mobile: "(max-width: 767px)";
 $tablet: "(min-width: 768px) and (max-width: 1199px)";
 $desktop: "(min-width: 1200px)";
 
-$IMAGE_W:160px;
-$IMAGE_H:160px;
-
 .page{
-  padding-left: 40px;
-  padding-right:40px;
+  padding:5px 60px;
 }
+
 .category-area{
   margin: 0px;
   padding: 5px 10px;
@@ -36,6 +33,7 @@ $IMAGE_H:160px;
     padding-left:0px;
     padding-right:0px;
   }
+
   .wechatgroup-list{
     padding-left:10px;
     padding-right:10px;

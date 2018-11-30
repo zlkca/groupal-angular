@@ -1,6 +1,7 @@
 import { Component, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgRedux } from '@angular-redux/store';
 
 import { AuthService } from '../auth.service';
 // import { SharedService } from '../../shared/shared.service';
@@ -28,7 +29,7 @@ export class LoginFormComponent implements OnInit {
     private fb: FormBuilder,
     private authServ: AuthService,
     private router: Router,
-    // private sharedServ: SharedService,
+    private ngRedux: NgRedux<Account>,
     private accountServ: AccountService,
   ) {
 
@@ -37,13 +38,17 @@ export class LoginFormComponent implements OnInit {
       password: ['', Validators.required]
     });
   }
+
   ngOnInit() {
+
   }
   onLogin() {
+    const self = this;
     const v = this.form.value;
     // if (this.form.valid) {
     this.accountServ.login(v.account, v.password)
       .subscribe((account: Account) => {
+        self.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: account });
         if (account.type === 'user') {
           this.router.navigate(['home']);
         } else {

@@ -23,11 +23,12 @@ export class AccountService {
 
   signup(account: Account): Observable<Account> {
     const self = this;
-    return this.accountApi.create(account).pipe(
-      mergeMap(
-        x => {return self.accountApi.login(account.username, account.password);
-      })
-    );
+    return this.accountApi.create(account);
+    // .pipe(
+    //   mergeMap(
+    //     x => {return self.accountApi.login(account.username, account.password);
+    //   })
+    // );
   }
 
   login(username: string, password: string, rememberMe: boolean = true): Observable<Account> {
@@ -49,10 +50,10 @@ export class AccountService {
   }
 
   logout(): Observable<any> {
-    // const state = this.ngRedux.getState();
-    // if (state && state.id) {
-    //   this.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: new Account() });
-    // }
+    const state = this.ngRedux.getState();
+    if (state && state.id) {
+      this.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: new Account() });
+    }
     return this.accountApi.logout();
   }
 

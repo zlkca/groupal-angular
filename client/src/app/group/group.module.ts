@@ -6,20 +6,24 @@ import { ImageUploaderModule } from '../image-uploader/image-uploader.module';
 import { GroupComponent } from './group.component';
 import { GroupFormComponent } from './group-form/group-form.component';
 import { GroupListComponent } from './group-list/group-list.component';
+import { GroupDetailComponent } from './group-detail/group-detail.component';
+import { EventModule } from '../event/event.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ImageUploaderModule
+    ImageUploaderModule,
+    EventModule
   ],
   exports: [
     GroupListComponent,
     GroupFormComponent,
-    GroupComponent
+    GroupComponent,
+    GroupDetailComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  declarations: [GroupComponent, GroupFormComponent, GroupListComponent]
+  declarations: [GroupComponent, GroupFormComponent, GroupListComponent, GroupDetailComponent]
 })
 export class GroupModule { }

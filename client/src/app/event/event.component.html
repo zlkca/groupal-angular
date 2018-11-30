@@ -6,6 +6,7 @@
             <div class="text-md">{{p.name}}</div>
           </div>
           <div class="col-12 text-block">
+              <div class="text-sm" *ngIf="p.groups && p.groups.length>0">{{p.groups[0].name}}</div>
               <div class="text-sm">{{p.description}}</div>
             </div>
           <!-- <div class="col-4 btn-holder">

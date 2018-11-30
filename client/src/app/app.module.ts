@@ -6,6 +6,8 @@ import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import { SDKBrowserModule, LoopBackConfig } from './lb-sdk';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { rootReducer, INITIAL_STATE } from './store';
+
 import { AppComponent } from './app.component';
 import { AccountModule } from './account/account.module';
 import { GroupModule } from './group/group.module';
@@ -13,6 +15,7 @@ import { EventModule } from './event/event.module';
 import { AdminModule } from './admin/admin.module';
 import { SharedModule } from './shared/shared.module';
 import { ImageUploaderModule } from './image-uploader/image-uploader.module';
+import { CategoryModule } from './category/category.module';
 
 import { AdminComponent } from './admin/admin.component';
 import { AdminEventComponent } from './admin/admin-event/admin-event.component';
@@ -20,7 +23,7 @@ import { AdminEventComponent } from './admin/admin-event/admin-event.component';
 import { HomeComponent } from './home/home.component';
 import { LoginFormComponent } from './account/login-form/login-form.component';
 import { SignupFormComponent } from './account/signup-form/signup-form.component';
-import { CategoryModule } from './category/category.module';
+import { GroupDetailComponent } from './group/group-detail/group-detail.component';
 
 const appRoutes: Routes = [
   { path: 'admin', component: AdminComponent },
@@ -35,7 +38,7 @@ const appRoutes: Routes = [
   // { path: 'admin/orders', component: AdminComponent },
 
   // { path: 'restaurants/:id', component: RestaurantComponent },
-  // // { path: 'restaurant-detail/:id', component: RestaurantDetailComponent },
+  { path: 'groups/:id', component: GroupDetailComponent },
   // { path: 'products', component: ProductListComponent },
   // { path: 'product/:id', component: ProductComponent },
   // { path: 'orders', component: MyOrderComponent },
@@ -78,7 +81,7 @@ const appRoutes: Routes = [
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  // constructor(ngRedux: NgRedux<any>) {
-  //   ngRedux.configureStore(rootReducer, INITIAL_STATE);
-  // }
+  constructor(ngRedux: NgRedux<any>) {
+    ngRedux.configureStore(rootReducer, INITIAL_STATE);
+  }
 }

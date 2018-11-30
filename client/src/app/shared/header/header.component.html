@@ -30,11 +30,11 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" 
           aria-haspopup="true" aria-expanded="false">
-          Hello
+          Hello {{user.username}}
           <i class="fa fa-user-circle fa-lg"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <div *ngIf="type==='super' || type==='organizer'">
+          <div *ngIf="user.type==='super' || user.type==='organizer'">
             <a class="dropdown-item" routerLink="admin" (click)="toAdmin()" i18n="@@Admin">Admin</a>
             <div class="dropdown-divider"></div>
           </div>

@@ -5,8 +5,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventService } from '../event.service';
 import { environment } from '../../../environments/environment';
-import { NgRedux } from '@angular-redux/store';
-// import { IAppState } from '../../store';
 import { Event } from '../../lb-sdk';
 
 const ADD_IMAGE = 'add_photo.png';
@@ -32,12 +30,8 @@ export class EventListComponent implements OnInit {
 
   constructor(private eventSvc: EventService,
     private router: Router,
-    // private rx: NgRedux<IAppState>
-    // private actions: CartActions
   ) {
 
-    // this.subscription = ngRedux.select<ICart>('cart').subscribe(
-    //   cart=> this.cart = cart);
   }
 
   onClick(p) {

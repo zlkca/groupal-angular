@@ -1,0 +1,66 @@
+$IMAGE_W:180px;
+
+.wechatgroup-detail{
+    padding:10px 20px;
+
+    img{
+        width:$IMAGE_W;
+        height:$IMAGE_W;
+        border:1px solid #eee;
+    }
+
+    .logo{
+      width:120px;
+      height:90px;
+      border:1px solid #eee;
+    }
+
+    .qrcode-col{
+      padding:15px;
+
+      .images-row{
+        margin-top: 0px;
+
+        .image-block{
+            margin-right:15px;
+            margin-bottom:15px;
+        }
+      }
+    }
+
+    .group-col{
+        padding:15px;
+        float:left;
+        .name{
+          text-align: center;
+        }
+        .title{
+            font-family:"microsoft yahei";
+            font-size:20px;
+            font-weight:700;
+            text-align:center;
+            margin-left:auto;
+            margin-right:auto;
+        }
+
+        p{
+            padding-top:5px;
+        }
+
+        .title-md{
+            font-family: "Microsoft Yahei",'Raleway', sans-serif;
+            font-size: 18px;
+            line-height: 22px;
+            font-weight: 500;
+            color: #414851;
+        }
+
+        .date{
+            margin-top:10px;
+        }
+    }
+
+    .event-col{
+      padding: 15px;
+    }
+}

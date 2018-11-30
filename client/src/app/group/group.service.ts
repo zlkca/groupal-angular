@@ -3,7 +3,8 @@ import { Observable, concat } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
 import { Group, Picture, QRCode, GroupApi, PictureApi, QRCodeApi, LoopBackFilter } from '../lb-sdk';
-import { identifierModuleUrl } from '../../../node_modules/@angular/compiler';
+// import { identifierModuleUrl } from '../../../node_modules/@angular/compiler';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -141,5 +142,27 @@ export class GroupService {
       }
 
     });
+  }
+
+  getContainerUrl() {
+    return environment.API_BASE + '/' + environment.API_VERSION + '/Containers/';
+  }
+
+  getImageUrl(pictures) {
+    const self = this;
+    if (pictures && pictures.length > 0) {
+      return this.getContainerUrl() + pictures[0].url;
+    } else {
+      return this.getContainerUrl() + 'pictures/download/empty.png'; // self.emptyImage;
+    }
+  }
+
+  getQRCodeUrl(qrcode) {
+    const self = this;
+    if (qrcode) {
+      return this.getContainerUrl() + qrcode.url;
+    } else {
+      return this.getContainerUrl() + 'pictures/download/empty.png'; // self.emptyImage;
+    }
   }
 }
