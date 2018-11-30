@@ -7,6 +7,9 @@ import { UserFormComponent } from './user-form/user-form.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { ProfileFormComponent } from './profile-form/profile-form.component';
 
 @NgModule({
   imports: [
@@ -15,7 +18,12 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
     ReactiveFormsModule,
     NgReduxModule
   ],
-  declarations: [UserFormComponent, UserListComponent, LoginFormComponent, SignupFormComponent],
+  declarations: [UserFormComponent, UserListComponent, LoginFormComponent, 
+    SignupFormComponent,
+    ChangePasswordComponent,
+    ForgetPasswordComponent,
+    ProfileFormComponent
+  ],
   exports: [
     UserFormComponent,
     UserListComponent
