@@ -30,7 +30,7 @@
         </select>
     </div>
   
-    <div *ngIf="users?.length && currentAccount.type === 'super'" class="row">
+    <div *ngIf="users?.length && account.type === 'super'" class="row">
       <div class="field-label label-sm" i18n="@@Owner">Owner</div>
       <select class="form-control" name="user" formControlName="ownerId">
         <option *ngFor="let m of users" [value]="m.id">{{m.username}}</option>
