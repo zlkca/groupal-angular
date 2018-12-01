@@ -9,5 +9,6 @@ export * from './Container';
 export * from './QRCode';
 export * from './EventGroup';
 export * from './EventCategory';
+export * from './Feedback';
 export * from './SDKModels';
 export * from './logger.service';

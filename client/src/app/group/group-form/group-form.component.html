@@ -26,8 +26,8 @@
         </select>
       </div> -->
       <select class="form-control" name="category" formControlName="categoryId">
-          <option *ngFor="let c of categories" [value]="c.id">{{c.name}}</option>
-        </select>
+        <option *ngFor="let c of categories" [value]="c.id">{{c.name}}</option>
+      </select>
     </div>
   
     <div *ngIf="users?.length && account.type === 'super'" class="row">

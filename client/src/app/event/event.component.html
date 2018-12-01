@@ -1,6 +1,7 @@
 <div class="event-list">
     <div class="list-group list-body" *ngIf="events && events.length>0">
-      <div class="list-group-item" *ngFor="let p of events; let i = index;" (click)="onSelect(p)" [ngClass]="{'active': selected == p}">
+      <div class="list-group-item" *ngFor="let p of events; let i = index;" 
+        (click)="onSelect(p)" [ngClass]="{'active': selected == p}">
         <div class="row">
           <div class="col-12 text-block">
             <div class="text-md">{{p.name}}</div>

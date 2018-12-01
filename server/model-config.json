@@ -74,5 +74,9 @@
   "EventCategory": {
     "dataSource": "mysqlDs",
     "public": true
+  },
+  "Feedback": {
+    "dataSource": "mysqlDs",
+    "public": true
   }
 }

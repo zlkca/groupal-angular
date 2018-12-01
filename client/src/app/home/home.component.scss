@@ -6,18 +6,22 @@ $desktop: "(min-width: 1200px)";
   padding:5px 60px;
 }
 
-.category-area{
-  margin: 0px;
-  padding: 5px 10px;
-  width:100%;
+.right-col{
+  padding-right: 0px;
 
-  .label{
-    padding-left: 22px;
+  .category-area, .group-area{
+    margin: 0px;
+    padding: 0px;
   }
 }
 
-.group-area{
-  padding-right: 0px;
+.left-col{
+  padding-top: 18px;
+
+  .feedback-area{
+    margin: 20px 0px;
+    padding: 0px;
+  }
 }
 
 @media #{$desktop}{
@@ -34,18 +38,10 @@ $desktop: "(min-width: 1200px)";
     padding-right:0px;
   }
 
-  .wechatgroup-list{
-    padding-left:10px;
-    padding-right:10px;
-
-    .item-cell{
-      margin-top:8px;
-      margin-bottom:8px;
+  .left-col{
+    .group-area{
+      margin: 0px;
+      padding-right: 0px;
     }
-  }
-
-  .group-area{
-    margin: 0px;
-    padding-right: 0px;
   }
 }

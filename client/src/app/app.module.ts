@@ -24,6 +24,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginFormComponent } from './account/login-form/login-form.component';
 import { SignupFormComponent } from './account/signup-form/signup-form.component';
 import { GroupDetailComponent } from './group/group-detail/group-detail.component';
+import { FeedbackFormComponent } from './feedback-form/feedback-form.component';
 
 const appRoutes: Routes = [
   { path: 'admin', component: AdminComponent },
@@ -55,6 +56,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
+    FeedbackFormComponent,
   ],
   imports: [
     NgReduxModule,
@@ -76,6 +78,7 @@ const appRoutes: Routes = [
     ImageUploaderModule,
     CategoryModule
   ],
+  exports: [FeedbackFormComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent]

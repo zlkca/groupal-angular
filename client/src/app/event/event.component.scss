@@ -1,5 +1,10 @@
 .event-list{
   padding: 0px;
+
+  .list-group{
+    height: 360px;
+    overflow: scroll;
+  }
 }
 
 @media (max-width: 767px){

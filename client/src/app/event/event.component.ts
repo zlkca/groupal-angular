@@ -15,4 +15,7 @@ export class EventComponent implements OnInit {
 
   }
 
+  onSelect(e) {
+
+  }
 }

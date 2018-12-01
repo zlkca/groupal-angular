@@ -58,6 +58,7 @@ import { ContainerApi } from './services/custom/Container';
 import { QRCodeApi } from './services/custom/QRCode';
 import { EventGroupApi } from './services/custom/EventGroup';
 import { EventCategoryApi } from './services/custom/EventCategory';
+import { FeedbackApi } from './services/custom/Feedback';
 /**
 * @module SDKBrowserModule
 * @description
@@ -98,6 +99,7 @@ export class SDKBrowserModule {
         QRCodeApi,
         EventGroupApi,
         EventCategoryApi,
+        FeedbackApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

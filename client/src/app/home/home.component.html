@@ -9,20 +9,27 @@
       </div>
     </div> -->
   </div>
-  <div class="row">
-    <!-- <div class="col-12 label label-sm">Category:</div> -->
-    <div class="col-12 category-area">
-        <app-category (afterFind)="onAfterFind($event)"></app-category>
-    </div>
-  </div>
     
   <div class="row">
-    <div class="col-sm-9 col-xs-12 group-area">
-      <app-group [groups]="groups"></app-group>
+    <div class="col-sm-3 col-xs-12 left-col">
+        <div class="row event-area">
+          <div class="label-md">Recent Events</div>
+          <app-event [events]="events"></app-event>
+        </div>
+        <div class="row feedback-area">
+          <app-feedback-form (afterSend)="onAfterSendFeedback($event)"></app-feedback-form>
+        </div>
     </div>
-    <div class="col-sm-3 col-xs-12 event-area">
-      <app-event [events]="events"></app-event>
+    <div class="col-sm-9 col-xs-12 right-col">
+      <div class="row category-area">
+          <app-category (afterFind)="onAfterFind($event)"></app-category>
+      </div>
+
+      <div class="row group-area">
+        <app-group [groups]="groups"></app-group>
+      </div>
     </div>
+
   </div>
 </div>
   <!-- <div class="filter-area">
@@ -30,12 +37,6 @@
           <div class="input-group search-box">
             <input type="text" [(ngModel)]="keyword" placeholder="{{'SEARCH_BY_KEYWORD'|translate}}" aria-describedby="basic-addon2" (keyup)="term$.next($event.target.value)">
             <div class="btn btn-search" (click)="search(keyword)"><i class="fa fa-search"></i>{{'SEARCH'|translate}}</div>
-          </div>
-      </div>
-      <div class="row category-area">
-          <div class="col-12 label-block label-sm">{{'CATEGORY'|translate}}:</div>
-          <div class="category-block">
-              <app-category-list></app-category-list>
           </div>
       </div>
   </div>

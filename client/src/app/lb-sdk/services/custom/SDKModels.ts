@@ -10,6 +10,7 @@ import { Container } from '../../models/Container';
 import { QRCode } from '../../models/QRCode';
 import { EventGroup } from '../../models/EventGroup';
 import { EventCategory } from '../../models/EventCategory';
+import { Feedback } from '../../models/Feedback';
 
 export interface Models { [name: string]: any }
 
@@ -27,6 +28,7 @@ export class SDKModels {
     QRCode: QRCode,
     EventGroup: EventGroup,
     EventCategory: EventCategory,
+    Feedback: Feedback,
     
   };
 

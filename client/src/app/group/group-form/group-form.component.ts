@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { LocationService } from '../../address/location.service';
 import { GroupService } from '../group.service';
 import { CategoryService } from '../../category/category.service';

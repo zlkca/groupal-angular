@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventService } from '../event/event.service';
 import { GroupService } from '../group/group.service';
 import { Event, Group, Category } from '../lb-sdk';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,9 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private groupSvc: GroupService,
-    private eventSvc: EventService) { }
+    private eventSvc: EventService,
+    private toastSvc: ToastrService
+  ) { }
 
   ngOnInit() {
     const self = this;
@@ -25,11 +28,7 @@ export class HomeComponent implements OnInit {
 
     this.groupSvc.find({ include: ['pictures', 'qrcodes', 'categories'], order: 'modified DESC' }).subscribe(
       (r: Group[]) => {
-        // for (let item of r) {
-        //   item.pictures = self.getImageUrl(item.pictures);
-        // }
         self.groups = r;
-        // self.fields = Object.keys(r[0]);
       },
       (err: any) => {
         self.groups = [];
@@ -63,5 +62,11 @@ export class HomeComponent implements OnInit {
       (err: any) => {
         self.groups = [];
       });
+  }
+
+
+  onAfterSendFeedback(event) {
+    this.toastSvc.success('Send Feedback Successfully!', '',
+    { timeOut: 2000, positionClass: 'toast-bottom-right' });
   }
 }

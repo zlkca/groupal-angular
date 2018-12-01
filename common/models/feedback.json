@@ -1,0 +1,30 @@
+{
+  "name": "Feedback",
+  "plural": "feedbacks",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "sender": {
+      "type": "string"
+    },
+    "receiver": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
