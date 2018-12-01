@@ -1,7 +1,7 @@
 import { Component, OnInit, Input  } from '@angular/core';
-import { EventService } from '../../event/event.service';
 import { CategoryService } from '../../category/category.service';
 import { Category } from '../../lb-sdk';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-category',
@@ -14,7 +14,7 @@ export class AdminCategoryComponent implements OnInit {
   categories: Category[] = [];
   category: Category;
 
-  constructor(private eventSvc: EventService,
+  constructor(private toastSvc: ToastrService,
     private categorySvc: CategoryService
   ) { }
 
@@ -35,6 +35,10 @@ export class AdminCategoryComponent implements OnInit {
 
   onAfterDelete(event) {
     this.loadCategoryList();
+
+    this.toastSvc.success('Remove Category Successfully!', '',
+    { timeOut: 2000, positionClass: 'toast-bottom-right' });
+
     if (event.category.id === this.category.id) {
       this.category = new Category();
       this.category.id = null;

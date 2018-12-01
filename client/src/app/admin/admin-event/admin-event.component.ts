@@ -42,11 +42,15 @@ export class AdminEventComponent implements OnInit {
 
   onAfterSave(event) {
     this.loadEventList();
-    this.toastSvc.success('Save Event Successfully!', '', { timeOut: 2000 });
+    this.toastSvc.success('Save Event Successfully!', '',
+    { timeOut: 2000, positionClass: 'toast-bottom-right' });
   }
 
   onAfterDelete(event) {
     this.loadEventList();
+    this.toastSvc.success('Remove Event Successfully!', '',
+    { timeOut: 2000, positionClass: 'toast-bottom-right' });
+
     this.event = new Event();
     this.event.id = null;
     this.event.name = '';

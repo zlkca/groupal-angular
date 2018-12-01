@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { EventService } from '../../event/event.service';
+import { CategoryService } from '../../category/category.service';
 import { Category } from '../../lb-sdk';
 
 @Component({
-  providers: [EventService],
+  providers: [CategoryService],
   selector: 'app-category-list',
   templateUrl: './category-list.component.html',
   styleUrls: ['./category-list.component.css']
@@ -17,7 +17,7 @@ export class CategoryListComponent implements OnInit {
   fields: string[] = [];
 
   constructor(
-    private eventSvc: EventService
+    private categorySvc: CategoryService
   ) { }
 
   ngOnInit() {
@@ -33,7 +33,7 @@ export class CategoryListComponent implements OnInit {
   }
 
   delete(c) {
-    this.eventSvc.deleteById(c.id).subscribe(x => {
+    this.categorySvc.deleteById(c.id).subscribe(x => {
       this.afterDelete.emit({category: c});
       this.selected = null;
     });

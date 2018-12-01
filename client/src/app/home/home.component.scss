@@ -18,10 +18,17 @@ $desktop: "(min-width: 1200px)";
 .left-col{
   padding-top: 18px;
 
+  app-event, app-feedback-form{
+    width: 100%;
+    padding-right: 20px;
+  }
+
   .feedback-area{
-    margin: 20px 0px;
+    margin-top: 20px;
     padding: 0px;
   }
+
+
 }
 
 @media #{$desktop}{

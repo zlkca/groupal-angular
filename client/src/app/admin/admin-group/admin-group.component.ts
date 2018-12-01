@@ -6,8 +6,6 @@ import { ToastrService } from 'ngx-toastr';
 
 import { Group } from '../../lb-sdk';
 import { GroupService } from '../../group/group.service';
-import { accountReducer } from '../../account/account.reducer';
-
 
 const ADD_IMAGE = 'add_photo.png';
 
@@ -95,7 +93,8 @@ export class AdminGroupComponent implements OnInit {
     // this.group.user = null;
     // this.group.image = null;
 
-    this.toastSvc.success('Save Group Successfully!', '', { timeOut: 2000 });
+    this.toastSvc.success('Save Group Successfully!', '',
+    { timeOut: 2000, positionClass: 'toast-bottom-right' });
   }
 
   onAfterDelete(event) {
@@ -107,7 +106,8 @@ export class AdminGroupComponent implements OnInit {
     // this.group.address = null;
     // this.group.user = null;
     // this.group.image = null;
-    setTimeout(() => this.alertClosed = true, 2000);
+    this.toastSvc.success('Remove Category Successfully!', '',
+    { timeOut: 2000, positionClass: 'toast-bottom-right' });
   }
 
   onSelect(event) {
