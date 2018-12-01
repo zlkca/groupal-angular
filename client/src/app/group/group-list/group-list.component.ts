@@ -23,6 +23,7 @@ export class GroupListComponent implements OnInit {
     private groupSvc: GroupService) { }
 
   ngOnInit() {
+
   }
 
   toPage(url: string) {

@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 import { AccountService } from '../../account/account.service';
 import { Account } from '../../lb-sdk';
 import { NgRedux } from '@angular-redux/store';
+import { AccountActions } from '../../account/account.actions';
 
 declare var $: any;
 
@@ -23,7 +24,7 @@ declare var $: any;
 export class HeaderComponent implements OnInit {
   isLogin = false;
   menu: any[];
-  user: any;
+  account: any;
   keyword: string;
   locality = '';
   // type: string;
@@ -35,39 +36,17 @@ export class HeaderComponent implements OnInit {
     // private locationSvc: LocationService,
     private accountSvc: AccountService) {
 
-    }
+  }
 
   ngOnInit() {
-    // this.accountSvc.getCurrent().subscribe(
-    //   (account: Account) => {
-    //     if (account && account.id) {
-    //       this.user = account;
-    //       this.type = account.type;
-    //       this.isLogin = true;
-    //     } else {
-    //       this.user = null;
-    //       this.isLogin = false;
-    //     }
-    //   });
 
     // this.locationSvc.get().subscribe((addr: ILocation) => {
     //     this.locality = addr && (addr.sub_locality || addr.city);
     // });
     const self = this;
-    // const s = localStorage.getItem('location-' + APP);
-
-    // if (s) {
-    //   this.addr = JSON.parse(s);
-    // }
-
-    // this.sharedSvc.getMsg().subscribe(r => {
-    //   if (r.name === 'OnUpdateAddress') {
-    //     this.addr = r.addr;
-    //   }
-    // });
-    self.ngRedux.select<Account>('account').subscribe( account => {
-      self.user = account;
-      self.isLogin = account.id != null;
+    this.ngRedux.select('account').subscribe(account => {
+      self.account = account;
+      self.isLogin = (this.account && this.account.id > 0);
     });
   }
 
@@ -107,13 +86,14 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.closeNavMenu();
-    this.accountSvc.logout()
-      .subscribe((sad: any) => {
+    const state: any = this.ngRedux.getState();
+    if (state && state.account && state.account.id) {
+      this.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: new Account() });
+      this.accountSvc.logout().subscribe((sad: any) => {
         console.log(sad);
-        this.user = null;
-        this.isLogin = false;
         this.router.navigate(['home']);
       });
+    }
   }
 
   toLogin() {
@@ -152,23 +132,14 @@ export class HeaderComponent implements OnInit {
     // if login and user is business, redirect to business center, otherwise redirect to business signup
     const self = this;
     this.closeNavMenu();
-
-    self.router.navigate(['signup'], { queryParams: { mode: 'organizer' }});
-    // check from token
-    this.accountSvc.getCurrent().subscribe((r: Account) => {
-        // self.isLogin = r && r.id ? true : false;
-        // if (self.isLogin) {
-        //   if (r.type === 'business' || r.type === 'super') {
-        //     self.router.navigate(['admin']);
-        //   } else {
-        //     self.accountSvc.logout().subscribe(() => {
-        //       self.router.navigate(['institution-signup']);
-        //     });
-        //   }
-        // } else {
-        //   self.router.navigate(['institution-signup']);
-        //   // self.router.navigate(['institution-login']);
-        // }
-      });
+    if (self.isLogin) {
+      if (self.account.type === 'organizer' || self.account.type === 'super') {
+        self.router.navigate(['admin']);
+      } else {
+        self.router.navigate(['signup'], { queryParams: { mode: 'organizer' } });
+      }
+    } else {
+      self.router.navigate(['signup'], { queryParams: { mode: 'organizer' } });
+    }
   }
 }

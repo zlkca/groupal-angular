@@ -50,11 +50,7 @@ export class AccountService {
   }
 
   logout(): Observable<any> {
-    const state = this.ngRedux.getState();
-    if (state && state.id) {
-      this.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: new Account() });
-    }
-    return this.accountApi.logout();
+      return this.accountApi.logout();
   }
 
   getCurrent(forceGet: boolean = false): Observable<Account> {

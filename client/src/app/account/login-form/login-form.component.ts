@@ -49,14 +49,10 @@ export class LoginFormComponent implements OnInit {
     this.accountServ.login(v.account, v.password)
       .subscribe((account: Account) => {
         self.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: account });
-        if (account.type === 'user') {
-          this.router.navigate(['home']);
+        if (account.type === 'super' || account.type === 'organizer') {
+          this.router.navigate(['admin']);
         } else {
-          if (account.type === 'super' || account.type === 'organizer') {
-            this.router.navigate(['admin']);
-          } else {
-            this.router.navigate(['home']);
-          }
+          this.router.navigate(['home']);
         }
       },
         (error) => {

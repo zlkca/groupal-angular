@@ -22,7 +22,7 @@ const PICTURES_FOLDER = 'pictures';
   styleUrls: ['./group-form.component.css']
 })
 export class GroupFormComponent implements OnInit, OnChanges {
-  currentAccount: Account;
+  account: Account;
 
   location: ILocation = {
     street_name: '',
@@ -72,7 +72,7 @@ export class GroupFormComponent implements OnInit, OnChanges {
     private groupSvc: GroupService,
     private locationSvc: LocationService,
     private router: Router, private route: ActivatedRoute,
-    private rx: NgRedux<IPicture>,
+    private ngRedux: NgRedux<Account>,
     private categorySvc: CategoryService,
   ) {
     this.form = this.createForm();
@@ -140,24 +140,10 @@ export class GroupFormComponent implements OnInit, OnChanges {
     // localStorage.setItem('group_info-' + APP, JSON.stringify(self.group));
     // self.pictures = [{ index: 0, name: '', image: this.group.image }];
 
-    // self.route.params.subscribe((params:any)=>{
-    // self.commerceServ.getGroup(params.id).subscribe(
-    //     (r:Group) => {
-    //     	self.group = r;
-    //     	self.id = r.id;
-    //         self.form.patchValue(r);
-    //         self.street.patchValue(r.address.street);
-
-    //         if(r.image && r.image.data){
-    //         	self.pictures = [{index:0, name:"", image:r.image}];
-    //         }else{
-    //         	self.pictures = [];
-    //         }
-
-    this.accountSvc.getCurrent().subscribe((acc: Account) => {
-      this.currentAccount = acc;
-      if (acc.type === 'super') {
-        self.accountSvc.find().subscribe(users => { // ({ where: { type: 'business' } }).subscribe(users => {
+    this.ngRedux.select('account').subscribe((account: Account) => {
+      this.account = account;
+      if (account.type === 'super') {
+        self.accountSvc.find().subscribe(users => {
           self.users = users;
         });
       }
@@ -233,10 +219,10 @@ export class GroupFormComponent implements OnInit, OnChanges {
       }
       group.modified = new Date();
 
-      if (self.currentAccount.type === 'super') {
+      if (self.account.type === 'super') {
         group.ownerId = self.form.get('ownerId').value;
       } else {
-        group.ownerId = self.currentAccount.id;
+        group.ownerId = self.account.id;
       }
 
       if (group.id) {
