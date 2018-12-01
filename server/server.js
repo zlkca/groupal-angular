@@ -17,9 +17,9 @@ app.start = function() {
       console.log('Browse your REST API at %s%s', baseUrl, explorerPath);
     }
 
-    autoMigratePrompt(app.dataSources.mysqlDs);
+    // autoMigratePrompt(app.dataSources.mysqlDs);
     // autoMigrateAction(app.dataSources.mysqlDs);
-    // autoUpdate(app.dataSources.mysqlDs, []);
+    autoUpdate(app.dataSources.mysqlDs, []);
   });
 };
 
@@ -55,7 +55,7 @@ var getTablesFromDataSource = function(ds) {
   let modelnames = Object.keys(ds.models);
   let tables = modelnames.filter(function(modelname) {
     let model = ds.models[modelname];
-    if (model && model.dataSource && model.dataSource.name === 'db') {
+    if (model && model.dataSource && model.dataSource.name === 'mysqlDs') {
       return true;
     } else {
       return false;

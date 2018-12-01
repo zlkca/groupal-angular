@@ -36,7 +36,7 @@ export class CategoryComponent implements OnInit {
 
   find(c?: any) {
     if (c) {
-      this.afterFind.emit({name: 'OnSearch', query: {category_id: c.id }});
+      this.afterFind.emit({name: 'OnSearch', query: {categoryId: c.id }});
     } else {
       this.afterFind.emit({name: 'OnSearch' });
     }

@@ -15,7 +15,7 @@
             </div>
         </div> -->
     
-        <div class="item-cell" *ngFor="let r of wechatgroupList" (click)="toDetail(r)" >
+        <div class="item-cell" *ngFor="let r of groups" (click)="toDetail(r)" >
             <div class="image-block" >
                 <img src="{{getImageUrl(r.pictures)}}" />
             </div>

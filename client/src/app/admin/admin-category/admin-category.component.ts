@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input  } from '@angular/core';
 import { EventService } from '../../event/event.service';
 import { CategoryService } from '../../category/category.service';
 import { Category } from '../../lb-sdk';
@@ -9,6 +9,7 @@ import { Category } from '../../lb-sdk';
   styleUrls: ['./admin-category.component.css']
 })
 export class AdminCategoryComponent implements OnInit {
+  @Input() account;
 
   categories: Category[] = [];
   category: Category;

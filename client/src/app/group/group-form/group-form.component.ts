@@ -84,12 +84,16 @@ export class GroupFormComponent implements OnInit, OnChanges {
     this.form.get('name').setValue(group.name);
     this.form.get('description').setValue(group.description);
     this.form.get('ownerId').setValue(group.ownerId);
-    this.form.get('categoryId').setValue(group.categories[0].id);
+    if (group.categories && group.categories.length > 0) {
+      this.form.get('categoryId').setValue(group.categories[0].id);
+    } else {
+      this.form.get('categoryId').setValue('');
+    }
     // this.form.get('categories')['controls'][0].setValue(group.categories[0].id);
   }
 
   setPictures(group) {
-    if (group.qrcodes.length > 0) {
+    if (group.qrcodes && group.qrcodes.length > 0) {
       const qrcode = group.qrcodes[0];
       this.qrcodes = [
         this.getContainerUrl() + qrcode.url,
@@ -98,7 +102,7 @@ export class GroupFormComponent implements OnInit, OnChanges {
       this.qrcodes = [''];
     }
 
-    if (group.pictures.length > 0) {
+    if (group.pictures && group.pictures.length > 0) {
       const logo = group.pictures[0];
       this.logos = [
         this.getContainerUrl() + logo.url,
@@ -111,7 +115,7 @@ export class GroupFormComponent implements OnInit, OnChanges {
   ngOnInit() {
     const self = this;
 
-    if (this.group && this.group.id) {
+    if (this.group) {
 
       this.fillForm(this.group);
       // this.uploadedPictures = (this.group.pictures || []).map(pic => pic.url);
@@ -173,7 +177,7 @@ export class GroupFormComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(changes) {
-    if (this.form && changes.group.currentValue.id) {
+    if (this.form && changes.group.currentValue) {
       const group = changes.group.currentValue;
       this.fillForm(group);
       this.setPictures(group);
@@ -224,6 +228,10 @@ export class GroupFormComponent implements OnInit, OnChanges {
 
       const group = new Group(v);
       group.id = self.group ? self.group.id : null;
+      if (!group.created) {
+        group.created = new Date();
+      }
+      group.modified = new Date();
 
       if (self.currentAccount.type === 'super') {
         group.ownerId = self.form.get('ownerId').value;

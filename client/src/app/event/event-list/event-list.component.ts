@@ -13,7 +13,7 @@ const ADD_IMAGE = 'add_photo.png';
   providers: [EventService],
   selector: 'app-event-list',
   templateUrl: './event-list.component.html',
-  styleUrls: ['./event-list.component.css']
+  styleUrls: ['./event-list.component.scss']
 })
 export class EventListComponent implements OnInit {
   MEDIA_URL: string = environment.MEDIA_URL;

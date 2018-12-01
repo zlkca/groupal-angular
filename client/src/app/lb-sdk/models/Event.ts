@@ -11,6 +11,7 @@ export interface EventInterface {
   "description"?: string;
   "ownerId"?: number;
   "created"?: Date;
+  "modified"?: Date;
   "id"?: number;
   owner?: Account;
   groups?: Group[];
@@ -22,6 +23,7 @@ export class Event implements EventInterface {
   "description": string;
   "ownerId": number;
   "created": Date;
+  "modified": Date;
   "id": number;
   owner: Account;
   groups: Group[];
@@ -73,6 +75,10 @@ export class Event implements EventInterface {
         },
         "created": {
           name: 'created',
+          type: 'Date'
+        },
+        "modified": {
+          name: 'modified',
           type: 'Date'
         },
         "id": {

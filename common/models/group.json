@@ -18,6 +18,9 @@
     },
     "created": {
       "type": "date"
+    },
+    "modified": {
+      "type": "date"
     }
   },
   "validations": [],

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { GroupService } from '../group/group.service';
 import { Group } from '../lb-sdk';
@@ -18,7 +18,7 @@ const MOBILE_WIDTH = 767;
   styleUrls: ['./group.component.scss']
 })
 export class GroupComponent implements OnInit {
-  wechatgroupList: Group[];
+  @Input() groups: Group[];
   fields: string[] = [];
   item: any;
   frame: any;
@@ -49,17 +49,7 @@ export class GroupComponent implements OnInit {
     self.item = { h: self.frame.h + TEXTAREA_HEIGHT, w: self.frame.w + 1 };
 
     this.fields = Object.getOwnPropertyNames(wechatgroup);
-    this.groupSvc.find({ include: ['pictures', 'qrcodes', 'categories'] }).subscribe(
-      (r: Group[]) => {
-        // for (let item of r) {
-        //   item.pictures = self.getImageUrl(item.pictures);
-        // }
-        self.wechatgroupList = r;
-        self.fields = Object.keys(r[0]);
-      },
-      (err: any) => {
-        self.wechatgroupList = [];
-      });
+
   }
 
   getContainerUrl() {
@@ -106,10 +96,10 @@ export class GroupComponent implements OnInit {
         // for (let item of r) {
         //   item.pictures = self.getImageUrl(item.pictures);
         // }
-        self.wechatgroupList = r;
+        self.groups = r;
       },
       (err: any) => {
-        self.wechatgroupList = [];
+        self.groups = [];
       });
   }
 

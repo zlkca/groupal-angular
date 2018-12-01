@@ -16,7 +16,7 @@ import { map } from '../../../../node_modules/rxjs/operators';
 @Component({
   selector: 'app-event-form',
   templateUrl: './event-form.component.html',
-  styleUrls: ['./event-form.component.css']
+  styleUrls: ['./event-form.component.scss']
 })
 export class EventFormComponent implements OnInit, OnChanges {
   categoryList = [];
@@ -189,6 +189,10 @@ export class EventFormComponent implements OnInit, OnChanges {
         v.groups = groups;
         const event = new Event(v);
         event.id = self.event ? self.event.id : null;
+        if (!event.created) {
+          event.created = new Date();
+        }
+        event.modified = new Date();
 
         if (self.currentAccount.type === 'super') {
           event.ownerId = self.event.ownerId; // self.form.get('ownerId').value;

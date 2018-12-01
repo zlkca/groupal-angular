@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AccountService } from '../../account/account.service';
 import { Account } from '../../lb-sdk';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-user',
@@ -13,7 +14,10 @@ export class AdminUserComponent implements OnInit {
   selected: Account;
   @Input() account: Account;
 
-  constructor(private accountSvc: AccountService) { }
+  constructor(
+    private accountSvc: AccountService,
+    private toastSvc: ToastrService
+  ) { }
 
   ngOnInit() {
     this.loadAccountList();
@@ -28,6 +32,7 @@ export class AdminUserComponent implements OnInit {
 
   onAfterSave(event) {
     this.loadAccountList();
+    this.toastSvc.success('Save Account Successfully!', '', { timeOut: 2000 });
   }
 
   onAfterDelete(event) {

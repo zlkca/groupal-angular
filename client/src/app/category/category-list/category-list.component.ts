@@ -9,6 +9,7 @@ import { Category } from '../../lb-sdk';
   styleUrls: ['./category-list.component.css']
 })
 export class CategoryListComponent implements OnInit {
+  @Input() account: Account;
   @Input() categories: Category[];
   @Output() select = new EventEmitter();
   @Output() afterDelete = new EventEmitter();

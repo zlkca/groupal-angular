@@ -13,6 +13,7 @@ export interface GroupInterface {
   "description"?: string;
   "ownerId"?: number;
   "created"?: Date;
+  "modified"?: Date;
   "id"?: number;
   owner?: Account;
   pictures?: Picture[];
@@ -26,6 +27,7 @@ export class Group implements GroupInterface {
   "description": string;
   "ownerId": number;
   "created": Date;
+  "modified": Date;
   "id": number;
   owner: Account;
   pictures: Picture[];
@@ -79,6 +81,10 @@ export class Group implements GroupInterface {
         },
         "created": {
           name: 'created',
+          type: 'Date'
+        },
+        "modified": {
+          name: 'modified',
           type: 'Date'
         },
         "id": {
