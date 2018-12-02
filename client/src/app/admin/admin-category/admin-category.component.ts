@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-admin-category',
   templateUrl: './admin-category.component.html',
-  styleUrls: ['./admin-category.component.css']
+  styleUrls: ['./admin-category.component.scss']
 })
 export class AdminCategoryComponent implements OnInit {
   @Input() account;

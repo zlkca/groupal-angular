@@ -19,7 +19,7 @@ const PICTURES_FOLDER = 'pictures';
 @Component({
   selector: 'app-group-form',
   templateUrl: './group-form.component.html',
-  styleUrls: ['./group-form.component.css']
+  styleUrls: ['./group-form.component.scss']
 })
 export class GroupFormComponent implements OnInit, OnChanges {
   account: Account;

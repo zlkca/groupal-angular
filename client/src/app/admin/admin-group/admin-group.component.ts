@@ -12,7 +12,7 @@ const ADD_IMAGE = 'add_photo.png';
 @Component({
   selector: 'app-admin-group',
   templateUrl: './admin-group.component.html',
-  styleUrls: ['./admin-group.component.css']
+  styleUrls: ['./admin-group.component.scss']
 })
 export class AdminGroupComponent implements OnInit {
   groups = [];

@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-admin-event',
   templateUrl: './admin-event.component.html',
-  styleUrls: ['./admin-event.component.css']
+  styleUrls: ['./admin-event.component.scss']
 })
 export class AdminEventComponent implements OnInit {
   @Input() account;

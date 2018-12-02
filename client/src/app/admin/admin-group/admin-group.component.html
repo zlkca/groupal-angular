@@ -8,7 +8,7 @@
         <div class="btn btn-secondary btn-add" (click)="add()" i18n="@@AddGroup">Add Group</div>
       </div>
     </div>
-    <div class="col-sm-8 col-xs-12">
+    <div class="col-sm-8 col-xs-12 form-block">
       <app-group-form [group]="group" (afterSave)="onAfterSave($event)"></app-group-form>
     </div>
   </div>

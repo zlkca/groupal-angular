@@ -39,10 +39,9 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const self = this;
-    // this.subscrAccount = this.accountSvc.getCurrent().subscribe(account => {
-      this.ngRedux.select('account').subscribe(account => {
-        this.account = account;
-      });
+    this.accountSvc.getCurrent().subscribe(account => {
+      this.account = account;
+    });
       // self.account = account;
 
       // if (account.type === 'organizer') {

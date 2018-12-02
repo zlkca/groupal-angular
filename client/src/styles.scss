@@ -219,26 +219,17 @@ color:rgb(34, 34, 34);
 
 @media (max-width: 767px){
   form {
+    padding:0px;
     .row{
       margin-left: 0px;
       margin-right: 0px;
-    }
-
-    .btn{
-      width: 100%;
     }
   }
-}
 
-@media (max-width: 480px){
-  form {
-    .row{
-      margin-left: 0px;
-      margin-right: 0px;
-    }
-
+  .btn-holder{
     .btn{
       width: 100%;
+      margin-right: 0px;
     }
   }
 }

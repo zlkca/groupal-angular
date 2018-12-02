@@ -12,6 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 export class HomeComponent implements OnInit {
   groups;
   events;
+  bShowFeedbackForm = false;
+  mobile = false;
 
   constructor(
     private groupSvc: GroupService,
@@ -33,6 +35,11 @@ export class HomeComponent implements OnInit {
       (err: any) => {
         self.groups = [];
       });
+
+      if (window.screen.width === 430) { // 768px portrait
+        this.mobile = true;
+        this.bShowFeedbackForm = this.mobile;
+      }
   }
 
   hasCategory(categoryId, group) {
@@ -68,5 +75,9 @@ export class HomeComponent implements OnInit {
   onAfterSendFeedback(event) {
     this.toastSvc.success('Send Feedback Successfully!', '',
     { timeOut: 2000, positionClass: 'toast-bottom-right' });
+  }
+
+  toggleFeedbackForm() {
+    this.bShowFeedbackForm = !this.bShowFeedbackForm;
   }
 }

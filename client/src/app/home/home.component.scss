@@ -20,7 +20,7 @@ $desktop: "(min-width: 1200px)";
 
   app-event, app-feedback-form{
     width: 100%;
-    padding-right: 20px;
+    padding-right: 0px;
   }
 
   .feedback-area{
@@ -28,7 +28,17 @@ $desktop: "(min-width: 1200px)";
     padding: 0px;
   }
 
+  .title{
+    width: 100%;
+    padding-top: 10px;
+    border-top: 1px dashed #eee;
+  }
 
+  .feedback-link{
+    a{
+      text-decoration: underline;
+    }
+  }
 }
 
 @media #{$desktop}{
@@ -44,11 +54,19 @@ $desktop: "(min-width: 1200px)";
     padding-left:0px;
     padding-right:0px;
   }
-
+  .row{
+    margin-left: -1px;
+    margin-right: -1px;
+  }
   .left-col{
     .group-area{
       margin: 0px;
       padding-right: 0px;
     }
   }
+
+  .right-col{
+    margin-top:10px;
+  }
+
 }

@@ -10,12 +10,15 @@
   .row{
     margin: 5px 0px;
   }
+}
 
-  .title{
-    border-top: 1px dashed #eee;
-    span{
-      padding: 8px 0px;
+@media (max-width: 480px){
+
+  .feedback-form{
+    .btn-holder{
+      .btn{
+        margin-right: 0px;
+      }
     }
-    
   }
 }

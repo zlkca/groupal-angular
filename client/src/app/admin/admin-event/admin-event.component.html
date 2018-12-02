@@ -9,7 +9,7 @@
             <div class="btn btn-secondary btn-add" (click)="add()" i18n="@@AddEvent">Add Event</div>
         </div>
       </div>
-      <div class="col-sm-8 col-xs-12">
+      <div class="col-sm-8 col-xs-12 form-block">
         <app-event-form [event]="event" (afterSave)="onAfterSave($event)"></app-event-form>
       </div>
     </div>

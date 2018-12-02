@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-admin-user',
   templateUrl: './admin-user.component.html',
-  styleUrls: ['./admin-user.component.css']
+  styleUrls: ['./admin-user.component.scss']
 })
 export class AdminUserComponent implements OnInit {
 
@@ -32,7 +32,8 @@ export class AdminUserComponent implements OnInit {
 
   onAfterSave(event) {
     this.loadAccountList();
-    this.toastSvc.success('Save Account Successfully!', '', { timeOut: 2000 });
+    this.toastSvc.success('Save Account Successfully!', '',
+    { timeOut: 2000, positionClass: 'toast-bottom-right' });
   }
 
   onAfterDelete(event) {

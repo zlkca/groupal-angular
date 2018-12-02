@@ -17,7 +17,10 @@
           <app-event [events]="events"></app-event>
         </div>
         <div class="row feedback-area">
-          <app-feedback-form (afterSend)="onAfterSendFeedback($event)"></app-feedback-form>
+          <div class="title" (click)="toggleFeedbackForm()">
+            <span class="title-sm feedback-link" i18n="@@WriteToUs">Have any question ?  <a>Write to us</a></span>
+          </div>
+          <app-feedback-form *ngIf="bShowFeedbackForm" (afterSend)="onAfterSendFeedback($event)"></app-feedback-form>
         </div>
     </div>
     <div class="col-sm-9 col-xs-12 right-col">
