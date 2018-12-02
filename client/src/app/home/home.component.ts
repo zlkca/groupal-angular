@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class HomeComponent implements OnInit {
   groups;
   events;
-  bShowFeedbackForm = false;
+  bShowFeedbackForm = true;
   mobile = false;
 
   constructor(
@@ -36,9 +36,9 @@ export class HomeComponent implements OnInit {
         self.groups = [];
       });
 
-      if (window.screen.width === 430) { // 768px portrait
+      if (window.screen.width < 768) { // 768px portrait
         this.mobile = true;
-        this.bShowFeedbackForm = this.mobile;
+        this.bShowFeedbackForm = !this.mobile;
       }
   }
 

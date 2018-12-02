@@ -10,7 +10,7 @@
           </div> -->
           <div class="row">
             <div class="col-md-3 qrcode-col">
-              <div class="row text-md">Wechat QR Code</div>
+              <div class="row text-md" i18n="@@WchatQRCode">Wechat QR Code</div>
                 <div class="row images-row">
                     <div *ngFor="let qr of group.qrcodes;let i=index;">
                         <div class="image-block" >
@@ -23,7 +23,7 @@
             <div class="col-md-5 group-col">
                 <div class="title-bg name">{{group.name}}</div>
                 <p class="row description">
-                    <span class="title-sm">Description: &nbsp;</span>
+                    <span class="title-sm" i18n="@@Description">Description</span>:&nbsp;
                     <span class="text-md">{{group.description}}</span>
                 </p>
                   

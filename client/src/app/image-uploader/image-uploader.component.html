@@ -5,8 +5,8 @@
   <div class="col-7 right-side">
     <input hidden type="file" #uploader (change)="onFileChange($event)" />
     <div class="row btn-holder">
-      <div class="btn btn-primary btn-file" (click)="uploader.click()">Choose File</div>
-      <div class="btn btn-primary btn-clear" (click)="onDelete()">Clear</div>
+      <div class="btn btn-primary btn-file" (click)="uploader.click()" i18n="@@ChooseFile">Choose File</div>
+      <!-- <div class="btn btn-primary btn-clear" (click)="onDelete()" i18n="@@WriteToUs">Clear</div> -->
     </div>
   </div>
 </div>

@@ -9,6 +9,9 @@
 
 @media (max-width: 767px){
   .event-list{
-    padding:0px;
+    .list-group{
+      height: 260px;
+    }
   }
+
 }

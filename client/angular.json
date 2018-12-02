@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "client": {
+    "groupal": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/client",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -54,7 +54,7 @@
             },
             "zh-Hans":{
               "aot":true,
-              "outputPath": "dist/etuan-zh-Hans",
+              "outputPath": "dist/groupal-zh-Hans",
               "i18nFile": "src/locale/messages.zh-Hans.xlf",
               "i18nFormat": "xlf",
               "i18nLocale": "zh-Hans",
@@ -65,18 +65,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "client:build"
+            "browserTarget": "groupal:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "client:build:production"
+              "browserTarget": "groupal:build:production"
+            },
+            "zh-Hans":{
+              "browserTarget": "groupal:build:zh-Hans"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "client:build"
+            "browserTarget": "groupal:build"
           }
         },
         "test": {
@@ -110,7 +113,7 @@
         }
       }
     },
-    "client-e2e": {
+    "groupal-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -118,7 +121,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "client:serve"
+            "devServerTarget": "groupal:serve"
           }
         },
         "lint": {
@@ -133,5 +136,5 @@
       }
     }
   },
-  "defaultProject": "client"
+  "defaultProject": "groupal"
 }
