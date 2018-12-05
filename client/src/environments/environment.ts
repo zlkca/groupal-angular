@@ -6,7 +6,7 @@ export const environment = {
   APP: 'groupal',
   production: false,
   API_VERSION: 'api',
-  API_BASE: window.location.protocol + '//' + window.location.hostname + ':8001',
+  API_BASE: window.location.protocol + '//' + window.location.hostname + ':8002',
   API_URL: window.location.origin + '/api/',
   APP_URL: window.location.origin,
   MEDIA_URL: window.location.origin + '/media/',

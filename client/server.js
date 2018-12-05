@@ -2,7 +2,7 @@ const http = require('http');
 const express = require('express')
 const path = require('path')
 const fs = require('fs');
-const cfg = JSON.parse(fs.readFileSync('../../qunfinder.cfg.json','utf8'));
+const cfg = JSON.parse(fs.readFileSync('../../groupal.cfg.json','utf8'));
 const APP_SERVER = cfg.APP_SERVER;
 
 const app = express()
@@ -28,5 +28,5 @@ app.set('port', process.env.PORT || APP_SERVER.PORT)
 
 var server = http.createServer(app)
 server.listen(app.get('port'), function () {
-  console.log('Qunfinder Express server listening on port ' + APP_SERVER.PORT)
+  console.log('Groupal Express server listening on port ' + APP_SERVER.PORT)
 })

@@ -2,8 +2,8 @@
   "mysqlDs": {
     "host": "localhost",
     "port": 3306,
-    "url": "mysql://zlk:052980@localhost:3306/groupal2",
-    "database": "groupal2",
+    "url": "mysql://zlk:052980@localhost:3306/groupal",
+    "database": "groupal",
     "password": "root",
     "name": "mysqlDs",
     "user": "root",

@@ -4,7 +4,7 @@
     <body>
       <trans-unit id="Groupal" datatype="html">
         <source>Groupal</source>
-        <target>多伦多微信群搜索</target>
+        <target>集友网</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/header/header.component.html</context>
           <context context-type="linenumber">2</context>
