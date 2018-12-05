@@ -9,7 +9,14 @@
           <div class="col-12 text-block">
               <div class="text-sm" *ngIf="p.groups && p.groups.length>0">{{p.groups[0].name}}</div>
               <div class="text-sm">{{p.description}}</div>
-              <div class="text-sm">{{getDisplayDateTimeRange(p)}}</div>
+              <div class="text-sm">
+                  <img src="/assets/svg/clock.svg">
+                  {{getDisplayDateTimeRange(p)}}
+              </div>
+              <div class="text-sm">
+                  <img src="/assets/svg/map-marker.svg">
+                  {{p.address?.formattedAddress}}
+              </div>
             </div>
           <!-- <div class="col-4 btn-holder">
             <div class="btn btn-sm btn-secondary" (click)="delete(p)" i18n="@@Delete">Delete</div>

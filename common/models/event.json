@@ -53,6 +53,11 @@
         "nestRemoting": true
       },
       "through": "EventCategory"
+    },
+    "address": {
+      "type": "hasOne",
+      "model": "Address",
+      "polymorphic": "entity"
     }
   },
   "acls": [],

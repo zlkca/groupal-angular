@@ -15,9 +15,17 @@ export class EventService {
 
 
   create(event: Event): Observable<Event> {
-    // let eventId;
+    const self = this;
     return this.eventApi.create(event)
       .pipe(
+        mergeMap((r: Event, index: number) => {
+          if (event.address && event.address.id) {
+            this.eventApi.updateAddress(r.id, event.address);
+          } else if (event.address && !event.address.id) {
+            this.eventApi.createAddress(r.id, event.address);
+          }
+          return self.eventApi.linkCategories(r.id, event.categories[0].id);
+        })
         // mergeMap((r: Group) => {
         //   return self.groupApi.linkCategories(group.id, group.categories[0].id);
         // }),
@@ -76,6 +84,15 @@ export class EventService {
         }),
         mergeMap((r: Event) => {
           return self.eventApi.linkCategories(event.id, event.categories[0].id);
+        }),
+        mergeMap(() => {
+          if (event.address && event.address.id) {
+            return this.eventApi.updateAddress(id, event.address);
+          } else if (event.address && !event.address.id) {
+            return this.eventApi.createAddress(id, event.address);
+          } else {
+            return new Observable(i => i.next());
+          }
         }),
         // mergeMap((prod: Event) => {
         //   if (event.pictures && event.pictures.length) {

@@ -14,6 +14,11 @@
       <!-- <div *ngIf="description.touched && description.invalid" class="alert alert-danger">Description should be maximum 980 chars.</div> -->
   </div>
 
+  <div class="row form-group">
+      <div class="field-label label-sm" i18n="@@EventAddress">Event Address</div>
+      <app-address-input (addrChange)="onAddressChange($event)" [value]="address" placeholder="Event Address" i18n-placeholder></app-address-input>
+  </div>
+  
   <div class="row form-group date-row">
     <div class="field-label label-sm" i18n="@@EventDate">Event Date</div>
     <div class="input-group">

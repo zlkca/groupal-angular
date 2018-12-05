@@ -69,13 +69,13 @@ export class AdminEventComponent implements OnInit {
       self.groupId = params['group_id'];
 
       if (self.account.type === 'super') {
-        const query = { include: ['groups', 'categories'] };
+        const query = { include: ['groups', 'categories', 'address'] };
         self.eventSvc.find(query).subscribe(
           (ps: Event[]) => {
             self.events = ps;
           });
       } else if (self.account.type === 'organizer') {
-        const query = { where: { ownerId: self.account.id }, include: ['groups', 'categories'] };
+        const query = { where: { ownerId: self.account.id }, include: ['groups', 'categories', 'address'] };
         // const query = { include: ['groups', 'categories'] };
         self.eventSvc.find(query).subscribe(
           (ps: Event[]) => {

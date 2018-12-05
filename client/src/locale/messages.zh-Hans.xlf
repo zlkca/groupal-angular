@@ -246,6 +246,22 @@
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="EventAddress" datatype="html">
+        <source>Event Address</source>
+        <target>活动地址</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/event/event-form/event-form.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="54c47c16636ba3c7ac06be632dbd66fc4e4e5ed3" datatype="html">
+        <source>Event Address</source>
+        <target>活动地址</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/event/event-form/event-form.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="EventDate" datatype="html">
         <source>Event Date</source>
         <target>活动日期</target>

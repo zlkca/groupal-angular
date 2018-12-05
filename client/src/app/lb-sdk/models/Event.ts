@@ -1,6 +1,7 @@
 /* tslint:disable */
 import {
   Account,
+  Address,
   Group,
   Category
 } from '../index';
@@ -16,6 +17,7 @@ export interface EventInterface {
   "modified"?: Date;
   "id"?: number;
   owner?: Account;
+  address?: Address;
   groups?: Group[];
   categories?: Category[];
 }
@@ -30,6 +32,7 @@ export class Event implements EventInterface {
   "modified": Date;
   "id": number;
   owner: Account;
+  address: Address;
   groups: Group[];
   categories: Category[];
   constructor(data?: EventInterface) {
@@ -106,6 +109,14 @@ export class Event implements EventInterface {
           relationType: 'belongsTo',
                   keyFrom: 'ownerId',
           keyTo: 'id'
+        },
+        address: {
+          name: 'address',
+          type: 'Address',
+          model: 'Address',
+          relationType: 'hasOne',
+                  keyFrom: 'id',
+          keyTo: 'entityId'
         },
         groups: {
           name: 'groups',

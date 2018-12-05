@@ -83,4 +83,16 @@ export class SharedService {
       }
       return { 'w': Math.round(rw), 'h': Math.round(rh), 'padding_top': Math.round((frame_h - rh) / 2) };
     }
+
+    getAddrStringByLocation(location: any) {
+      const city = location.sub_locality ? location.sub_locality : location.city;
+      return location.street_number + ' ' + location.street_name + ', ' + city + ', ' + location.province;
+      // + ', ' + location.postal_code;
+    }
+
+    getAddrString(addr: any) {
+      const city = addr.sublocality ? addr.sublocality : addr.city;
+      return addr.streetNumber + ' ' + addr.streetName + ', ' + city + ', ' + addr.province;
+      // + ', ' + location.postal_code;
+    }
 }

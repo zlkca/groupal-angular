@@ -126,7 +126,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/event/event-form/event-form.component.html</context>
-          <context context-type="linenumber">93</context>
+          <context context-type="linenumber">94</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/category/category-form/category-form.component.html</context>
@@ -194,7 +194,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/event/event-form/event-form.component.html</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Owner" datatype="html">
@@ -225,32 +225,46 @@
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Date" datatype="html">
-        <source>Date</source>
+      <trans-unit id="EventAddress" datatype="html">
+        <source>Event Address</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/event/event-form/event-form.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="From" datatype="html">
-        <source>From</source>
+      <trans-unit id="54c47c16636ba3c7ac06be632dbd66fc4e4e5ed3" datatype="html">
+        <source>Event Address</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/event/event-form/event-form.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="To" datatype="html">
-        <source>To</source>
+      <trans-unit id="EventDate" datatype="html">
+        <source>Event Date</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/event/event-form/event-form.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="StartTime" datatype="html">
+        <source>Start Time</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/event/event-form/event-form.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="EndTime" datatype="html">
+        <source>End Time</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/event/event-form/event-form.component.html</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Group" datatype="html">
         <source>Group</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/event/event-form/event-form.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="AddEvent" datatype="html">

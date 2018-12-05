@@ -9,7 +9,7 @@ import { EventService } from '../event.service';
 import { GroupService } from '../../group/group.service';
 import { CategoryService } from '../../category/category.service';
 // import { MultiImageUploaderComponent } from '../../shared/multi-image-uploader/multi-image-uploader.component';
-import { Account, Group, Event, Category, LoopBackConfig, Picture } from '../../lb-sdk';
+import { Account, Group, Event, Category, LoopBackConfig, Picture, Address } from '../../lb-sdk';
 import { Jsonp } from '@angular/http';
 import { map } from '../../../../node_modules/rxjs/operators';
 import { SharedService } from '../../shared/shared.service';
@@ -23,6 +23,8 @@ export class EventFormComponent implements OnInit, OnChanges {
   categoryList = [];
   groupList = [];
   currentAccount;
+  address = '';
+  location;
   // colorList:Color[] = [];
   // id: number;
   uploadedPictures: string[] = [];
@@ -123,6 +125,20 @@ export class EventFormComponent implements OnInit, OnChanges {
     if (this.form && changes.event.currentValue) {
       const event = changes.event.currentValue;
       this.fillForm(event);
+
+      const addr = changes.event.currentValue.address;
+      if (addr) {
+        this.location.city = addr.city;
+        this.location.street_name = addr.streetName;
+        this.location.street_number = addr.streetNumber;
+        this.location.sub_locality = addr.sublocality;
+        this.location.postal_code = addr.postalCode;
+        this.location.province = addr.province;
+        this.location.lat = addr.location.lat;
+        this.location.lng = addr.location.lng;
+
+        this.address = this.sharedSvc.getAddrStringByLocation(this.location);
+      }
     }
   }
 
@@ -183,6 +199,15 @@ export class EventFormComponent implements OnInit, OnChanges {
     // }
   }
 
+  // callback of app-address-input
+  onAddressChange(e) {
+    // localStorage.setItem('location-' + APP, JSON.stringify(e.addr));
+    this.location = e.addr;
+    this.address = e.sAddr;
+    this.form.get('address').patchValue({ postalCode: this.location.postal_code });
+    // this.sharedSvc.emitMsg({ name: 'OnUpdateAddress', addr: e.addr });
+  }
+
   onRemoved(event) {
     // this.event.pictures.splice(this.event.pictures.findIndex(pic => pic.url === event.file.src));
   }
@@ -200,13 +225,27 @@ export class EventFormComponent implements OnInit, OnChanges {
         v.groups = groups;
         const event = new Event(v);
         event.id = self.event ? self.event.id : null;
-        event.fromDateTime = this.getDateTime(v.date, v.fromTime);
-        event.toDateTime = this.getDateTime(v.date, v.toTime);
+        event.fromDateTime = this.getDateTime(v.eventDate, v.fromTime);
+        event.toDateTime = this.getDateTime(v.eventDate, v.toTime);
         if (!event.created) {
           event.created = new Date();
         }
         event.modified = new Date();
-
+        event.address = new Address({
+          id: this.event.address ? this.event.address.id : null,
+          streetName: this.location.street_name,
+          streetNumber: this.location.street_number,
+          sublocality: this.location.sub_locality,
+          city: this.location.city,
+          province: this.location.province,
+          formattedAddress: this.sharedSvc.getAddrStringByLocation(this.location),
+          unit: this.form.get('address').get('unit').value,
+          postalCode: this.location.postal_code,
+          location: {
+            lat: this.location.lat,
+            lng: this.location.lng
+          },
+        });
         if (self.currentAccount.type === 'super') {
           event.ownerId = self.event.ownerId; // self.form.get('ownerId').value;
         } else {

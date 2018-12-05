@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     const self = this;
-    self.eventSvc.find({ include: ['groups', 'categories'], order: 'modified DESC' }).subscribe(
+    self.eventSvc.find({ include: ['groups', 'categories', 'address'], order: 'modified DESC' }).subscribe(
       (ps: Event[]) => {
         self.events = ps;
       });
