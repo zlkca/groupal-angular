@@ -12,6 +12,7 @@ import { CategoryService } from '../../category/category.service';
 import { Account, Group, Event, Category, LoopBackConfig, Picture } from '../../lb-sdk';
 import { Jsonp } from '@angular/http';
 import { map } from '../../../../node_modules/rxjs/operators';
+import { SharedService } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-event-form',
@@ -46,7 +47,9 @@ export class EventFormComponent implements OnInit, OnChanges {
     private eventSvc: EventService,
     private categorySvc: CategoryService,
     private route: ActivatedRoute,
-    private rx: NgRedux<IPicture>, private router: Router
+    private sharedSvc: SharedService,
+    private rx: NgRedux<IPicture>,
+    private router: Router
   ) {
     this.form = this.createForm();
   }
@@ -65,6 +68,9 @@ export class EventFormComponent implements OnInit, OnChanges {
         unit: ['', [Validators.required]],
         postalCode: ['', [Validators.required]],
       }),
+      eventDate: [ '2018-12-23T17:30:00.000Z', [Validators.required]],
+      fromTime: [{ hour: 12, minute: 30 }, [Validators.required]],
+      toTime: [{ hour: 14, minute: 30 }, [Validators.required]]
     });
   }
 
@@ -82,6 +88,7 @@ export class EventFormComponent implements OnInit, OnChanges {
     } else {
       this.form.get('categoryId').setValue(null);
     }
+    this.form.get('eventDate').setValue(this.sharedSvc.getDate(event.fromDateTime));
     // this.form.get('categories')['controls'][0].setValue(group.categories[0].id);
   }
 
@@ -153,6 +160,10 @@ export class EventFormComponent implements OnInit, OnChanges {
     return cs;
   }
 
+  getDateTime(d, t) {
+    return new Date(d.year, d.month - 1, d.day, t.hour, t.minute);
+  }
+
   onUploadFinished(event) {
     // try {
     //   const res = JSON.parse(event.serverResponse.response._body);
@@ -189,6 +200,8 @@ export class EventFormComponent implements OnInit, OnChanges {
         v.groups = groups;
         const event = new Event(v);
         event.id = self.event ? self.event.id : null;
+        event.fromDateTime = this.getDateTime(v.date, v.fromTime);
+        event.toDateTime = this.getDateTime(v.date, v.toTime);
         if (!event.created) {
           event.created = new Date();
         }

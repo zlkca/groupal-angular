@@ -246,6 +246,30 @@
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="EventDate" datatype="html">
+        <source>Event Date</source>
+        <target>活动日期</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/event/event-form/event-form.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="StartTime" datatype="html">
+        <source>Start Time</source>
+        <target>开始时间</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/event/event-form/event-form.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="EndTime" datatype="html">
+        <source>End Time</source>
+        <target>结束时间</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/event/event-form/event-form.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Group" datatype="html">
         <source>Group</source>
         <target>微信群</target>

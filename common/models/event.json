@@ -16,6 +16,12 @@
     "ownerId": {
       "type": "number"
     },
+    "fromDateTime": {
+      "type": "date"
+    },
+    "toDateTime": {
+      "type": "date"
+    },
     "created": {
       "type": "date"
     },

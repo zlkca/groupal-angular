@@ -14,6 +14,28 @@
       <!-- <div *ngIf="description.touched && description.invalid" class="alert alert-danger">Description should be maximum 980 chars.</div> -->
   </div>
 
+  <div class="row form-group date-row">
+    <div class="field-label label-sm" i18n="@@EventDate">Event Date</div>
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd" name="eventDate" ngbDatepicker #date="ngbDatepicker" 
+        formControlName="eventDate" />
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="date.toggle()" type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row form-group time-row">
+    <div class="col-6">
+      <div class="field-label label-sm" i18n="@@StartTime">Start Time</div>
+      <ngb-timepicker style="display:inline-block;" name="fromTime" formControlName="fromTime" [spinners]="false"></ngb-timepicker>
+    </div>
+    <div class="col-6">
+      <div class="field-label label-sm" i18n="@@EndTime">End Time</div>
+      <ngb-timepicker style="display:inline-block;" name="toTime" formControlName="toTime" [spinners]="false"></ngb-timepicker>
+    </div>
+  </div>
+
   <div class="row form-group" formGroupName="address">
     <div class="row">
       <!-- <div class="field-label label-sm" i18n="@@Street">Street:</div> -->

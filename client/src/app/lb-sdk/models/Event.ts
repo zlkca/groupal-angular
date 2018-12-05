@@ -10,6 +10,8 @@ export interface EventInterface {
   "name"?: string;
   "description"?: string;
   "ownerId"?: number;
+  "fromDateTime"?: Date;
+  "toDateTime"?: Date;
   "created"?: Date;
   "modified"?: Date;
   "id"?: number;
@@ -22,6 +24,8 @@ export class Event implements EventInterface {
   "name": string;
   "description": string;
   "ownerId": number;
+  "fromDateTime": Date;
+  "toDateTime": Date;
   "created": Date;
   "modified": Date;
   "id": number;
@@ -72,6 +76,14 @@ export class Event implements EventInterface {
         "ownerId": {
           name: 'ownerId',
           type: 'number'
+        },
+        "fromDateTime": {
+          name: 'fromDateTime',
+          type: 'Date'
+        },
+        "toDateTime": {
+          name: 'toDateTime',
+          type: 'Date'
         },
         "created": {
           name: 'created',
