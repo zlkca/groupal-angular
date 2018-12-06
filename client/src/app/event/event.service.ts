@@ -19,11 +19,11 @@ export class EventService {
     return this.eventApi.create(event)
       .pipe(
         mergeMap((r: Event, index: number) => {
-          if (event.address && event.address.id) {
-            this.eventApi.updateAddress(r.id, event.address);
-          } else if (event.address && !event.address.id) {
-            this.eventApi.createAddress(r.id, event.address);
-          }
+          // if (event.address && event.address.id) {
+          //   this.eventApi.updateAddress(r.id, event.address);
+          // } else if (event.address && !event.address.id) {
+          //   this.eventApi.createAddress(r.id, event.address);
+          // }
           return self.eventApi.linkCategories(r.id, event.categories[0].id);
         })
         // mergeMap((r: Group) => {
@@ -85,15 +85,15 @@ export class EventService {
         mergeMap((r: Event) => {
           return self.eventApi.linkCategories(event.id, event.categories[0].id);
         }),
-        mergeMap(() => {
-          if (event.address && event.address.id) {
-            return this.eventApi.updateAddress(id, event.address);
-          } else if (event.address && !event.address.id) {
-            return this.eventApi.createAddress(id, event.address);
-          } else {
-            return new Observable(i => i.next());
-          }
-        }),
+        // mergeMap(() => {
+        //   if (event.address && event.address.id) {
+        //     return this.eventApi.updateAddress(id, event.address);
+        //   } else if (event.address && !event.address.id) {
+        //     return this.eventApi.createAddress(id, event.address);
+        //   } else {
+        //     return new Observable(i => i.next());
+        //   }
+        // }),
         // mergeMap((prod: Event) => {
         //   if (event.pictures && event.pictures.length) {
         //     return this.updateEventImages(prod.id, event.pictures);
@@ -117,7 +117,7 @@ export class EventService {
     return this.eventApi.findById(id, filter);
   }
 
-  find(filter: LoopBackFilter = {}): Observable<Event[]> {
+  find(filter: LoopBackFilter = { include: ['address']}): Observable<Event[]> {
     return this.eventApi.find(filter);
   }
 

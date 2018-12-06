@@ -16,6 +16,9 @@
     "ownerId": {
       "type": "number"
     },
+    "addressId": {
+      "type": "number"
+    },
     "fromDateTime": {
       "type": "date"
     },
@@ -55,9 +58,9 @@
       "through": "EventCategory"
     },
     "address": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "Address",
-      "polymorphic": "entity"
+      "foreignKey": "addressId"
     }
   },
   "acls": [],

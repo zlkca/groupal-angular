@@ -9,7 +9,7 @@ import { EventService } from '../event.service';
 import { GroupService } from '../../group/group.service';
 import { CategoryService } from '../../category/category.service';
 // import { MultiImageUploaderComponent } from '../../shared/multi-image-uploader/multi-image-uploader.component';
-import { Account, Group, Event, Category, LoopBackConfig, Picture, Address } from '../../lb-sdk';
+import { Account, Group, Event, Category, LoopBackConfig, Picture, Address, AddressApi } from '../../lb-sdk';
 import { Jsonp } from '@angular/http';
 import { map } from '../../../../node_modules/rxjs/operators';
 import { SharedService } from '../../shared/shared.service';
@@ -50,6 +50,7 @@ export class EventFormComponent implements OnInit, OnChanges {
     private categorySvc: CategoryService,
     private route: ActivatedRoute,
     private sharedSvc: SharedService,
+    private addressApi: AddressApi,
     private rx: NgRedux<IPicture>,
     private router: Router
   ) {
@@ -127,7 +128,7 @@ export class EventFormComponent implements OnInit, OnChanges {
       this.fillForm(event);
 
       const addr = changes.event.currentValue.address;
-      if (addr) {
+      if (addr && this.location) {
         this.location.city = addr.city;
         this.location.street_name = addr.streetName;
         this.location.street_number = addr.streetNumber;
@@ -231,8 +232,14 @@ export class EventFormComponent implements OnInit, OnChanges {
           event.created = new Date();
         }
         event.modified = new Date();
+        if (self.currentAccount.type === 'super') {
+          event.ownerId = self.event.ownerId; // self.form.get('ownerId').value;
+        } else {
+          event.ownerId = self.currentAccount.id;
+        }
+
         event.address = new Address({
-          id: this.event.address ? this.event.address.id : null,
+          id: (self.event && self.event.address) ? self.event.address.id : null,
           streetName: this.location.street_name,
           streetNumber: this.location.street_number,
           sublocality: this.location.sub_locality,
@@ -246,21 +253,19 @@ export class EventFormComponent implements OnInit, OnChanges {
             lng: this.location.lng
           },
         });
-        if (self.currentAccount.type === 'super') {
-          event.ownerId = self.event.ownerId; // self.form.get('ownerId').value;
-        } else {
-          event.ownerId = self.currentAccount.id;
-        }
 
-        if (event.id) {
-          self.eventSvc.replaceById(event.id, event).subscribe((r: any) => {
-            self.afterSave.emit({ event: r, action: 'update' });
-          });
-        } else {
-          self.eventSvc.create(event).subscribe((r: any) => {
-            self.afterSave.emit({ event: r, action: 'save' });
-          });
-        }
+        self.addressApi.replaceOrCreate(event.address).subscribe((addr: any) => {
+          event.addressId = addr.id;
+          if (event.id) {
+            self.eventSvc.replaceById(event.id, event).subscribe((r: any) => {
+              self.afterSave.emit({ event: r, action: 'update' });
+            });
+          } else {
+            self.eventSvc.create(event).subscribe((r: any) => {
+              self.afterSave.emit({ event: r, action: 'save' });
+            });
+          }
+        });
       });
     });
   }
