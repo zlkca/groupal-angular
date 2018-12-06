@@ -7,6 +7,6 @@ export const environment = {
   APP_URL: window.location.origin,
   MEDIA_URL: window.location.origin + '/media/',
   GOOGLE_ANALYTICS: {
-    CLIENT_ID: 'UA-113187324-3'
+    CLIENT_ID: 'UA-113187324-6'
   },
 };
