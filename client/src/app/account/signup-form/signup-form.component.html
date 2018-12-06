@@ -27,7 +27,14 @@
 		<div class="row form-group">
 			<div class="field-label label-sm" i18n="@@Email">Email</div>
 			<input class="form-control" formControlName="email" type="text"/>
-		</div>
+    </div>
+
+    <div class="row form-group">
+        <input class="type-checkbox" type="checkbox" formControlName="type" 
+        [checked]="isChecked" (change)="onToggleType()">
+        <div class="label-sm">I Want to signup as an organizer</div>
+    </div>
+    
 		<div class="row form-group">
 			<div class="field-label label-sm" i18n="@@Password">Password</div>
 			<input class="form-control" formControlName="password" type="password"/>
