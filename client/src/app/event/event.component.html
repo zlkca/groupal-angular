@@ -13,7 +13,7 @@
                   <img src="/assets/svg/clock.svg">
                   {{getDisplayDateTimeRange(p)}}
               </div>
-              <div *ngIf="p.address && p.addressId" class="text-sm">
+              <div *ngIf="p.addressId" class="text-sm">
                   <img src="/assets/svg/map-marker.svg">
                   {{p.address?.formattedAddress}}
               </div>
