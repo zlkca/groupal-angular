@@ -24,7 +24,7 @@ export class EventFormComponent implements OnInit, OnChanges {
   groupList = [];
   currentAccount;
   address = '';
-  location = { city: '', street_name: '', street_number: '', sub_locality: '', postal_code: '', province: '', lat: '', lng: '' };
+  location = { city: '', street_name: '', street_number: '', sub_locality: '', postal_code: '', province: '', lat: 0, lng: 0 };
 
   // colorList:Color[] = [];
   // id: number;
