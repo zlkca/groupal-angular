@@ -382,6 +382,14 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="IWantToBeOrganizer" datatype="html">
+        <source>I Want to be signup as an organizer</source>
+        <target>我想要注册成群主</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/account/signup-form/signup-form.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="CreateAccount" datatype="html">
         <source>Create Account</source>
         <target>创建账号</target>
