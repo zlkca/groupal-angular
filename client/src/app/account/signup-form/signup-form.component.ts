@@ -12,12 +12,13 @@ import { Account } from '../../lb-sdk';
   providers: [AuthService],
   selector: 'app-signup-form',
   templateUrl: './signup-form.component.html',
-  styleUrls: ['./signup-form.component.css']
+  styleUrls: ['./signup-form.component.scss']
 })
 export class SignupFormComponent implements OnInit {
   errMsg: string;
   form: FormGroup;
   mode;
+  isChecked;
 
   constructor(private fb: FormBuilder,
     private authServ: AuthService,
@@ -29,7 +30,8 @@ export class SignupFormComponent implements OnInit {
     this.form = this.fb.group({
       username: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      type: ['']
     });
   }
 
@@ -37,6 +39,7 @@ export class SignupFormComponent implements OnInit {
     const self = this;
     this.route.queryParams.subscribe(params => {
       self.mode = params['mode'];
+      self.form.get('type').patchValue(self.mode === 'organizer');
     });
   }
 
@@ -51,14 +54,16 @@ export class SignupFormComponent implements OnInit {
     });
     this.accountSvc.signup(account).subscribe(
       (acc: Account) => {
-        if (acc.id) {
-          self.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: acc });
-          if (acc.type === 'super' || acc.type === 'organizer') {
-            self.router.navigate(['admin']);
-          } else {
-            self.router.navigate(['home']);
+        self.accountSvc.login(account.username, account.password).subscribe(x => {
+          if (acc.id) {
+            self.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: acc });
+            if (acc.type === 'super' || acc.type === 'organizer') {
+              self.router.navigate(['admin']);
+            } else {
+              self.router.navigate(['home']);
+            }
           }
-        }
+        });
       },
       err => {
         console.log(err.message);
@@ -66,4 +71,7 @@ export class SignupFormComponent implements OnInit {
       });
   }
 
+  onToggleType() {
+    this.mode = this.form.get('type').value ? 'organizer' : 'user';
+  }
 }

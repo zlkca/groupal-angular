@@ -24,7 +24,8 @@ export class EventFormComponent implements OnInit, OnChanges {
   groupList = [];
   currentAccount;
   address = '';
-  location;
+  location = { city: '', street_name: '', street_number: '', sub_locality: '', postal_code: '', province: '', lat: 0, lng: 0 };
+
   // colorList:Color[] = [];
   // id: number;
   uploadedPictures: string[] = [];
@@ -71,7 +72,7 @@ export class EventFormComponent implements OnInit, OnChanges {
         unit: ['', [Validators.required]],
         postalCode: ['', [Validators.required]],
       }),
-      eventDate: [ '2018-12-23T17:30:00.000Z', [Validators.required]],
+      eventDate: ['2018-12-23T17:30:00.000Z', [Validators.required]],
       fromTime: [{ hour: 12, minute: 30 }, [Validators.required]],
       toTime: [{ hour: 14, minute: 30 }, [Validators.required]]
     });
@@ -128,7 +129,7 @@ export class EventFormComponent implements OnInit, OnChanges {
       this.fillForm(event);
 
       const addr = changes.event.currentValue.address;
-      if (addr && this.location) {
+      if (addr) {
         this.location.city = addr.city;
         this.location.street_name = addr.streetName;
         this.location.street_number = addr.streetNumber;
@@ -139,6 +140,8 @@ export class EventFormComponent implements OnInit, OnChanges {
         this.location.lng = addr.location.lng;
 
         this.address = this.sharedSvc.getAddrStringByLocation(this.location);
+      } else {
+        this.address = '';
       }
     }
   }
