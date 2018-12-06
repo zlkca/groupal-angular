@@ -9,11 +9,11 @@
           <div class="col-12 text-block">
               <div class="text-sm" *ngIf="p.groups && p.groups.length>0">{{p.groups[0].name}}</div>
               <div class="text-sm">{{p.description}}</div>
-              <div class="text-sm">
+              <div *ngIf="p.fromDateTime" class="text-sm">
                   <img src="/assets/svg/clock.svg">
                   {{getDisplayDateTimeRange(p)}}
               </div>
-              <div class="text-sm">
+              <div *ngIf="p.address && p.addressId" class="text-sm">
                   <img src="/assets/svg/map-marker.svg">
                   {{p.address?.formattedAddress}}
               </div>

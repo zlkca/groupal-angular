@@ -11,6 +11,7 @@ export interface EventInterface {
   "name"?: string;
   "description"?: string;
   "ownerId"?: number;
+  "addressId"?: number;
   "fromDateTime"?: Date;
   "toDateTime"?: Date;
   "created"?: Date;
@@ -26,6 +27,7 @@ export class Event implements EventInterface {
   "name": string;
   "description": string;
   "ownerId": number;
+  "addressId": number;
   "fromDateTime": Date;
   "toDateTime": Date;
   "created": Date;
@@ -80,6 +82,10 @@ export class Event implements EventInterface {
           name: 'ownerId',
           type: 'number'
         },
+        "addressId": {
+          name: 'addressId',
+          type: 'number'
+        },
         "fromDateTime": {
           name: 'fromDateTime',
           type: 'Date'
@@ -114,9 +120,9 @@ export class Event implements EventInterface {
           name: 'address',
           type: 'Address',
           model: 'Address',
-          relationType: 'hasOne',
-                  keyFrom: 'id',
-          keyTo: 'entityId'
+          relationType: 'belongsTo',
+                  keyFrom: 'addressId',
+          keyTo: 'id'
         },
         groups: {
           name: 'groups',
