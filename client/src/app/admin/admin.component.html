@@ -20,7 +20,7 @@
         </ng-template>
       </ngb-tab>
 
-      <ngb-tab *ngIf="account">
+      <ngb-tab *ngIf="account && (account.type === 'super' || account.type === 'organizer')">
         <ng-template ngbTabTitle>
           <span class="tab-title" i18n="@@Users">Users</span>
         </ng-template>
@@ -38,6 +38,14 @@
         </ng-template>
       </ngb-tab>
 
+      <ngb-tab *ngIf="account">
+          <ng-template ngbTabTitle>
+            <span class="tab-title" >My Profile</span>
+          </ng-template>
+          <ng-template ngbTabContent>
+            <app-admin-profile [account]="account"></app-admin-profile>
+          </ng-template>
+        </ngb-tab>
     </ngb-tabset>
   </div>
 

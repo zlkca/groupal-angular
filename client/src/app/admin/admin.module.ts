@@ -15,6 +15,7 @@ import { AdminCategoryComponent } from './admin-category/admin-category.componen
 import { AdminUserComponent } from './admin-user/admin-user.component';
 import { AdminGroupComponent } from './admin-group/admin-group.component';
 import { AdminEventComponent } from './admin-event/admin-event.component';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { AdminEventComponent } from './admin-event/admin-event.component';
   ],
   exports: [AdminEventComponent],
   declarations: [AdminComponent, AdminCategoryComponent, AdminUserComponent, AdminGroupComponent,
-    AdminEventComponent
+    AdminEventComponent,
+    AdminProfileComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
