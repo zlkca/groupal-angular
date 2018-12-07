@@ -1,27 +1,26 @@
-<div class="event-list">
-    <div class="list-group list-body" *ngIf="events && events.length>0">
-      <div class="list-group-item" *ngFor="let p of events; let i = index;" 
-        (click)="onSelect(p)" [ngClass]="{'active': selected == p}">
-        <div class="row">
-          <div class="col-12 text-block">
-            <div class="text-md">{{p.name}}</div>
+<!-- [ngStyle]="{'height.px':c.h}"-->
+<div class="event-item" *ngFor="let event of events; let i = index;" >
+	<div class="head">
+		<p>
+      <img src="{{APP_URL}}/assets/images/portrait.png" alt="{{event.name}}">
+    </p>
+    <h4>
+      <div class="title-xs">{{event.name}}</div>
+    </h4>
+	</div>
+	<div class="body">
+		<!-- <div class="text-xs">Teacher: {{c.teacher.username}}</div> -->
+          <div *ngIf="event.fromDateTime" class="text-xs">
+              <img src="/assets/svg/clock.svg">
+              {{getDisplayDateTimeRange(event)}}
           </div>
-          <div class="col-12 text-block">
-              <div class="text-sm" *ngIf="p.groups && p.groups.length>0">{{p.groups[0].name}}</div>
-              <div class="text-sm">{{p.description}}</div>
-              <div *ngIf="p.fromDateTime" class="text-sm">
-                  <img src="/assets/svg/clock.svg">
-                  {{getDisplayDateTimeRange(p)}}
-              </div>
-              <div *ngIf="p.addressId" class="text-sm">
-                  <img src="/assets/svg/map-marker.svg">
-                  {{p.address?.formattedAddress}}
-              </div>
-            </div>
-          <!-- <div class="col-4 btn-holder">
-            <div class="btn btn-sm btn-secondary" (click)="delete(p)" i18n="@@Delete">Delete</div>
-          </div> -->
-        </div>
-      </div>
-    </div>
-  </div>
+          <div *ngIf="event.addressId" class="text-xs">
+              <img src="/assets/svg/map-marker.svg">
+              {{event.address?.formattedAddress}}
+          </div>
+		<div class="text-sm">{{event.description}}</div>
+	</div>
+	<!-- <div class="btn-holder">
+		<div class="btn btn-xs pull-right">Apply</div>
+	</div> -->
+</div>

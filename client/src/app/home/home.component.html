@@ -11,7 +11,7 @@
   </div>
     
   <div class="row">
-    <div class="col-sm-3 col-xs-12 left-col">
+    <div class="col-sm-9 col-xs-12 left-col">
         <div class="row event-area">
           <div class="label-md" i18n="@@RecentEvents">Recent Events</div>
           <app-event [events]="events"></app-event>
@@ -23,7 +23,7 @@
           <app-feedback-form *ngIf="bShowFeedbackForm" (afterSend)="onAfterSendFeedback($event)"></app-feedback-form>
         </div>
     </div>
-    <div class="col-sm-9 col-xs-12 right-col">
+    <div class="col-sm-3 col-xs-12 right-col">
       <div class="row category-area">
         <app-category (afterFind)="onAfterFind($event)"></app-category>
       </div>
