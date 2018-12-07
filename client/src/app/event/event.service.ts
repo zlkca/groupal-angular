@@ -18,14 +18,12 @@ export class EventService {
     const self = this;
     return this.eventApi.create(event)
       .pipe(
-        mergeMap((r: Event, index: number) => {
-          // if (event.address && event.address.id) {
-          //   this.eventApi.updateAddress(r.id, event.address);
-          // } else if (event.address && !event.address.id) {
-          //   this.eventApi.createAddress(r.id, event.address);
-          // }
-          return self.eventApi.linkCategories(r.id, event.categories[0].id);
-        })
+        mergeMap((r: Event) => {
+          if (event.categories && event.categories.length > 0) {
+            return self.eventApi.linkCategories(r.id, event.categories[0].id);
+          } else {
+            return new Observable(i => i.next());
+          }
         // mergeMap((r: Group) => {
         //   return self.groupApi.linkCategories(group.id, group.categories[0].id);
         // }),
@@ -80,11 +78,18 @@ export class EventService {
     return this.eventApi.replaceById(id, event)
       .pipe(
         mergeMap((r: Event) => {
-          return self.eventApi.linkGroups(event.id, event.groups[0].id);
+          if (event.groups && event.groups.length > 0) {
+            return self.eventApi.linkGroups(event.id, event.groups[0].id);
+          } else {
+            return new Observable(i => i.next());
+          }
         }),
         mergeMap((r: Event) => {
-          return self.eventApi.linkCategories(event.id, event.categories[0].id);
-        }),
+          if (event.categories && event.categories.length > 0) {
+            return self.eventApi.linkCategories(r.id, event.categories[0].id);
+          } else {
+            return new Observable(i => i.next());
+          }
         // mergeMap(() => {
         //   if (event.address && event.address.id) {
         //     return this.eventApi.updateAddress(id, event.address);
