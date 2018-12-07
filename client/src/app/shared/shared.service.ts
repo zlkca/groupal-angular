@@ -35,7 +35,7 @@ export class SharedService {
 
   getDisplayTime(s) {
     const m = moment(s);
-    return m.format('HH:mm:ss');
+    return m.format('HH:mm');
   }
 
   getToday() {
