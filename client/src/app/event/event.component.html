@@ -18,11 +18,11 @@
         {{event.address?.formattedAddress}}
     </div>
     <div class="text-sm">{{event.description}}</div>
-    <div class="text-sm">{{getNumOfGoing(p)}}&nbsp;<span i18n="@@PeopleAreGoing">people are going</span></div>
+    <div class="text-sm">{{getNumOfGoing(event)}}&nbsp;<span i18n="@@PeopleAreGoing">people are going</span></div>
 	</div>
 	<div class="btn-holder">
-    <div class="btn btn-xs pull-right" *ngIf="!joined(p)" (click)="join(p)" i18n="@@Join">Join</div>
-    <div class="btn btn-xs pull-right" *ngIf="joined(p)" (click)="quit(p)" i18n="@@Cancel">Cancel</div>
+    <div class="btn btn-primary btn-xs pull-right" *ngIf="!joined(event)" (click)="join(event)" i18n="@@Join">Join</div>
+    <div class="btn btn-primary btn-xs  pull-right" *ngIf="joined(event)" (click)="quit(event)" i18n="@@Cancel">Cancel</div>
 
 	</div>
 </div>
