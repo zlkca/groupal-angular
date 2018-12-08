@@ -9,18 +9,21 @@
     </h4>
 	</div>
 	<div class="body">
-		<!-- <div class="text-xs">Teacher: {{c.teacher.username}}</div> -->
-          <div *ngIf="event.fromDateTime" class="text-xs">
-              <img src="/assets/svg/clock.svg">
-              {{getDisplayDateTimeRange(event)}}
-          </div>
-          <div *ngIf="event.addressId" class="text-xs">
-              <img src="/assets/svg/map-marker.svg">
-              {{event.address?.formattedAddress}}
-          </div>
-		<div class="text-sm">{{event.description}}</div>
+    <div *ngIf="event.fromDateTime" class="text-xs">
+        <img src="/assets/svg/clock.svg">
+        {{getDisplayDateTimeRange(event)}}
+    </div>
+    <div *ngIf="event.addressId" class="text-xs">
+        <img src="/assets/svg/map-marker.svg">
+        {{event.address?.formattedAddress}}
+    </div>
+    <div class="text-sm">{{event.description}}</div>
+    <div class="text-sm">{{getNumOfGoing(p)}}&nbsp;<span i18n="@@PeopleAreGoing">people are going</span></div>
 	</div>
-	<!-- <div class="btn-holder">
-		<div class="btn btn-xs pull-right">Apply</div>
-	</div> -->
+	<div class="btn-holder">
+    <div class="btn btn-xs pull-right" *ngIf="!joined(p)" (click)="join(p)" i18n="@@Join">Join</div>
+    <div class="btn btn-xs pull-right" *ngIf="joined(p)" (click)="quit(p)" i18n="@@Cancel">Cancel</div>
+
+	</div>
 </div>
+

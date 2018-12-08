@@ -1,4 +1,7 @@
 /* tslint:disable */
+import {
+  Event
+} from '../index';
 
 declare var Object: any;
 export interface AccountInterface {
@@ -13,6 +16,7 @@ export interface AccountInterface {
   "id"?: number;
   "password"?: string;
   accessTokens?: any[];
+  events?: Event[];
 }
 
 export class Account implements AccountInterface {
@@ -27,6 +31,7 @@ export class Account implements AccountInterface {
   "id": number;
   "password": string;
   accessTokens: any[];
+  events: Event[];
   constructor(data?: AccountInterface) {
     Object.assign(this, data);
   }
@@ -110,6 +115,16 @@ export class Account implements AccountInterface {
           relationType: 'hasMany',
                   keyFrom: 'id',
           keyTo: 'userId'
+        },
+        events: {
+          name: 'events',
+          type: 'Event[]',
+          model: 'Event',
+          relationType: 'hasMany',
+          modelThrough: 'Participant',
+          keyThrough: 'eventId',
+          keyFrom: 'id',
+          keyTo: 'accountId'
         },
       }
     }

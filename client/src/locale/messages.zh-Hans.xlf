@@ -291,7 +291,31 @@
         <target>微信群</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/event/event-form/event-form.component.html</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PeopleAreGoing" datatype="html">
+        <source>people are going</source>
+        <target>人加入了此活动</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/event/event.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Join" datatype="html">
+        <source>Join</source>
+        <target>加入</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/event/event.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Cancel" datatype="html">
+        <source>Cancel</source>
+        <target>取消</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/event/event.component.html</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="AddEvent" datatype="html">

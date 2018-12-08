@@ -30,7 +30,8 @@ export class HeaderComponent implements OnInit {
   // type: string;
   addr = null;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private authSvc: AuthService,
     private ngRedux: NgRedux<Account>,
     // private locationSvc: LocationService,

@@ -3,7 +3,8 @@ import {
   Account,
   Address,
   Group,
-  Category
+  Category,
+  Participant
 } from '../index';
 
 declare var Object: any;
@@ -14,6 +15,7 @@ export interface EventInterface {
   "addressId"?: number;
   "fromDateTime"?: Date;
   "toDateTime"?: Date;
+  "nMaxPaticipants"?: number;
   "created"?: Date;
   "modified"?: Date;
   "id"?: number;
@@ -21,6 +23,7 @@ export interface EventInterface {
   address?: Address;
   groups?: Group[];
   categories?: Category[];
+  participants?: Participant[];
 }
 
 export class Event implements EventInterface {
@@ -30,6 +33,7 @@ export class Event implements EventInterface {
   "addressId": number;
   "fromDateTime": Date;
   "toDateTime": Date;
+  "nMaxPaticipants": number;
   "created": Date;
   "modified": Date;
   "id": number;
@@ -37,6 +41,7 @@ export class Event implements EventInterface {
   address: Address;
   groups: Group[];
   categories: Category[];
+  participants: Participant[];
   constructor(data?: EventInterface) {
     Object.assign(this, data);
   }
@@ -94,6 +99,10 @@ export class Event implements EventInterface {
           name: 'toDateTime',
           type: 'Date'
         },
+        "nMaxPaticipants": {
+          name: 'nMaxPaticipants',
+          type: 'number'
+        },
         "created": {
           name: 'created',
           type: 'Date'
@@ -142,6 +151,14 @@ export class Event implements EventInterface {
           modelThrough: 'EventCategory',
           keyThrough: 'categoryId',
           keyFrom: 'id',
+          keyTo: 'eventId'
+        },
+        participants: {
+          name: 'participants',
+          type: 'Participant[]',
+          model: 'Participant',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
           keyTo: 'eventId'
         },
       }

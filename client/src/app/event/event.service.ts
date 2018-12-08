@@ -4,15 +4,16 @@ import { throwError as observableThrowError, Observable } from 'rxjs';
 // import { fromPromise } from 'rxjs/observable/fromPromise';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 
-import { EventApi, LoopBackFilter, Event, Category, CategoryApi, Picture, PictureApi } from '../lb-sdk';
+import { EventApi, LoopBackFilter, Event, Category, CategoryApi, Picture, PictureApi, ParticipantApi, Participant } from '../lb-sdk';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
 
-  constructor(private eventApi: EventApi) { }
-
+  constructor(private eventApi: EventApi,
+    private participantApi: ParticipantApi
+  ) { }
 
   create(event: Event): Observable<Event> {
     const self = this;
@@ -29,7 +30,6 @@ export class EventService {
           } else {
             return new Observable(i => i.next());
           }
-        })
         // mergeMap((r: Group) => {
         //   return self.groupApi.linkCategories(group.id, group.categories[0].id);
         // }),
@@ -50,6 +50,7 @@ export class EventService {
         // mergeMap(() => {
         //   return this.eventApi.findById(eventId, { include: 'pictures' });
         // })
+        })
       );
   }
 
@@ -96,33 +97,8 @@ export class EventService {
           } else {
             return new Observable(i => i.next());
           }
-        }),
-      // mergeMap(() => {
-      //   if (event.address && event.address.id) {
-      //     return this.eventApi.updateAddress(id, event.address);
-      //   } else if (event.address && !event.address.id) {
-      //     return this.eventApi.createAddress(id, event.address);
-      //   } else {
-      //     return new Observable(i => i.next());
-      //   }
-      // }),
-      // mergeMap((prod: Event) => {
-      //   if (event.pictures && event.pictures.length) {
-      //     return this.updateEventImages(prod.id, event.pictures);
-      //   } else {
-      //     return new Observable(i => i.next());
-      //   }
-      // }),
-      // mergeMap((r: Group) => {
-      //   return self.updateLogos(id, group.pictures);
-      // }),
-      // mergeMap((r: Group) => {
-      //   return self.updateQRCodes(id, group.qrcodes);
-      // }),
-      // mergeMap(() => {
-      //   return this.eventApi.findById(id, { include: 'pictures' });
-      // })
-    );
+        })
+      );
   }
 
   findById(id: number, filter: LoopBackFilter = { include: 'pictures' }): Observable<Event> {
@@ -157,5 +133,54 @@ export class EventService {
     xhr.open('POST', url, true);
     xhr.setRequestHeader('authorization', 'Bearer ' + btoa(token));
     xhr.send(formData);
+  }
+
+  join(userId, eventId) {
+    const p = new Participant();
+    p.accountId = userId;
+    p.eventId = eventId;
+    return this.participantApi.find({ where:
+      {and:
+        [
+          { accountId: userId},
+          { eventId: eventId }
+        ]
+      }
+    }).pipe(
+      mergeMap((x: any) => { // Participand
+        const participant = (x && x.length > 0) ? x[0] : null;
+        if (participant) {
+          p.id = participant.id;
+          p.created = participant.created;
+        } else {
+          p.created = new Date();
+        }
+        p.status = 'joined';
+        p.modified = new Date();
+        return this.participantApi.replaceOrCreate(p);
+      })
+    );
+  }
+
+  quit(userId, eventId) {
+    return this.participantApi.find({ where:
+      {and:
+        [
+          { accountId: userId},
+          { eventId: eventId }
+        ]
+      }
+    })
+    .pipe(
+      mergeMap((x: any) => { // Participant
+        const participant = (x && x.length > 0) ? x[0] : null;
+        if (participant) {
+          return this.participantApi.replaceById(participant.id,
+            { accountId: userId, eventId: eventId, status: 'cancelled', created: participant.created, modified: new Date() });
+        } else {
+          return new Observable(i => i.next());
+        }
+      })
+    );
   }
 }

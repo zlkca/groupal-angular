@@ -1,0 +1,43 @@
+{
+  "name": "Participant",
+  "plural": "participants",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "accountId": {
+      "type": "number",
+      "required": true
+    },
+    "eventId": {
+      "type": "number",
+      "required": true
+    },
+    "status": {
+      "type": "string"
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "account": {
+      "type": "belongsTo",
+      "model": "Account",
+      "foreignKey": "accountId"
+    },
+    "event": {
+      "type": "belongsTo",
+      "model": "Event",
+      "foreignKey": "eventId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
