@@ -7,20 +7,24 @@
             <div class="text-md">{{p.name}}</div>
           </div>
           <div class="col-12 text-block">
-              <div class="text-sm" *ngIf="p.groups && p.groups.length>0">{{p.groups[0].name}}</div>
-              <div class="text-sm">{{p.description}}</div>
-              <div *ngIf="p.fromDateTime" class="text-sm">
-                  <img src="/assets/svg/clock.svg">
-                  {{getDisplayDateTimeRange(p)}}
-              </div>
-              <div *ngIf="p.addressId" class="text-sm">
-                  <img src="/assets/svg/map-marker.svg">
-                  {{p.address?.formattedAddress}}
-              </div>
+            <div class="text-sm" *ngIf="p.groups && p.groups.length>0">{{p.groups[0].name}}</div>
+            <div class="text-sm">{{p.description}}</div>
+            <div *ngIf="p.fromDateTime" class="text-sm">
+                <img src="/assets/svg/clock.svg">
+                {{getDisplayDateTimeRange(p)}}
             </div>
-          <!-- <div class="col-4 btn-holder">
-            <div class="btn btn-sm btn-secondary" (click)="delete(p)" i18n="@@Delete">Delete</div>
-          </div> -->
+            <div *ngIf="p.addressId" class="text-sm">
+                <img src="/assets/svg/map-marker.svg">
+                {{p.address?.formattedAddress}}
+            </div>
+          </div>
+          <div class="col-12 text-block">
+              <div class="text-sm">{{getNumOfGoing(p)}}&nbsp;<span i18n="@@PeopleAreGoing">people are going</span></div>
+            </div>
+          <div class="col-4 btn-holder">
+            <div class="btn btn-sm btn-secondary" *ngIf="!joined(p)" (click)="join(p)" i18n="@@Join">Join</div>
+            <div class="btn btn-sm btn-secondary" *ngIf="joined(p)" (click)="quit(p)" i18n="@@Cancel">Cancel</div>
+          </div>
         </div>
       </div>
     </div>

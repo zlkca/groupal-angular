@@ -78,5 +78,9 @@
   "Feedback": {
     "dataSource": "mysqlDs",
     "public": true
+  },
+  "Participant": {
+    "dataSource": "mysqlDs",
+    "public": true
   }
 }

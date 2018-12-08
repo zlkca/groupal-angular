@@ -23,7 +23,17 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "events": {
+      "type": "hasMany",
+      "model": "Event",
+      "foreignKey": "accountId",
+      "options": {
+        "nestRemoting": true
+      },
+      "through": "Participant"
+    }
+  },
   "acls": [
     {
       "principalType": "ROLE",

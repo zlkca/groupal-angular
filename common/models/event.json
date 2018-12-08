@@ -25,6 +25,9 @@
     "toDateTime": {
       "type": "date"
     },
+    "nMaxPaticipants": {
+      "type": "number"
+    },
     "created": {
       "type": "date"
     },
@@ -56,6 +59,14 @@
         "nestRemoting": true
       },
       "through": "EventCategory"
+    },
+    "participants": {
+      "type": "hasMany",
+      "model": "Participant",
+      "foreignKey": "eventId",
+      "options": {
+        "nestRemoting": true
+      }
     },
     "address": {
       "type": "belongsTo",
