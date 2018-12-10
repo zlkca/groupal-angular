@@ -10,6 +10,10 @@
   .row{
     margin: 5px 0px;
   }
+
+  textarea{
+    width: 450px;
+  }
 }
 
 @media (max-width: 480px){
@@ -19,6 +23,9 @@
       .btn{
         margin-right: 0px;
       }
+    }
+    textarea{
+      width: 100%;
     }
   }
 }
