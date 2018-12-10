@@ -38,12 +38,14 @@
     {
       "principalType": "ROLE",
       "principalId": "$owner",
-      "permission": "ALLOW"
+      "permission": "ALLOW",
+      "property": "find"
     },
     {
       "principalType": "ROLE",
       "principalId": "super",
-      "permission": "ALLOW"
+      "permission": "ALLOW",
+      "property": "find"
     }
   ],
   "methods": {}

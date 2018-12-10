@@ -7,6 +7,7 @@ import { AccountActions } from '../account.actions';
 
 import { AccountService } from '../account.service';
 import { Account } from '../../lb-sdk';
+import { ToastrService } from '../../../../node_modules/ngx-toastr';
 
 @Component({
   providers: [AuthService],
@@ -25,7 +26,8 @@ export class SignupFormComponent implements OnInit {
     private accountSvc: AccountService,
     private router: Router,
     private route: ActivatedRoute,
-    private ngRedux: NgRedux<Account>
+    private ngRedux: NgRedux<Account>,
+    private toastSvc: ToastrService
   ) {
     this.form = this.fb.group({
       username: ['', Validators.required],
@@ -66,6 +68,8 @@ export class SignupFormComponent implements OnInit {
         });
       },
       err => {
+        this.toastSvc.warning('Signup Account Fail!', '',
+        { timeOut: 2000, positionClass: 'toast-bottom-right' });
         console.log(err.message);
         this.errMsg = 'Create Account Failed';
       });

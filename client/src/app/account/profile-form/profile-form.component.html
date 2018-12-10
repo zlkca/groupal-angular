@@ -11,7 +11,7 @@
 
   <div class="row form-group">
     <div class="field-label label-sm" i18n="@@Email">Email</div>
-    <input class="form-control" name="email" formControlName="email" type="text" />
+    <input class="form-control" name="email" readonly formControlName="email" type="text" />
   </div>
 
   <div class="row form-group">
@@ -20,6 +20,12 @@
       <option *ngFor="let type of accountTypes" [value]="type">{{type}}</option>
     </select>
   </div>
+  
+  <!-- <div class="row image-uploader">
+    <div class="field-label label-sm" i18n="@@Protrait">Portrait</div>
+    <app-image-uploader [uploadUrl]="portraitUploadUrl" [images]="portraits" 
+    (afterUpload)="onAfterPortraitUpload($event)"></app-image-uploader>
+  </div> -->
 
   <div class="row btn-holder">
     <button class="btn btn-primary" (click)="save()" i18n="@@Save">Save</button>

@@ -26,7 +26,8 @@ import { ProfileFormComponent } from './profile-form/profile-form.component';
   ],
   exports: [
     UserFormComponent,
-    UserListComponent
+    UserListComponent,
+    ProfileFormComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

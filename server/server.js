@@ -97,10 +97,13 @@ var createData = function(ds) {
       return ds.models.Role.create({ name: 'super' });
     })
     .then(function(role) {
-      return role.principals.create({
-        principalType: 'USER',
+
+      return role.principals.create([{
+        principalType: 'ROLE',
         principalId: 1,
-      });
+      }
+    ]);
+
     })
     .then(function() {
       return ds.models.Account.create([

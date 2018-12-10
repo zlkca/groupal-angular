@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AccountService } from '../account.service';
 import { Account } from '../../lb-sdk';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-profile-form',
   templateUrl: './profile-form.component.html',
@@ -34,6 +35,7 @@ export class ProfileFormComponent implements OnInit, OnChanges {
   constructor(private fb: FormBuilder,
     private accountSvc: AccountService,
     private router: Router, private route: ActivatedRoute,
+    private toastSvc: ToastrService
   ) {
     this.form = this.createForm();
   }
@@ -65,10 +67,18 @@ export class ProfileFormComponent implements OnInit, OnChanges {
     if (account.id) {
       self.accountSvc.replaceById(account.id, account).subscribe((r: any) => {
         self.valueSave.emit({ name: 'OnUpdateAccount' });
+      },
+      err => {
+        this.toastSvc.warning('Save Account Fail!', '',
+        { timeOut: 2000, positionClass: 'toast-bottom-right' });
       });
     } else {
       self.accountSvc.create(account).subscribe((r: any) => {
         self.valueSave.emit({ name: 'OnUpdateAccount' });
+      },
+      err => {
+        this.toastSvc.warning('Save Account Fail!', '',
+        { timeOut: 2000, positionClass: 'toast-bottom-right' });
       });
     }
   }
