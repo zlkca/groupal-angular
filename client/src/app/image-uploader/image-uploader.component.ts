@@ -24,12 +24,16 @@ export class ImageUploaderComponent implements OnInit {
 
   onFileChange(event) {
     const self = this;
+    const image = new Image();
     const reader = new FileReader();
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        self.postFile(self.uploadUrl, file).subscribe(x => {
+
+      image.onload = function(imageEvent) {
+        const resizedBlob = self.resizeInCanvas(image); // type:x, size:y
+        const resizedFile = new File([resizedBlob], file.name);
+
+        self.postFile(self.uploadUrl, resizedFile).subscribe(x => {
           self.afterUpload.emit({
             name: x.result.files.file[0].name,
             // originalFilename: "alashijiaxueyu.jpg"
@@ -38,6 +42,14 @@ export class ImageUploaderComponent implements OnInit {
           });
         });
       };
+
+      reader.onload = (readerEvent: any) => {
+        // use for trigger image.onload event
+        image.src = readerEvent.target.result;
+      };
+
+
+      reader.readAsDataURL(file);
     }
   }
 
@@ -59,5 +71,53 @@ export class ImageUploaderComponent implements OnInit {
 
   onDelete() {
 
+  }
+
+  dataURLToBlob(dataURL) {
+    const BASE64_MARKER = ';base64,';
+    if (dataURL.indexOf(BASE64_MARKER) === -1) {
+        const parts: string[] = dataURL.split(',');
+        const contentType: string = parts[0].split(':')[1];
+        const raw = parts[1];
+
+        return new Blob([raw], {type: contentType});
+    } else {
+      const parts = dataURL.split(BASE64_MARKER);
+      const contentType = parts[0].split(':')[1];
+      const raw = window.atob(parts[1]);
+      const rawLength = raw.length;
+
+      const uInt8Array = new Uint8Array(rawLength);
+
+      for (let i = 0; i < rawLength; ++i) {
+          uInt8Array[i] = raw.charCodeAt(i);
+      }
+      return new Blob([uInt8Array], {type: contentType});
+    }
+  }
+
+  // scale image inside frame
+  resizeImage(frame_w: number, frame_h: number, w: number, h: number) {
+    let rw = 0;
+    let rh = 0;
+
+    if (h * frame_w / w > frame_h) {
+      rh = frame_h;
+      rw = w * frame_h / h;
+    } else {
+      rw = frame_w;
+      rh = h * frame_w / w;
+    }
+    return { 'w': Math.round(rw), 'h': Math.round(rh), 'padding_top': Math.round((frame_h - rh) / 2) };
+  }
+
+  resizeInCanvas(image) {
+    const canvas = document.createElement('canvas');
+    const d = this.resizeImage( 320, 240, image.width, image.height);
+    canvas.width = d.w;
+    canvas.height = d.h;
+    canvas.getContext('2d').drawImage(image, 0, 0, d.w, d.h);
+    const dataUrl = canvas.toDataURL('image/jpeg');
+    return this.dataURLToBlob(dataUrl);
   }
 }
