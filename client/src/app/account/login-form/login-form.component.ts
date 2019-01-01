@@ -48,7 +48,9 @@ export class LoginFormComponent implements OnInit {
     // if (this.form.valid) {
     this.accountServ.login(v.account, v.password)
       .subscribe((account: Account) => {
+        // update header
         self.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: account });
+
         if (account.type === 'super' || account.type === 'organizer') {
           this.router.navigate(['admin']);
         } else {

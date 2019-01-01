@@ -45,6 +45,12 @@ export class HeaderComponent implements OnInit {
     //     this.locality = addr && (addr.sub_locality || addr.city);
     // });
     const self = this;
+    this.accountSvc.getCurrent().subscribe(account => {
+      self.account = account;
+      self.isLogin = (this.account && this.account.id > 0);
+    });
+
+    // Header event handler, when refresh redux data gone
     this.ngRedux.select('account').subscribe(account => {
       self.account = account;
       self.isLogin = (this.account && this.account.id > 0);
@@ -86,15 +92,18 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+    const self = this;
     this.closeNavMenu();
-    const state: any = this.ngRedux.getState();
-    if (state && state.account && state.account.id) {
-      this.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: new Account() });
+    // const state: any = this.ngRedux.getState();
+    // if (state && state.account && state.account.id) {
+    //   this.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: new Account() });
       this.accountSvc.logout().subscribe((sad: any) => {
         console.log(sad);
-        this.router.navigate(['home']);
+        self.isLogin = false;
+        self.account = null;
+        self.router.navigate(['home']);
       });
-    }
+    // }
   }
 
   toLogin() {

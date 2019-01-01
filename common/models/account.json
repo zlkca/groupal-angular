@@ -37,15 +37,13 @@
   "acls": [
     {
       "principalType": "ROLE",
-      "principalId": "$owner",
-      "permission": "ALLOW",
-      "property": "find"
+      "principalId": "user",
+      "permission": "ALLOW"
     },
     {
       "principalType": "ROLE",
       "principalId": "super",
-      "permission": "ALLOW",
-      "property": "find"
+      "permission": "ALLOW"
     }
   ],
   "methods": {}

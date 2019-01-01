@@ -8,6 +8,7 @@ import { NgRedux } from '@angular-redux/store';
 import { AccountActions } from './account.actions';
 
 const API_URL = environment.API_URL;
+const TWO_WEEKS = 60 * 60 * 24 * 7 * 2;
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,8 @@ export class AccountService {
   login(username: string, password: string, rememberMe: boolean = true): Observable<Account> {
     const credentials = {
       username: username,
-      password: password
+      password: password,
+      ttl: TWO_WEEKS // keep the AccessToken alive for at least two weeks
     };
     const self = this;
     return this.accountApi.login(credentials, null, rememberMe)

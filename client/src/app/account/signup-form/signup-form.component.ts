@@ -41,7 +41,7 @@ export class SignupFormComponent implements OnInit {
     const self = this;
     this.route.queryParams.subscribe(params => {
       self.mode = params['mode'];
-      self.form.get('type').patchValue(self.mode === 'organizer');
+      // self.form.get('type').patchValue(self.mode === 'organizer');
     });
   }
 
@@ -52,7 +52,7 @@ export class SignupFormComponent implements OnInit {
       username: v.username,
       email: v.username + '@groupal.ca', // v.email,
       password: v.password,
-      type: this.mode
+      type: 'user' // this.mode
     });
     this.accountSvc.signup(account).subscribe(
       (acc: Account) => {
@@ -75,7 +75,7 @@ export class SignupFormComponent implements OnInit {
       });
   }
 
-  onToggleType() {
-    this.mode = this.form.get('type').value ? 'organizer' : 'user';
-  }
+  // onToggleType() {
+  //   this.mode = this.form.get('type').value ? 'organizer' : 'user';
+  // }
 }

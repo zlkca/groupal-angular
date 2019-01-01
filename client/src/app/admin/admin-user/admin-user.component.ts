@@ -61,8 +61,8 @@ export class AdminUserComponent implements OnInit {
         (err: any) => {
           self.accounts = [];
         });
-    } else if (self.account.type === 'organizer') {
-      const query = { where: { id: self.account.id }, include: ['pictures', 'qrcodes', 'categories'] };
+    } else {
+      const query = { include: ['pictures', 'qrcodes', 'categories'] }; // where: { id: self.account.id },
       this.accountSvc.find().subscribe(
         (r: Account[]) => {
           self.accounts = r;
