@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="col-sm-8 col-xs-12 form-block">
-      <app-user-form [account]="selected" (valueSave)="onAfterSave($event)"></app-user-form>
+      <app-user-form *ngIf="account && account.type === 'super'" [account]="selected" (valueSave)="onAfterSave($event)"></app-user-form>
     </div>
   </div>
 </div>
