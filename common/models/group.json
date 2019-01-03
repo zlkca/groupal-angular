@@ -33,7 +33,7 @@
     "pictures": {
       "type": "hasMany",
       "model": "Picture",
-      "foreignKey": "groupId",
+      "foreignKey": "entityId",
       "options": {
         "nestRemoting": true
       }

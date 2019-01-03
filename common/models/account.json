@@ -32,6 +32,14 @@
         "nestRemoting": true
       },
       "through": "Participant"
+    },
+    "portraits": {
+      "type": "hasMany",
+      "model": "Portrait",
+      "foreignKey": "accountId",
+      "options": {
+        "nestRemoting": true
+      }
     }
   },
   "acls": [

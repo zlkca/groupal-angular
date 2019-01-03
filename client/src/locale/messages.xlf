@@ -16,13 +16,6 @@
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="OrganizerCenter" datatype="html">
-        <source>Organizer Center</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/header/header.component.html</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Hello" datatype="html">
         <source>Hello</source>
         <context-group purpose="location">
@@ -73,6 +66,10 @@
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/account/profile-form/profile-form.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/account/login-form/login-form.component.html</context>
           <context context-type="linenumber">13</context>
         </context-group>
@@ -80,15 +77,15 @@
           <context context-type="sourcefile">app/account/signup-form/signup-form.component.html</context>
           <context context-type="linenumber">12</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/account/profile-form/profile-form.component.html</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="Password" datatype="html">
         <source>Password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/account/user-form/user-form.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/account/profile-form/profile-form.component.html</context>
           <context context-type="linenumber">8</context>
         </context-group>
         <context-group purpose="location">
@@ -99,10 +96,6 @@
           <context context-type="sourcefile">app/account/signup-form/signup-form.component.html</context>
           <context context-type="linenumber">39</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/account/profile-form/profile-form.component.html</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="Email" datatype="html">
         <source>Email</source>
@@ -111,12 +104,12 @@
           <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/account/signup-form/signup-form.component.html</context>
-          <context context-type="linenumber">28</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">app/account/profile-form/profile-form.component.html</context>
           <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/account/signup-form/signup-form.component.html</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Type" datatype="html">
@@ -125,16 +118,16 @@
           <context context-type="sourcefile">app/account/user-form/user-form.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/account/profile-form/profile-form.component.html</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="Save" datatype="html">
         <source>Save</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/account/user-form/user-form.component.html</context>
           <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/account/profile-form/profile-form.component.html</context>
+          <context context-type="linenumber">31</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/group/group-form/group-form.component.html</context>
@@ -147,10 +140,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/category/category-form/category-form.component.html</context>
           <context context-type="linenumber">13</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/account/profile-form/profile-form.component.html</context>
-          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Delete" datatype="html">
@@ -170,6 +159,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/category/category-list/category-list.component.html</context>
           <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Protrait" datatype="html">
+        <source>Portrait</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/account/profile-form/profile-form.component.html</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Name" datatype="html">
@@ -383,13 +379,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/account/signup-form/signup-form.component.html</context>
           <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="IWantToBeOrganizer" datatype="html">
-        <source>I Want to be signup as an organizer</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/account/signup-form/signup-form.component.html</context>
-          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="CreateAccount" datatype="html">

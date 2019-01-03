@@ -82,5 +82,9 @@
   "Participant": {
     "dataSource": "mysqlDs",
     "public": true
+  },
+  "Portrait": {
+    "dataSource": "mysqlDs",
+    "public": true
   }
 }

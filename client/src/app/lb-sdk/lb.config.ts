@@ -1,3 +1,5 @@
+import { environment } from '../../environments/environment';
+
 /* tslint:disable */
 /**
 * @module LoopBackConfig
@@ -19,8 +21,6 @@
 *   }
 * }
 **/
-import { environment } from '../../environments/environment';
-
 export class LoopBackConfig {
   private static path: string = environment.API_BASE;
   private static version: string | number = 'api';

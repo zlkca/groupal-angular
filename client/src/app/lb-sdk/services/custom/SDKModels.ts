@@ -12,6 +12,7 @@ import { EventGroup } from '../../models/EventGroup';
 import { EventCategory } from '../../models/EventCategory';
 import { Feedback } from '../../models/Feedback';
 import { Participant } from '../../models/Participant';
+import { Portrait } from '../../models/Portrait';
 
 export interface Models { [name: string]: any }
 
@@ -31,6 +32,7 @@ export class SDKModels {
     EventCategory: EventCategory,
     Feedback: Feedback,
     Participant: Participant,
+    Portrait: Portrait,
     
   };
 

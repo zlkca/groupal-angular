@@ -39,7 +39,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const self = this;
-    this.accountSvc.getCurrent().subscribe(account => {
+    this.accountSvc.getCurrent({ include: ['portraits'] }).subscribe(account => {
       this.account = account;
     });
       // self.account = account;

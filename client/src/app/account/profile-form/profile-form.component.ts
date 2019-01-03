@@ -4,8 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 
 import { AccountService } from '../account.service';
-import { Account } from '../../lb-sdk';
+import { Account, Picture, Portrait } from '../../lb-sdk';
 import { ToastrService } from 'ngx-toastr';
+import { SharedService } from '../../shared/shared.service';
 @Component({
   selector: 'app-profile-form',
   templateUrl: './profile-form.component.html',
@@ -19,6 +20,8 @@ export class ProfileFormComponent implements OnInit, OnChanges {
     'business',
     'user'
   ];
+  portraitUploadUrl: string;
+  portraits; // preview pictures
 
   @Input() account: Account;
   @Output() valueSave = new EventEmitter();
@@ -27,22 +30,38 @@ export class ProfileFormComponent implements OnInit, OnChanges {
     return this.fb.group({
       username: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', Validators.required],
-      type: ['', Validators.required]
+      // password: ['', Validators.required],
+      // type: ['', Validators.required]
     });
   }
 
   constructor(private fb: FormBuilder,
     private accountSvc: AccountService,
-    private router: Router, private route: ActivatedRoute,
-    private toastSvc: ToastrService
+    private router: Router,
+    private route: ActivatedRoute,
+    private toastSvc: ToastrService,
+    private sharedSvc: SharedService
   ) {
     this.form = this.createForm();
+    this.portraitUploadUrl = this.sharedSvc.getContainerUrl() + 'portraits/upload';
+  }
+
+  setPictures(account) {
+    if (account.portraits && account.portraits.length > 0) {
+      const pic = account.portraits[0];
+      this.portraits = [
+        this.sharedSvc.getContainerUrl() + pic.url,
+      ];
+    } else {
+      this.portraits = [''];
+    }
   }
 
   ngOnChanges(changes) {
     if (this.form && changes.account.currentValue) {
-      this.form.patchValue(changes.account.currentValue);
+      const account = changes.account.currentValue;
+      this.form.patchValue(account);
+      this.setPictures(account);
     }
   }
 
@@ -54,18 +73,42 @@ export class ProfileFormComponent implements OnInit, OnChanges {
     this.form.patchValue(this.account);
   }
 
+  onAfterPortraitUpload(e) {
+    const self = this;
+    this.portraits = [
+      this.sharedSvc.getContainerUrl() + 'portraits/download/' + e.name,
+    ];
+
+    this.account.portraits = [
+      new Portrait({
+        name: self.account.username,
+        index: 1,
+        url: 'portraits/download/' + e.name,
+        accountId: self.account.id,
+        // width: 100,
+        // height: 100,
+        // created: null,
+        // modified: null
+      })
+    ];
+  }
+
   save() {
     // This component will be used for business admin and super admin!
     const self = this;
     const v = this.form.value;
     const account = new Account(this.form.value);
-
+    account.type = 'user';
     account.id = self.account ? self.account.id : null;
-    if (!v.password) {
-      v.password = this.accountSvc.DEFAULT_PASSWORD;
-    }
+    account.portraits = this.account.portraits;
+
+    // if (!v.password) {
+    //   v.password = this.accountSvc.DEFAULT_PASSWORD;
+    // }
+    delete account.password;
     if (account.id) {
-      self.accountSvc.replaceById(account.id, account).subscribe((r: any) => {
+      // self.accountSvc.replaceById(account.id, account).subscribe((r: any) => {
+      self.accountSvc.patchAttributes(account.id, account).subscribe((r: any) => {
         self.valueSave.emit({ name: 'OnUpdateAccount' });
       },
       err => {
@@ -73,13 +116,13 @@ export class ProfileFormComponent implements OnInit, OnChanges {
         { timeOut: 2000, positionClass: 'toast-bottom-right' });
       });
     } else {
-      self.accountSvc.create(account).subscribe((r: any) => {
-        self.valueSave.emit({ name: 'OnUpdateAccount' });
-      },
-      err => {
-        this.toastSvc.warning('Save Account Fail!', '',
-        { timeOut: 2000, positionClass: 'toast-bottom-right' });
-      });
+      // self.accountSvc.create(account).subscribe((r: any) => {
+      //   self.valueSave.emit({ name: 'OnUpdateAccount' });
+      // },
+      // err => {
+      //   this.toastSvc.warning('Save Account Fail!', '',
+      //   { timeOut: 2000, positionClass: 'toast-bottom-right' });
+      // });
     }
   }
 

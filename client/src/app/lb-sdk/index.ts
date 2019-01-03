@@ -60,6 +60,7 @@ import { EventGroupApi } from './services/custom/EventGroup';
 import { EventCategoryApi } from './services/custom/EventCategory';
 import { FeedbackApi } from './services/custom/Feedback';
 import { ParticipantApi } from './services/custom/Participant';
+import { PortraitApi } from './services/custom/Portrait';
 /**
 * @module SDKBrowserModule
 * @description
@@ -102,6 +103,7 @@ export class SDKBrowserModule {
         EventCategoryApi,
         FeedbackApi,
         ParticipantApi,
+        PortraitApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

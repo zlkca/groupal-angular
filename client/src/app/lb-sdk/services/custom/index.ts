@@ -11,5 +11,6 @@ export * from './EventGroup';
 export * from './EventCategory';
 export * from './Feedback';
 export * from './Participant';
+export * from './Portrait';
 export * from './SDKModels';
 export * from './logger.service';

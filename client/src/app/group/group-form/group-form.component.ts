@@ -12,6 +12,7 @@ import { AccountService } from '../../account/account.service';
 import { GeoPoint, Group, Category, LoopBackConfig, Address, Account, Picture, QRCode } from '../../lb-sdk';
 import { ILocation } from '../../address/address.model';
 import { getComponentViewDefinitionFactory } from '../../../../node_modules/@angular/core/src/view';
+import { SharedService } from '../../shared/shared.service';
 
 const APP = environment.APP;
 const PICTURES_FOLDER = 'pictures';
@@ -63,21 +64,19 @@ export class GroupFormComponent implements OnInit, OnChanges {
     });
   }
 
-  getContainerUrl() {
-    return environment.API_BASE + '/' + environment.API_VERSION + '/Containers/';
-  }
-
   constructor(private fb: FormBuilder,
     private accountSvc: AccountService,
     private groupSvc: GroupService,
     private locationSvc: LocationService,
-    private router: Router, private route: ActivatedRoute,
+    private router: Router,
+    private route: ActivatedRoute,
     private ngRedux: NgRedux<Account>,
     private categorySvc: CategoryService,
+    private sharedSvc: SharedService
   ) {
     this.form = this.createForm();
-    this.logoUploadUrl = this.getContainerUrl() + 'logos/upload';
-    this.qrcodeUploadUrl = this.getContainerUrl() + 'qrcodes/upload';
+    this.logoUploadUrl = this.sharedSvc.getContainerUrl() + 'logos/upload';
+    this.qrcodeUploadUrl = this.sharedSvc.getContainerUrl() + 'qrcodes/upload';
   }
 
   fillForm(group) {
@@ -96,7 +95,7 @@ export class GroupFormComponent implements OnInit, OnChanges {
     if (group.qrcodes && group.qrcodes.length > 0) {
       const qrcode = group.qrcodes[0];
       this.qrcodes = [
-        this.getContainerUrl() + qrcode.url,
+        this.sharedSvc.getContainerUrl() + qrcode.url,
       ];
     } else {
       this.qrcodes = [''];
@@ -105,7 +104,7 @@ export class GroupFormComponent implements OnInit, OnChanges {
     if (group.pictures && group.pictures.length > 0) {
       const logo = group.pictures[0];
       this.logos = [
-        this.getContainerUrl() + logo.url,
+        this.sharedSvc.getContainerUrl() + logo.url,
       ];
     } else {
       this.logos = [''];
@@ -301,7 +300,7 @@ export class GroupFormComponent implements OnInit, OnChanges {
   onAfterLogoUpload(e) {
     const self = this;
     this.logos = [
-      this.getContainerUrl() + 'logos/download/' + e.name,
+      this.sharedSvc.getContainerUrl() + 'logos/download/' + e.name,
     ];
 
     this.group.pictures = [
@@ -310,7 +309,7 @@ export class GroupFormComponent implements OnInit, OnChanges {
         type: 'logo',
         index: 1,
         url: 'logos/download/' + e.name,
-        groupId: self.group.id,
+        entityId: self.group.id,
         // width: 100,
         // height: 100,
         // created: null,
@@ -322,7 +321,7 @@ export class GroupFormComponent implements OnInit, OnChanges {
   onAfterQRCodeUpload(e) {
     const self = this;
     this.qrcodes = [
-      this.getContainerUrl() + 'qrcodes/download/' + e.name,
+      this.sharedSvc.getContainerUrl() + 'qrcodes/download/' + e.name,
     ];
 
     this.group.qrcodes = [

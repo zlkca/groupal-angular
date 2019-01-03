@@ -1,14 +1,11 @@
 /* tslint:disable */
 
 declare var Object: any;
-export interface PictureInterface {
+export interface PortraitInterface {
   "name"?: string;
   "url"?: string;
-  "type"?: string;
   "index"?: number;
-  "entityId"?: number;
-  "width"?: number;
-  "height"?: number;
+  "accountId"?: number;
   "created"?: Date;
   "modified"?: Date;
   "id"?: number;
@@ -17,38 +14,35 @@ export interface PictureInterface {
   imageable?: any;
 }
 
-export class Picture implements PictureInterface {
+export class Portrait implements PortraitInterface {
   "name": string;
   "url": string;
-  "type": string;
   "index": number;
-  "entityId": number;
-  "width": number;
-  "height": number;
+  "accountId": number;
   "created": Date;
   "modified": Date;
   "id": number;
   "imageableId": number;
   "imageableType": string;
   imageable: any;
-  constructor(data?: PictureInterface) {
+  constructor(data?: PortraitInterface) {
     Object.assign(this, data);
   }
   /**
    * The name of the model represented by this $resource,
-   * i.e. `Picture`.
+   * i.e. `Portrait`.
    */
   public static getModelName() {
-    return "Picture";
+    return "Portrait";
   }
   /**
   * @method factory
   * @author Jonathan Casarrubias
   * @license MIT
-  * This method creates an instance of Picture for dynamic purposes.
+  * This method creates an instance of Portrait for dynamic purposes.
   **/
-  public static factory(data: PictureInterface): Picture{
-    return new Picture(data);
+  public static factory(data: PortraitInterface): Portrait{
+    return new Portrait(data);
   }
   /**
   * @method getModelDefinition
@@ -59,9 +53,9 @@ export class Picture implements PictureInterface {
   **/
   public static getModelDefinition() {
     return {
-      name: 'Picture',
-      plural: 'pictures',
-      path: 'pictures',
+      name: 'Portrait',
+      plural: 'portraits',
+      path: 'portraits',
       idName: 'id',
       properties: {
         "name": {
@@ -72,24 +66,12 @@ export class Picture implements PictureInterface {
           name: 'url',
           type: 'string'
         },
-        "type": {
-          name: 'type',
-          type: 'string'
-        },
         "index": {
           name: 'index',
           type: 'number'
         },
-        "entityId": {
-          name: 'entityId',
-          type: 'number'
-        },
-        "width": {
-          name: 'width',
-          type: 'number'
-        },
-        "height": {
-          name: 'height',
+        "accountId": {
+          name: 'accountId',
           type: 'number'
         },
         "created": {

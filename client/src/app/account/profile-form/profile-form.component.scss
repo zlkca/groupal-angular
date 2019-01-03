@@ -1,0 +1,21 @@
+.image-uploader{
+  margin-top:10px;
+}
+
+$mobile: "(max-width: 767px)";
+$tablet: "(min-width: 768px) and (max-width: 1199px)";
+$desktop: "(min-width: 1200px)";
+
+app-image-uploader{
+  width:580px;
+}
+
+@media #{$mobile}{
+  app-image-uploader{
+    width:100%;
+  }
+
+  form{
+    padding: 0px;
+  }
+}

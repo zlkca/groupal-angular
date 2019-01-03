@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -69,30 +70,34 @@ export class SharedService {
     return { day: d.date(), month: d.month() + 1, year: d.year() };
   }
 
-    // scale image inside frame
-    resizeImage(frame_w: number, frame_h: number, w: number, h: number) {
-      let rw = 0;
-      let rh = 0;
+  // scale image inside frame
+  resizeImage(frame_w: number, frame_h: number, w: number, h: number) {
+    let rw = 0;
+    let rh = 0;
 
-      if (h * frame_w / w > frame_h) {
-        rh = frame_h;
-        rw = w * frame_h / h;
-      } else {
-        rw = frame_w;
-        rh = h * frame_w / w;
-      }
-      return { 'w': Math.round(rw), 'h': Math.round(rh), 'padding_top': Math.round((frame_h - rh) / 2) };
+    if (h * frame_w / w > frame_h) {
+      rh = frame_h;
+      rw = w * frame_h / h;
+    } else {
+      rw = frame_w;
+      rh = h * frame_w / w;
     }
+    return { 'w': Math.round(rw), 'h': Math.round(rh), 'padding_top': Math.round((frame_h - rh) / 2) };
+  }
 
-    getAddrStringByLocation(location: any) {
-      const city = location.sub_locality ? location.sub_locality : location.city;
-      return location.street_number + ' ' + location.street_name + ', ' + city + ', ' + location.province;
-      // + ', ' + location.postal_code;
-    }
+  getAddrStringByLocation(location: any) {
+    const city = location.sub_locality ? location.sub_locality : location.city;
+    return location.street_number + ' ' + location.street_name + ', ' + city + ', ' + location.province;
+    // + ', ' + location.postal_code;
+  }
 
-    getAddrString(addr: any) {
-      const city = addr.sublocality ? addr.sublocality : addr.city;
-      return addr.streetNumber + ' ' + addr.streetName + ', ' + city + ', ' + addr.province;
-      // + ', ' + location.postal_code;
-    }
+  getAddrString(addr: any) {
+    const city = addr.sublocality ? addr.sublocality : addr.city;
+    return addr.streetNumber + ' ' + addr.streetName + ', ' + city + ', ' + addr.province;
+    // + ', ' + location.postal_code;
+  }
+
+  getContainerUrl() {
+    return environment.API_BASE + '/' + environment.API_VERSION + '/Containers/';
+  }
 }

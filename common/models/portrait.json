@@ -1,6 +1,6 @@
 {
-  "name": "Picture",
-  "plural": "pictures",
+  "name": "Portrait",
+  "plural": "portraits",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -13,28 +13,17 @@
     "url": {
       "type": "string"
     },
-    "type": {
-      "type": "string"
-    },
     "index": {
       "type": "number"
     },
-    "entityId": {
-      "type": "number"
-    },
-    "width": {
-      "type": "number"
-    },
-    "height": {
+    "accountId": {
       "type": "number"
     },
     "created": {
-      "type": "date",
-      "defaultFn": "now"
+      "type": "date"
     },
     "modified": {
-      "type": "date",
-      "defaultFn": "now"
+      "type": "date"
     }
   },
   "validations": [],

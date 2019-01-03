@@ -10,15 +10,17 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { ProfileFormComponent } from './profile-form/profile-form.component';
+import { ImageUploaderModule } from '../image-uploader/image-uploader.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgReduxModule
+    NgReduxModule,
+    ImageUploaderModule,
   ],
-  declarations: [UserFormComponent, UserListComponent, LoginFormComponent, 
+  declarations: [UserFormComponent, UserListComponent, LoginFormComponent,
     SignupFormComponent,
     ChangePasswordComponent,
     ForgetPasswordComponent,

@@ -186,6 +186,14 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Protrait" datatype="html">
+        <source>Portrait</source>
+        <target>头像</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/account/profile-form/profile-form.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Name" datatype="html">
         <source>Name</source>
         <target>名称</target>

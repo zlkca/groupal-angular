@@ -107,7 +107,7 @@ export class Group implements GroupInterface {
           model: 'Picture',
           relationType: 'hasMany',
                   keyFrom: 'id',
-          keyTo: 'groupId'
+          keyTo: 'entityId'
         },
         categories: {
           name: 'categories',

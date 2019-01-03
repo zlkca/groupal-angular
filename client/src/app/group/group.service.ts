@@ -101,14 +101,14 @@ export class GroupService {
 
       if (picturesToAdd.length > 0) {
         picturesToAdd.map(pic => {
-          pic.groupId = id;
+          pic.entityId = id;
           this.pictureApi.patchOrCreate(pic).subscribe(x => { });
         });
       }
 
       if (picturesToUpdate.length > 0) {
         picturesToUpdate.map(pic => {
-          pic.groupId = id;
+          pic.entityId = id;
           return self.pictureApi.patchOrCreate(pic);
         });
       }
