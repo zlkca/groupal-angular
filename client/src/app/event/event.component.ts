@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment.prod';
 import { NgRedux } from '@angular-redux/store';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { AccountService } from '../account/account.service';
 
 @Component({
   selector: 'app-event',
@@ -25,13 +26,17 @@ export class EventComponent implements OnInit {
     private eventSvc: EventService,
     private sharedSvc: SharedService,
     private ngRedux: NgRedux<Account>,
-    private toastSvc: ToastrService
+    private toastSvc: ToastrService,
+    private accountSvc: AccountService
   ) { }
 
   ngOnInit() {
     const self = this;
-    this.ngRedux.select('account').subscribe(account => {
-      self.account = account;
+    // this.ngRedux.select('account').subscribe(account => {
+    //   self.account = account;
+    // });
+    this.accountSvc.getCurrent({ include: ['portraits'] }).subscribe(account => {
+      this.account = account;
     });
   }
 
@@ -82,7 +87,7 @@ export class EventComponent implements OnInit {
   }
 
   joined(event) {
-    if (this.account.id && event && event.participants && event.participants.length > 0) {
+    if (this.account && event && event.participants && event.participants.length > 0) {
       const accountId = this.account.id;
       const participants = event.participants.filter((p: any) => p.accountId === accountId);
       if (participants && participants.length > 0) {
@@ -101,6 +106,14 @@ export class EventComponent implements OnInit {
       return participants.length;
     } else {
       return 0;
+    }
+  }
+
+  getOwnerPortrait(event) {
+    if (event.owner && event.owner.portraits.length > 0) {
+      return this.sharedSvc.getContainerUrl() + event.owner.portraits[0].url;
+    } else {
+      return this.APP_URL + '/assets/images/portrait.png';
     }
   }
 }

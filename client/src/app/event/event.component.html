@@ -2,7 +2,7 @@
 <div class="event-item" *ngFor="let event of events; let i = index;" >
 	<div class="head">
 		<p>
-      <img src="{{APP_URL}}/assets/images/portrait.png" alt="{{event.name}}">
+      <img [src]="getOwnerPortrait(event)" alt="{{event.name}}">
     </p>
     <h4>
       <div class="title-xs">{{event.name}}</div>
