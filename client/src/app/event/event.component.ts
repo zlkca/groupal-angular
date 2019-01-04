@@ -60,7 +60,9 @@ export class EventComponent implements OnInit {
       if (event && event.participants && event.participants.length > 0) {
         this.eventSvc.join(this.account.id, event.id).subscribe(x => {
           const ps = event.participants.filter(p => p.accountId === self.account.id);
-          if (ps && ps.length > 0) {
+          if (!ps || ps.length === 0) {
+            self.event.participants.push(x);
+          } else {
             ps[0].status = 'joined';
           }
           this.toastSvc.success('Join Event Successfully!', '',
