@@ -23,6 +23,11 @@ export class SharedService {
     return total.toFixed(2);
   }
 
+  isPastDate(s) { // s - '2018-12-23T17:30:00.000Z'
+    const m = moment(s);
+    return m < moment();
+  }
+
   getDate(s) { // s - '2018-12-23T17:30:00.000Z'
     const m = moment(s); // .utcOffset(0);
     return { day: m.date(), month: m.month() + 1, year: m.year() };

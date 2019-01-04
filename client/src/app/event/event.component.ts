@@ -54,7 +54,8 @@ export class EventComponent implements OnInit {
   }
 
   join(event) {
-    this.event = event;
+    const self = this;
+    self.event = event;
     if (this.account && this.account.id) {
       if (event && event.participants && event.participants.length > 0) {
         const ps = event.participants.filter(x => x.accountId === this.account.id);
@@ -115,5 +116,17 @@ export class EventComponent implements OnInit {
     } else {
       return this.APP_URL + '/assets/images/portrait.png';
     }
+  }
+
+  getPaticipantPortrait(p) {
+    if (p && p.account && p.account.portraits.length > 0) {
+      return this.sharedSvc.getContainerUrl() + p.account.portraits[0].url;
+    } else {
+      return this.APP_URL + '/assets/images/portrait.png';
+    }
+  }
+
+  isPast(event) {
+    return this.sharedSvc.isPastDate(event.toDateTime);
   }
 }
