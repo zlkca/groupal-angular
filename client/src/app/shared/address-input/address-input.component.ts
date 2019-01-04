@@ -46,8 +46,12 @@ export class AddressInputComponent implements OnInit, OnChanges {
       const options = {
         // strictBounds to GTA area
         bounds: new google.maps.LatLngBounds(
-          new google.maps.LatLng(43.468068, -79.963410),
-          new google.maps.LatLng(44.301441, -78.730195)
+          // GTA
+          // new google.maps.LatLng(43.468068, -79.963410),
+          // new google.maps.LatLng(44.301441, -78.730195)
+          // Ontario -95.16 | 41.66 |  -74.34 | 56.86
+          new google.maps.LatLng(41.668068, -95.163410),
+          new google.maps.LatLng(56.861441, -74.340195)
         ),
         componentRestrictions: { country: 'ca' },
         strictBounds: true

@@ -57,14 +57,14 @@ export class SignupFormComponent implements OnInit {
     this.accountSvc.signup(account).subscribe(
       (acc: Account) => {
         self.accountSvc.login(account.username, account.password).subscribe(x => {
-          if (acc.id) {
+          // if (acc.id) {
             self.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: acc });
             if (acc.type === 'super' || acc.type === 'organizer') {
               self.router.navigate(['admin']);
             } else {
               self.router.navigate(['home']);
             }
-          }
+          // }
         });
       },
       err => {
