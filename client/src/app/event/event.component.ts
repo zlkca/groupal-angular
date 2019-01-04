@@ -58,9 +58,11 @@ export class EventComponent implements OnInit {
     self.event = event;
     if (this.account && this.account.id) {
       if (event && event.participants && event.participants.length > 0) {
-        const ps = event.participants.filter(x => x.accountId === this.account.id);
         this.eventSvc.join(this.account.id, event.id).subscribe(x => {
-          ps[0].status = 'joined';
+          const ps = event.participants.filter(p => p.accountId === self.account.id);
+          if (ps && ps.length > 0) {
+            ps[0].status = 'joined';
+          }
           this.toastSvc.success('Join Event Successfully!', '',
             { timeOut: 2000, positionClass: 'toast-bottom-right' });
         });
@@ -78,9 +80,11 @@ export class EventComponent implements OnInit {
 
   quit(event) {
     if (event && this.account && this.account.id) {
-      const ps = event.participants.filter(x => x.accountId === this.account.id);
       this.eventSvc.quit(this.account.id, event.id).subscribe(() => {
-        ps[0].status = 'cancelled';
+        const ps = event.participants.filter(x => x.accountId === this.account.id);
+        if (ps && ps.length > 0) {
+          ps[0].status = 'cancelled';
+        }
         this.toastSvc.success('Quit Event Successfully!', '',
           { timeOut: 2000, positionClass: 'toast-bottom-right' });
       });

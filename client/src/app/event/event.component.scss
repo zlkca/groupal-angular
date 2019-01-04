@@ -124,7 +124,20 @@ $primary-color:#003e7e;
 
   .participants{
     float:left;
-    margin-right: 12px;
+    padding-right: 12px;
+
+    .participant{
+      display: inline-block;
+      position: relative;
+      outline: 0px;
+      // width: 30px;
+      // height: 30px;
+    }
+  }
+
+  .participants-row{
+    margin-left: 0px;
+    margin-right: 0px;
   }
 }
 
