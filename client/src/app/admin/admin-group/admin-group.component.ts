@@ -121,7 +121,7 @@ export class AdminGroupComponent implements OnInit {
       this.groupSvc.find(query).subscribe(r => {
         self.groups = r;
       });
-    } else if (self.account.type === 'organizer') {
+    } else if (self.account.type === 'user') {
       const query = { where: { ownerId: self.account.id }, include: ['pictures', 'qrcodes', 'categories'] };
       this.groupSvc.find(query).subscribe(r => {
         self.groups = r;

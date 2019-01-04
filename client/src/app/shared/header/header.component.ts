@@ -146,10 +146,10 @@ export class HeaderComponent implements OnInit {
       if (self.account.type === 'organizer' || self.account.type === 'super') {
         self.router.navigate(['admin']);
       } else {
-        self.router.navigate(['signup'], { queryParams: { mode: 'organizer' } });
+        self.router.navigate(['signup'], { queryParams: { mode: 'user' } });
       }
     } else {
-      self.router.navigate(['signup'], { queryParams: { mode: 'organizer' } });
+      self.router.navigate(['signup'], { queryParams: { mode: 'user' } });
     }
   }
 }

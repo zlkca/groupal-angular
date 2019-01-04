@@ -107,7 +107,7 @@ var createData = function(ds) {
     })
     .then(function() {
       return ds.models.Account.create([
-        { username: 'organizer', email: 'organizer@example.com', password: 'organizer', type: 'organizer' },
+        { username: 'admin', email: 'admin@example.com', password: 'admin', type: 'super' },
         { username: 'user', email: 'user@example.com', password: 'user', type: 'user' },
       ]);
     })
