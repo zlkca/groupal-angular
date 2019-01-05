@@ -1,0 +1,41 @@
+<div class="event-item" *ngIf="event">
+    <div class="head owner">
+      <p>
+        <img [src]="getOwnerPortrait(event)" alt="{{event.name}}">
+      </p>
+      <h4>
+        <div class="title-xs">{{event.name}}</div>
+      </h4>
+    </div>
+
+    <div class="body">
+      <div *ngIf="event.fromDateTime" class="text-xs">
+          <img src="/assets/svg/clock.svg">
+          {{getDisplayDateTimeRange(event)}}
+      </div>
+      <div *ngIf="event.addressId" class="text-xs">
+          <img src="/assets/svg/map-marker.svg">
+          {{event.address?.formattedAddress}}
+      </div>
+      <div class="text-sm">{{event.description}}</div>
+  
+      <div class="row participants-row">
+        <div class="participants">
+          <div *ngFor="let p of event.participants" class="participant">
+            <span class="portrait-frame" *ngIf="p.status === 'joined'">
+              <img class="portrait" [src]="getPaticipantPortrait(p)">
+            </span>
+          </div>
+        </div>
+        <div class="text-sm num-going">
+          {{getNumOfGoing(event)}}&nbsp;<span i18n="@@PeopleAreGoing">people are going</span>
+        </div>
+      </div>
+      
+    </div>
+    <div class="btn-holder">
+      <!-- <div class="btn btn-primary btn-xs pull-right" *ngIf="!isPast(event) && !joined(event)" (click)="join(event)" i18n="@@Join">Join</div>
+      <div class="btn btn-primary btn-xs pull-right" *ngIf="!isPast(event) && joined(event)" (click)="quit(event)" i18n="@@Cancel">Cancel</div>
+   -->
+    </div>
+  </div>

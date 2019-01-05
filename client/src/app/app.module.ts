@@ -25,6 +25,7 @@ import { LoginFormComponent } from './account/login-form/login-form.component';
 import { SignupFormComponent } from './account/signup-form/signup-form.component';
 import { GroupDetailComponent } from './group/group-detail/group-detail.component';
 import { FeedbackFormComponent } from './feedback-form/feedback-form.component';
+import { EventDetailComponent } from './event/event-detail/event-detail.component';
 
 const appRoutes: Routes = [
   { path: 'admin', component: AdminComponent },
@@ -41,7 +42,7 @@ const appRoutes: Routes = [
   // { path: 'restaurants/:id', component: RestaurantComponent },
   { path: 'groups/:id', component: GroupDetailComponent },
   // { path: 'products', component: ProductListComponent },
-  // { path: 'product/:id', component: ProductComponent },
+  { path: 'events/:id', component: EventDetailComponent },
   // { path: 'orders', component: MyOrderComponent },
   // { path: 'forget-password', component: ForgetPasswordComponent },
   { path: 'login', component: LoginFormComponent },

@@ -1,5 +1,5 @@
 <!-- [ngStyle]="{'height.px':c.h}"-->
-<div class="event-item" *ngFor="let event of events; let i = index;" >
+<div class="event-item" *ngFor="let event of events; let i = index;" (click)="toDetail(event)">
 	<div class="head">
 		<p>
       <img [src]="getOwnerPortrait(event)" alt="{{event.name}}">

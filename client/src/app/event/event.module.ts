@@ -7,6 +7,7 @@ import { EventComponent } from './event.component';
 import { EventFormComponent } from './event-form/event-form.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { SharedModule } from '../shared/shared.module';
+import { EventDetailComponent } from './event-detail/event-detail.component';
 
 @NgModule({
   imports: [
@@ -22,6 +23,6 @@ import { SharedModule } from '../shared/shared.module';
     EventComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  declarations: [EventComponent, EventFormComponent, EventListComponent]
+  declarations: [EventComponent, EventFormComponent, EventListComponent, EventDetailComponent]
 })
 export class EventModule { }

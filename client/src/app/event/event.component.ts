@@ -135,4 +135,8 @@ export class EventComponent implements OnInit {
   isPast(event) {
     return this.sharedSvc.isPastDate(event.toDateTime);
   }
+
+  toDetail(event) {
+    this.router.navigate(['events', event.id]);
+  }
 }
