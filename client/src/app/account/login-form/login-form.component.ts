@@ -89,12 +89,12 @@ export class LoginFormComponent implements OnInit {
   }
 
   onGoogleLogin() {
-    const url = environment.API_BASE + '/auth/google';
+    const url = environment.API_URL + '/auth/google';
     window.location.href = url;
   }
 
   onFacebookLogin() {
-    const url = environment.API_BASE + '/auth/facebook';
+    const url = environment.API_URL + '/auth/facebook';
     window.location.href = url;
   }
 }

@@ -3,7 +3,7 @@ export const environment = {
   production: true,
   API_VERSION: 'api',
   API_BASE: window.location.protocol + '//' + window.location.hostname,
-  API_URL: window.location.origin + '/api/',
+  API_URL: window.location.protocol + '//' + window.location.hostname + '/api',
   APP_URL: window.location.origin,
   MEDIA_URL: window.location.origin + '/media/',
   GOOGLE_ANALYTICS: {
