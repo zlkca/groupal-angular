@@ -40,6 +40,16 @@
       "options": {
         "nestRemoting": true
       }
+    },
+    "identities": {
+      "type": "hasMany",
+      "model": "AccountIdentity",
+      "foreignKey": "userId"
+    },
+    "credentials": {
+      "type": "hasMany",
+      "model": "AccountCredential",
+      "foreignKey": "userId"
     }
   },
   "acls": [

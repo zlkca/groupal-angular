@@ -34,20 +34,21 @@
     }
   },
   "acls": [
-  {
-    "principalType": "ROLE",
-    "principalId": "user",
-    "permission": "ALLOW"
-  },
-  {
-    "principalType": "ROLE",
-    "principalId": "$authenticated",
-    "permission": "ALLOW"
-  },
-  {
-    "principalType": "ROLE",
-    "principalId": "super",
-    "permission": "ALLOW"
-  }],
+    {
+      "principalType": "ROLE",
+      "principalId": "user",
+      "permission": "ALLOW"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "super",
+      "permission": "ALLOW"
+    }
+  ],
   "methods": {}
 }

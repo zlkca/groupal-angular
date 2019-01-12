@@ -45,10 +45,10 @@ export class HeaderComponent implements OnInit {
     //     this.locality = addr && (addr.sub_locality || addr.city);
     // });
     const self = this;
-    this.accountSvc.getCurrent().subscribe(account => {
-      self.account = account;
-      self.isLogin = (this.account && this.account.id > 0);
-    });
+    // this.accountSvc.getCurrent().subscribe(account => {
+    //   self.account = account;
+    //   self.isLogin = (this.account && this.account.id > 0);
+    // });
 
     // Header event handler, when refresh redux data gone
     this.ngRedux.select('account').subscribe(account => {

@@ -6,6 +6,37 @@ var prompt = require('prompt');
 
 var app = module.exports = loopback();
 
+var PassportCfg = require('loopback-component-passport').PassportConfigurator;
+var passportCfg= new PassportCfg(app);
+
+// app.use(loopback.session({ secret: 'keyboard cat' }));
+
+var config = {};
+
+try{
+  config = require('./providers.json');
+} catch(err){
+  console.error('Please configure passort in providers.json');
+  process.exit(1);
+}
+
+function setupPassport(models){
+  passportCfg.init();
+  passportCfg.setupModels({
+    userModel: models.Account,
+    userIdentityModel: models.AccountIdentity,
+    userCredentialModel: models.AccountCredential
+  });
+  
+  for(var s in config) {
+    var c = config[s];
+    // c.session = c.session !== false;
+    passportCfg.configureProvider(s, c);
+   }
+}
+
+
+
 app.start = function() {
   // start the web server
   return app.listen(function() {
@@ -33,7 +64,7 @@ boot(app, __dirname, function(err) {
     app.start();
 });
 
-
+setupPassport(app.models);
 
 var autoUpdate = function(dataSource, tables) {
   // if tables list is not supplied - try and extract them from datasource

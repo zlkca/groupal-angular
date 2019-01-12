@@ -12,5 +12,7 @@ export * from './EventCategory';
 export * from './Feedback';
 export * from './Participant';
 export * from './Portrait';
+export * from './AccountIdentity';
+export * from './AccountCredential';
 export * from './SDKModels';
 export * from './logger.service';

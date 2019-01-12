@@ -13,6 +13,8 @@ import { EventCategory } from '../../models/EventCategory';
 import { Feedback } from '../../models/Feedback';
 import { Participant } from '../../models/Participant';
 import { Portrait } from '../../models/Portrait';
+import { AccountIdentity } from '../../models/AccountIdentity';
+import { AccountCredential } from '../../models/AccountCredential';
 
 export interface Models { [name: string]: any }
 
@@ -33,6 +35,8 @@ export class SDKModels {
     Feedback: Feedback,
     Participant: Participant,
     Portrait: Portrait,
+    AccountIdentity: AccountIdentity,
+    AccountCredential: AccountCredential,
     
   };
 

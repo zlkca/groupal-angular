@@ -1,7 +1,9 @@
 /* tslint:disable */
 import {
   Event,
-  Portrait
+  Portrait,
+  AccountIdentity,
+  AccountCredential
 } from '../index';
 
 declare var Object: any;
@@ -19,6 +21,8 @@ export interface AccountInterface {
   accessTokens?: any[];
   events?: Event[];
   portraits?: Portrait[];
+  identities?: AccountIdentity[];
+  credentials?: AccountCredential[];
 }
 
 export class Account implements AccountInterface {
@@ -35,6 +39,8 @@ export class Account implements AccountInterface {
   accessTokens: any[];
   events: Event[];
   portraits: Portrait[];
+  identities: AccountIdentity[];
+  credentials: AccountCredential[];
   constructor(data?: AccountInterface) {
     Object.assign(this, data);
   }
@@ -136,6 +142,22 @@ export class Account implements AccountInterface {
           relationType: 'hasMany',
                   keyFrom: 'id',
           keyTo: 'accountId'
+        },
+        identities: {
+          name: 'identities',
+          type: 'AccountIdentity[]',
+          model: 'AccountIdentity',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'userId'
+        },
+        credentials: {
+          name: 'credentials',
+          type: 'AccountCredential[]',
+          model: 'AccountCredential',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'userId'
         },
       }
     }

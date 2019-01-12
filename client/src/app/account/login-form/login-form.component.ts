@@ -8,6 +8,9 @@ import { AuthService } from '../auth.service';
 import { AccountActions } from '../account.actions';
 import { AccountService } from '../../account/account.service';
 import { Account } from '../../lb-sdk';
+import { environment } from '../../../environments/environment';
+
+declare var gapi;
 
 @Component({
   providers: [AuthService],
@@ -28,6 +31,7 @@ export class LoginFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authServ: AuthService,
+    private accountSvc: AccountService,
     private router: Router,
     private ngRedux: NgRedux<Account>,
     private accountServ: AccountService,
@@ -40,8 +44,10 @@ export class LoginFormComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    const self = this;
   }
+
+
   onLogin() {
     const self = this;
     const v = this.form.value;
@@ -81,6 +87,12 @@ export class LoginFormComponent implements OnInit {
   toSignup() {
     this.router.navigate(['signup'], { queryParams: { mode: 'user' } });
   }
+
+  onGoogleLogin() {
+    const url = environment.API_BASE + '/auth/google';
+    window.location.href = url;
+  }
+
 }
 
 

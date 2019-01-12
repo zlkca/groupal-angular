@@ -61,6 +61,8 @@ import { EventCategoryApi } from './services/custom/EventCategory';
 import { FeedbackApi } from './services/custom/Feedback';
 import { ParticipantApi } from './services/custom/Participant';
 import { PortraitApi } from './services/custom/Portrait';
+import { AccountIdentityApi } from './services/custom/AccountIdentity';
+import { AccountCredentialApi } from './services/custom/AccountCredential';
 /**
 * @module SDKBrowserModule
 * @description
@@ -104,6 +106,8 @@ export class SDKBrowserModule {
         FeedbackApi,
         ParticipantApi,
         PortraitApi,
+        AccountIdentityApi,
+        AccountCredentialApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

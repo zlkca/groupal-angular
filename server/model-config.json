@@ -4,7 +4,8 @@
       "loopback/common/models",
       "loopback/server/models",
       "../common/models",
-      "./models"
+      "./models",
+      "../node_modules/loopback-component-passport/lib/models"
     ],
     "mixins": [
       "loopback/common/mixins",
@@ -84,6 +85,14 @@
     "public": true
   },
   "Portrait": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "AccountIdentity": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "AccountCredential": {
     "dataSource": "mysqlDs",
     "public": true
   }

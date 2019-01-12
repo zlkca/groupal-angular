@@ -7,6 +7,8 @@ import { AccountApi, Account, LoopBackFilter, Portrait, PortraitApi } from '../l
 import { NgRedux } from '@angular-redux/store';
 import { AccountActions } from './account.actions';
 
+declare var gapi;
+
 const API_URL = environment.API_URL;
 const TWO_WEEKS = 60 * 60 * 24 * 7 * 2;
 
@@ -20,7 +22,7 @@ export class AccountService {
   constructor(
     private ngRedux: NgRedux<Account>,
     private accountApi: AccountApi,
-    private portraitApi: PortraitApi
+    private portraitApi: PortraitApi,
   ) { }
 
   signup(account: Account): Observable<Account> {
@@ -31,6 +33,18 @@ export class AccountService {
     //     x => {return self.accountApi.login(account.username, account.password);
     //   })
     // );
+  }
+
+
+  getGoogleIdentities(userId) {
+    return this.accountApi.getIdentities(userId);
+    // .subscribe((x: UserIdentity) => {
+    //   if (x) {
+    //     return JSON.parse(x.profile);
+    //   } else {
+    //     return null;
+    //   }
+    // });
   }
 
   login(username: string, password: string, rememberMe: boolean = true): Observable<Account> {
@@ -53,6 +67,10 @@ export class AccountService {
   }
 
   logout(): Observable<any> {
+    // const auth2 = gapi.auth2.getAuthInstance();
+    // auth2.signOut().then(function () {
+    //   console.log('User signed out.');
+    // });
       return this.accountApi.logout();
   }
 
