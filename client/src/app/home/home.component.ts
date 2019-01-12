@@ -42,12 +42,20 @@ export class HomeComponent implements OnInit {
           self.authApi.setToken(new SDKToken({'id': params['access-token'], 'userId': userId, 'ttl': 6000}));
             self.accountSvc.getGoogleIdentities(userId).subscribe((x: any) => {
               if (x) {
+                const provider = x[0].provider;
                 const profile = x[0].profile;
                 const account = new Account();
-                account.id = userId;
-                account.username = profile.displayName;
-                account.email = profile.emails[0].value;
-                account.portraits = [new Portrait({ url: profile.photos[0].value, index: 0, accountId: userId })];
+                if (provider === 'google') {
+                  account.id = userId;
+                  account.username = profile.displayName;
+                  account.email = profile.emails[0].value;
+                  account.portraits = [new Portrait({ url: profile.photos[0].value, index: 0, accountId: userId })];
+                } else if ( provider === 'facebook') {
+                  account.id = userId;
+                  account.username = profile.name.givenName;
+                  account.email = profile.emails[0].value;
+                  account.portraits = [new Portrait({ url: profile.photos[0].value, index: 0, accountId: userId })];
+                }
                 self.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: account });
               }
             });
