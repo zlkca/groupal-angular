@@ -3,7 +3,8 @@ import {
   Event,
   Portrait,
   AccountIdentity,
-  AccountCredential
+  AccountCredential,
+  AccountToken
 } from '../index';
 
 declare var Object: any;
@@ -18,11 +19,11 @@ export interface AccountInterface {
   "emailVerified"?: boolean;
   "id"?: number;
   "password"?: string;
-  accessTokens?: any[];
   events?: Event[];
   portraits?: Portrait[];
   identities?: AccountIdentity[];
   credentials?: AccountCredential[];
+  accessTokens?: AccountToken[];
 }
 
 export class Account implements AccountInterface {
@@ -36,11 +37,11 @@ export class Account implements AccountInterface {
   "emailVerified": boolean;
   "id": number;
   "password": string;
-  accessTokens: any[];
   events: Event[];
   portraits: Portrait[];
   identities: AccountIdentity[];
   credentials: AccountCredential[];
+  accessTokens: AccountToken[];
   constructor(data?: AccountInterface) {
     Object.assign(this, data);
   }
@@ -117,14 +118,6 @@ export class Account implements AccountInterface {
         },
       },
       relations: {
-        accessTokens: {
-          name: 'accessTokens',
-          type: 'any[]',
-          model: '',
-          relationType: 'hasMany',
-                  keyFrom: 'id',
-          keyTo: 'userId'
-        },
         events: {
           name: 'events',
           type: 'Event[]',
@@ -155,6 +148,14 @@ export class Account implements AccountInterface {
           name: 'credentials',
           type: 'AccountCredential[]',
           model: 'AccountCredential',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'userId'
+        },
+        accessTokens: {
+          name: 'accessTokens',
+          type: 'AccountToken[]',
+          model: 'AccountToken',
           relationType: 'hasMany',
                   keyFrom: 'id',
           keyTo: 'userId'

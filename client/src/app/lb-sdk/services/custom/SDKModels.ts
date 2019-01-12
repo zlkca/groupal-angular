@@ -15,6 +15,7 @@ import { Participant } from '../../models/Participant';
 import { Portrait } from '../../models/Portrait';
 import { AccountIdentity } from '../../models/AccountIdentity';
 import { AccountCredential } from '../../models/AccountCredential';
+import { AccountToken } from '../../models/AccountToken';
 
 export interface Models { [name: string]: any }
 
@@ -37,6 +38,7 @@ export class SDKModels {
     Portrait: Portrait,
     AccountIdentity: AccountIdentity,
     AccountCredential: AccountCredential,
+    AccountToken: AccountToken,
     
   };
 

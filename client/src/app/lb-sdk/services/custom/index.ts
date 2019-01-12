@@ -14,5 +14,6 @@ export * from './Participant';
 export * from './Portrait';
 export * from './AccountIdentity';
 export * from './AccountCredential';
+export * from './AccountToken';
 export * from './SDKModels';
 export * from './logger.service';

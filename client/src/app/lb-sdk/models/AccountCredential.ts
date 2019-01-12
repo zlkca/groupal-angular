@@ -13,7 +13,6 @@ export interface AccountCredentialInterface {
   "created"?: Date;
   "modified"?: Date;
   "id"?: number;
-  "accountId"?: number;
   "userId"?: number;
   account?: Account;
   user?: Account;
@@ -28,7 +27,6 @@ export class AccountCredential implements AccountCredentialInterface {
   "created": Date;
   "modified": Date;
   "id": number;
-  "accountId": number;
   "userId": number;
   account: Account;
   user: Account;
@@ -97,10 +95,6 @@ export class AccountCredential implements AccountCredentialInterface {
           name: 'id',
           type: 'number'
         },
-        "accountId": {
-          name: 'accountId',
-          type: 'number'
-        },
         "userId": {
           name: 'userId',
           type: 'number'
@@ -112,7 +106,7 @@ export class AccountCredential implements AccountCredentialInterface {
           type: 'Account',
           model: 'Account',
           relationType: 'belongsTo',
-                  keyFrom: 'accountId',
+                  keyFrom: 'userId',
           keyTo: 'id'
         },
         user: {
