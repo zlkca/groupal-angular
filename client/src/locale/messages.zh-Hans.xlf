@@ -418,6 +418,22 @@
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="SignInWithGoogle" datatype="html">
+        <source>Sign In with Google</source>
+        <target>谷歌登录</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/account/login-form/login-form.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="SignInWithFacebook" datatype="html">
+        <source>Sign In with Facebook</source>
+        <target>脸书登录</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/account/login-form/login-form.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="CreateNewAccount" datatype="html">
         <source>Create New Account</source>
         <target>创建新账号</target>

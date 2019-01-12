@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, merge } from 'rxjs';
+import { Observable, merge, EMPTY } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { AccountApi, Account, LoopBackFilter, Portrait, PortraitApi } from '../lb-sdk';
+import { AccountApi, Account, LoopBackFilter, Portrait, PortraitApi, LoopBackAuth } from '../lb-sdk';
 import { NgRedux } from '@angular-redux/store';
 import { AccountActions } from './account.actions';
 
@@ -23,6 +23,7 @@ export class AccountService {
     private ngRedux: NgRedux<Account>,
     private accountApi: AccountApi,
     private portraitApi: PortraitApi,
+    private authApi: LoopBackAuth
   ) { }
 
   signup(account: Account): Observable<Account> {
@@ -35,6 +36,9 @@ export class AccountService {
     // );
   }
 
+  getCurrentUserData() {
+    return this.authApi.getCurrentUserData();
+  }
 
   getGoogleIdentities(userId) {
     return this.accountApi.getIdentities(userId);
@@ -80,7 +84,12 @@ export class AccountService {
     //   this.updateCurrent();
     // }
     // return this.ngRedux.select<Account>('account');
-    return this.accountApi.getCurrent(filter);
+    const id: any = this.authApi.getCurrentUserId();
+    if (id && id !== 'NaN') {
+      return this.accountApi.getCurrent(filter);
+    } else {
+      return EMPTY;
+    }
   }
 
   updateCurrent() {

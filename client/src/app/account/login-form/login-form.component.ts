@@ -16,7 +16,7 @@ declare var gapi;
   providers: [AuthService],
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css']
+  styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
   public user;
@@ -93,6 +93,10 @@ export class LoginFormComponent implements OnInit {
     window.location.href = url;
   }
 
+  onFacebookLogin() {
+    const url = environment.API_BASE + '/auth/facebook';
+    window.location.href = url;
+  }
 }
 
 
