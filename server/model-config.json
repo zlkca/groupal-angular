@@ -17,10 +17,6 @@
   "Account": {
     "dataSource": "mysqlDs"
   },
-  "AccessToken": {
-    "dataSource": "mysqlDs",
-    "public": false
-  },
   "ACL": {
     "dataSource": "mysqlDs",
     "public": false
@@ -93,6 +89,10 @@
     "public": true
   },
   "AccountCredential": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "AccountToken": {
     "dataSource": "mysqlDs",
     "public": true
   }

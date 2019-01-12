@@ -80,6 +80,7 @@
       "principalType": "ROLE",
       "principalId": "super",
       "permission": "ALLOW"
-    }],
+    }
+  ],
   "methods": {}
 }

@@ -220,6 +220,10 @@ color:rgb(34, 34, 34);
 //   }
 // }
 
+.btn{
+  max-width: $control-short-width;
+}
+
 @media (max-width: 767px){
   form {
     padding:0px;
