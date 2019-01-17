@@ -55,29 +55,44 @@ export class EventComponent implements OnInit {
 
   join(event) {
     const self = this;
-    self.event = event;
-    if (this.account && this.account.id) {
-      if (event && event.participants && event.participants.length > 0) {
-        this.eventSvc.join(this.account.id, event.id).subscribe(x => {
-          const ps = event.participants.filter(p => p.accountId === self.account.id);
-          if (!ps || ps.length === 0) {
-            self.event.participants.push(x);
+
+    self.eventSvc.find({
+      where: {'id': event.id},
+      include: [{'owner': 'portraits'}, 'groups', 'categories', {'participants': [{'account': 'portraits'}]}, 'address'],
+      order: 'modified DESC' }).subscribe(
+      (events: any) => {
+        self.event = events[0];
+        if (self.account && self.account.id) {
+          if (event && event.participants && event.participants.length > 0) {
+            self.eventSvc.join(self.account.id, event.id).subscribe(x => {
+              const ps = event.participants.filter(p => p.accountId === self.account.id);
+              if (!ps || ps.length === 0) {
+                self.event.participants.push(x);
+              } else {
+                ps[0].status = 'joined';
+              }
+
+              const xs = self.events.filter(x => x.id === self.event.id);
+              xs[0] = self.event;
+
+              self.toastSvc.success('Join Event Successfully!', '',
+                { timeOut: 2000, positionClass: 'toast-bottom-right' });
+            });
           } else {
-            ps[0].status = 'joined';
+            self.eventSvc.join(self.account.id, event.id).subscribe(x => {
+              event.participants.push(x);
+
+              const xs = self.events.filter(x => x.id === self.event.id);
+              xs[0] = self.event;
+
+              self.toastSvc.success('Join Event Successfully!', '',
+                { timeOut: 2000, positionClass: 'toast-bottom-right' });
+            });
           }
-          this.toastSvc.success('Join Event Successfully!', '',
-            { timeOut: 2000, positionClass: 'toast-bottom-right' });
-        });
-      } else {
-        this.eventSvc.join(this.account.id, event.id).subscribe(x => {
-          event.participants.push(x);
-          this.toastSvc.success('Join Event Successfully!', '',
-            { timeOut: 2000, positionClass: 'toast-bottom-right' });
-        });
-      }
-    } else {
-      this.router.navigate(['login']);
-    }
+        } else {
+          self.router.navigate(['login']);
+        }
+      });
   }
 
   quit(event) {

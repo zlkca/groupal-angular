@@ -62,8 +62,6 @@ export class HomeComponent implements OnInit {
       }
     });
 
-    // self.cookie.remove('$LoopBackSDK$userId');
-    // self.cookie.remove('$LoopBackSDK$id');
     self.eventSvc.find({ include: [{'owner': 'portraits'}, 'groups', 'categories', {'participants': [{'account': 'portraits'}]},
      'address'], order: 'modified DESC' }).subscribe(
       (ps: Event[]) => {
