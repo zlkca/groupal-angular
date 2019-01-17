@@ -55,43 +55,41 @@ export class EventComponent implements OnInit {
 
   join(event) {
     const self = this;
+    if (self.account && self.account.id) {
+      if (event && event.participants && event.participants.length > 0) {
+        self.eventSvc.join(self.account.id, event.id).subscribe((x: any) => {
+          const ps = event.participants.filter(p => p.accountId === self.account.id);
+          self.accountSvc.findPortraitByAccountId(x.accountId).subscribe(rs => {
+            x.account = { portraits: rs };
+            if (!ps || ps.length === 0) {
+              event.participants.push(x);
+            } else {
+              ps[0].status = 'joined';
+            }
+            const xs = self.events.filter(x => x.id === event.id);
+            xs[0] = event;
 
-    self.eventSvc.find({
-      where: {'id': event.id},
-      include: [{'owner': 'portraits'}, 'groups', 'categories', {'participants': [{'account': 'portraits'}]}, 'address'],
-      order: 'modified DESC' }).subscribe(
-      (events: any) => {
-        self.event = events[0];
-        if (self.account && self.account.id) {
-          if (self.event && self.event.participants && self.event.participants.length > 0) {
-            self.eventSvc.join(self.account.id, event.id).subscribe(x => {
-              const ps = self.event.participants.filter(p => p.accountId === self.account.id);
-              if (!ps || ps.length === 0) {
-                self.event.participants.push(x);
-              } else {
-                ps[0].status = 'joined';
-              }
+            self.toastSvc.success('Join Event Successfully!', '',
+              { timeOut: 2000, positionClass: 'toast-bottom-right' });
+          });
+        });
+      } else { // if there is no paticipant;
+        self.eventSvc.join(self.account.id, event.id).subscribe((x: any) => {
+          self.accountSvc.findPortraitByAccountId(x.accountId).subscribe(rs => {
+            x.account = { portraits: rs };
+            event.participants.push(x);
+            const xs = self.events.filter(x => x.id === event.id);
+            xs[0] = event;
 
-              const xs = self.events.filter(x => x.id === self.event.id);
-              xs[0] = self.event;
+            self.toastSvc.success('Join Event Successfully!', '',
+              { timeOut: 2000, positionClass: 'toast-bottom-right' });
+          });
+        });
 
-              self.toastSvc.success('Join Event Successfully!', '',
-                { timeOut: 2000, positionClass: 'toast-bottom-right' });
-            });
-          } else { // if there is no paticipant;
-            self.eventSvc.join(self.account.id, self.event.id).subscribe(x => {
-              self.event.participants.push(x);
-              const xs = self.events.filter(x => x.id === self.event.id);
-              xs[0] = self.event;
-
-              self.toastSvc.success('Join Event Successfully!', '',
-                { timeOut: 2000, positionClass: 'toast-bottom-right' });
-            });
-          }
-        } else {
-          self.router.navigate(['login']);
-        }
-      });
+      }
+    } else {
+      self.router.navigate(['login']);
+    }
   }
 
   quit(event) {

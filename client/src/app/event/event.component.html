@@ -1,41 +1,41 @@
 <!-- [ngStyle]="{'height.px':c.h}" (click)="toDetail(event)"-->
-<div class="event-item" *ngFor="let event of events; let i = index;" >
+<div class="event-item" *ngFor="let ev of events; let i = index;" >
 	<div class="head">
 		<p>
-      <img [src]="getOwnerPortrait(event)" alt="{{event.name}}">
+      <img [src]="getOwnerPortrait(ev)" alt="{{ev.name}}">
     </p>
     <h4>
-      <div class="title-xs">{{event.name}}</div>
+      <div class="title-xs">{{ev.name}}</div>
     </h4>
 	</div>
 	<div class="body">
-    <div *ngIf="event.fromDateTime" class="text-xs">
+    <div *ngIf="ev.fromDateTime" class="text-xs">
         <img src="/assets/svg/clock.svg">
-        {{getDisplayDateTimeRange(event)}}
+        {{getDisplayDateTimeRange(ev)}}
     </div>
-    <div *ngIf="event.addressId" class="text-xs">
+    <div *ngIf="ev.addressId" class="text-xs">
         <img src="/assets/svg/map-marker.svg">
-        {{event.address?.formattedAddress}}
+        {{ev.address?.formattedAddress}}
     </div>
-    <div class="text-sm">{{event.description}}</div>
+    <div class="text-sm">{{ev.description}}</div>
 
     <div class="row participants-row">
       <div class="participants">
-        <div *ngFor="let p of event.participants" class="participant">
+        <div *ngFor="let p of ev.participants" class="participant">
           <span class="portrait-frame" *ngIf="p.status === 'joined'">
             <img class="portrait" [src]="getPaticipantPortrait(p)">
           </span>
         </div>
       </div>
       <div class="text-sm num-going">
-        {{getNumOfGoing(event)}}&nbsp;<span i18n="@@PeopleAreGoing">people are going</span>
+        {{getNumOfGoing(ev)}}&nbsp;<span i18n="@@PeopleAreGoing">people are going</span>
       </div>
     </div>
     
 	</div>
 	<div class="btn-holder">
-    <div class="btn btn-primary btn-xs pull-right" *ngIf="!isPast(event) && !joined(event)" (click)="join(event)" i18n="@@Join">Join</div>
-    <div class="btn btn-primary btn-xs pull-right" *ngIf="!isPast(event) && joined(event)" (click)="quit(event)" i18n="@@Cancel">Cancel</div>
+    <div class="btn btn-primary btn-xs pull-right" *ngIf="!isPast(ev) && !joined(ev)" (click)="join(ev)" i18n="@@Join">Join</div>
+    <div class="btn btn-primary btn-xs pull-right" *ngIf="!isPast(ev) && joined(ev)" (click)="quit(ev)" i18n="@@Cancel">Cancel</div>
 
 	</div>
 </div>
