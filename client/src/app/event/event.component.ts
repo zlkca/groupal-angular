@@ -63,9 +63,9 @@ export class EventComponent implements OnInit {
       (events: any) => {
         self.event = events[0];
         if (self.account && self.account.id) {
-          if (event && event.participants && event.participants.length > 0) {
+          if (self.event && self.event.participants && self.event.participants.length > 0) {
             self.eventSvc.join(self.account.id, event.id).subscribe(x => {
-              const ps = event.participants.filter(p => p.accountId === self.account.id);
+              const ps = self.event.participants.filter(p => p.accountId === self.account.id);
               if (!ps || ps.length === 0) {
                 self.event.participants.push(x);
               } else {
@@ -79,9 +79,8 @@ export class EventComponent implements OnInit {
                 { timeOut: 2000, positionClass: 'toast-bottom-right' });
             });
           } else { // if there is no paticipant;
-            self.eventSvc.join(self.account.id, event.id).subscribe(x => {
-              event.participants.push(x);
-              self.event = event;
+            self.eventSvc.join(self.account.id, self.event.id).subscribe(x => {
+              self.event.participants.push(x);
               const xs = self.events.filter(x => x.id === self.event.id);
               xs[0] = self.event;
 
