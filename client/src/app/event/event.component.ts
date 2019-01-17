@@ -78,10 +78,10 @@ export class EventComponent implements OnInit {
               self.toastSvc.success('Join Event Successfully!', '',
                 { timeOut: 2000, positionClass: 'toast-bottom-right' });
             });
-          } else {
+          } else { // if there is no paticipant;
             self.eventSvc.join(self.account.id, event.id).subscribe(x => {
               event.participants.push(x);
-
+              self.event = event;
               const xs = self.events.filter(x => x.id === self.event.id);
               xs[0] = self.event;
 
