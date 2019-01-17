@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../event/event.service';
 import { GroupService } from '../group/group.service';
-import { Event, Group, Category, LoopBackAuth, Account, Portrait, SDKToken } from '../lb-sdk';
+import { Event, Group, Category, LoopBackAuth, Account, Portrait, SDKToken, PortraitApi } from '../lb-sdk';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { AccountService } from '../account/account.service';
@@ -40,21 +40,16 @@ export class HomeComponent implements OnInit {
 
         if (userId) {
           self.authApi.setToken(new SDKToken({'id': params['access-token'], 'userId': userId, 'ttl': 6000}));
-            self.accountSvc.getGoogleIdentities(userId).subscribe((x: any) => {
+            // check if has portrait in database and check if use google account as username
+            self.accountSvc.getIdentities(userId).subscribe((x: any) => {
               if (x) {
                 const provider = x[0].provider;
                 const profile = x[0].profile;
-                const account = new Account();
+                let account;
                 if (provider === 'google') {
-                  account.id = userId;
-                  account.username = profile.displayName;
-                  account.email = profile.emails[0].value;
-                  account.portraits = [new Portrait({ url: profile.photos[0].value, index: 0, accountId: userId })];
+                  account = self.update3rdAccount(userId, profile.displayName, profile.photos[0].value, provider);
                 } else if ( provider === 'facebook') {
-                  account.id = userId;
-                  account.username = profile.name.givenName;
-                  account.email = profile.emails[0].value;
-                  account.portraits = [new Portrait({ url: profile.photos[0].value, index: 0, accountId: userId })];
+                  account = self.update3rdAccount(userId, profile.givenName, profile.photos[0].value, provider);
                 }
                 self.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: account });
               }
@@ -87,6 +82,28 @@ export class HomeComponent implements OnInit {
         this.mobile = true;
         this.bShowFeedbackForm = !this.mobile;
       }
+  }
+
+  update3rdAccount(userId, username, photoUrl, provider) {
+    const self = this;
+    const account = new Account();
+    account.id = userId;
+    account.username = username; // profile.name.givenName;
+    account.type = 'user';
+    const portraits = [new Portrait({
+      name: provider + '.' + account.username,
+      url: photoUrl, index: 0, accountId: userId
+    })];
+    account.portraits = portraits;
+    self.accountSvc.findPortraitByAccountId(userId).subscribe(r => {
+      if (r && r.length > 0) {
+        self.accountSvc.patchAttributes(userId, { 'username': username }).subscribe(() => { });
+      } else {
+        self.accountSvc.patchAttributes(userId, { 'username': username, 'portraits': portraits })
+          .subscribe(() => { });
+      }
+    });
+    return account;
   }
 
   hasCategory(categoryId, group) {

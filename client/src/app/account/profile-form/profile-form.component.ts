@@ -49,9 +49,15 @@ export class ProfileFormComponent implements OnInit, OnChanges {
   setPictures(account) {
     if (account.portraits && account.portraits.length > 0) {
       const pic = account.portraits[0];
-      this.portraits = [
-        this.sharedSvc.getContainerUrl() + pic.url,
-      ];
+      if (pic.url && pic.url.indexOf('https://') > 0) {
+        this.portraits = [
+          this.sharedSvc.getContainerUrl() + pic.url,
+        ];
+      } else {
+        this.portraits = [
+          pic.url,
+        ];
+      }
     } else {
       this.portraits = [''];
     }

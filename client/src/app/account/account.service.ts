@@ -40,7 +40,7 @@ export class AccountService {
     return this.authApi.getCurrentUserData();
   }
 
-  getGoogleIdentities(userId) {
+  getIdentities(userId) {
     return this.accountApi.getIdentities(userId);
     // .subscribe((x: UserIdentity) => {
     //   if (x) {
@@ -147,7 +147,11 @@ export class AccountService {
   }
 
   inPictureArray(pictureId, pictures) {
-    return pictures.findIndex(p => p.id === pictureId) !== -1;
+    if (pictures && pictures > 0) {
+      return pictures.findIndex(p => p.id === pictureId) !== -1;
+    } else {
+      return false;
+    }
   }
 
   updatePictures(id: number, newPictures: Portrait[] = null) {
@@ -176,5 +180,9 @@ export class AccountService {
       }
 
     });
+  }
+
+  findPortraitByAccountId(userId) {
+    return this.portraitApi.find({ where: { 'accountId': userId } });
   }
 }

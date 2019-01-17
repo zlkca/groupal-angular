@@ -118,7 +118,11 @@ export class EventComponent implements OnInit {
 
   getOwnerPortrait(event) {
     if (event.owner && event.owner.portraits.length > 0) {
-      return this.sharedSvc.getContainerUrl() + event.owner.portraits[0].url;
+      if (event.owner.portraits[0].url.indexOf('https://') > -1) {
+        return event.owner.portraits[0].url;
+      } else {
+        return this.sharedSvc.getContainerUrl() + event.owner.portraits[0].url;
+      }
     } else {
       return this.APP_URL + '/assets/images/portrait.png';
     }
@@ -126,7 +130,11 @@ export class EventComponent implements OnInit {
 
   getPaticipantPortrait(p) {
     if (p && p.account && p.account.portraits.length > 0) {
-      return this.sharedSvc.getContainerUrl() + p.account.portraits[0].url;
+      if (p.account.portraits[0].url.indexOf('https://') > -1) {
+        return p.account.portraits[0].url;
+      } else {
+        return this.sharedSvc.getContainerUrl() + p.account.portraits[0].url;
+      }
     } else {
       return this.APP_URL + '/assets/images/portrait.png';
     }

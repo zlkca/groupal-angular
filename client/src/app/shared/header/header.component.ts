@@ -24,10 +24,10 @@ declare var $: any;
 export class HeaderComponent implements OnInit {
   isLogin = false;
   menu: any[];
-  account: any;
+  account: Account;
   keyword: string;
   locality = '';
-  // type: string;
+  portrait: string;
   addr = null;
 
   constructor(
@@ -51,9 +51,12 @@ export class HeaderComponent implements OnInit {
     // });
 
     // Header event handler, when refresh redux data gone
-    this.ngRedux.select('account').subscribe(account => {
+    this.ngRedux.select('account').subscribe((account: Account) => {
       self.account = account;
       self.isLogin = (this.account && this.account.id > 0);
+      if (self.account && self.account.portraits && self.account.portraits.length > 0) {
+        self.portrait = self.account.portraits[0].url;
+      }
     });
   }
 

@@ -1,6 +1,83 @@
+$cellphone: "(max-width: 575px)";
+$mobile: "(min-width:576px) and (max-width: 767px)";
+$tablet: "(min-width: 768px) and (max-width: 1199px)";
+$desktop: "(min-width: 1200px)";
+
+$icon-size: 32px;
+$icon-padding:12px;
+
 #nav-left {
   flex-grow: 1;
 }
 .navbar a {
     cursor: pointer;
+}
+
+
+.icon-area{
+  display: inline-block;    
+}
+
+.shift-left{
+  margin-right: 60px;
+}
+
+.icon-portrait{
+  float:right;
+  width: $icon-size;
+  height: $icon-size;
+  margin-right:6px;
+  margin-top:0px;
+  border-radius: 50%;
+  margin-left:$icon-padding;
+
+  img{
+      height:$icon-size;
+      width:$icon-size;
+      border-radius: 50%; 
+      max-width: none;
+  }
+}
+
+@media #{$desktop}{
+
+}
+
+@media #{$tablet}{
+
+}
+
+@media #{$mobile}{
+    .navbar-brand{
+        float:left;
+    }
+    .mobile{
+        display: block;
+    }
+    .icon-area{
+        display: none;
+    }
+    .language-menu{
+        display:block;
+    }
+    .icon-portrait{
+        margin-left:5px;
+    }
+}
+@media #{$cellphone}{
+    .navbar-brand{
+        float:left;
+    }
+    .mobile{
+        display: block;
+    }
+    .icon-area{
+        display: none;
+    }
+    .language-menu{
+            display:block;
+    }
+    .icon-portrait{
+        margin-left:5px;
+    }
 }
