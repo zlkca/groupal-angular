@@ -59,14 +59,15 @@ export class EventComponent implements OnInit {
       if (event && event.participants && event.participants.length > 0) {
         self.eventSvc.join(self.account.id, event.id).subscribe((x: any) => {
           const ps = event.participants.filter(p => p.accountId === self.account.id);
-          self.accountSvc.findPortraitByAccountId(x.accountId).subscribe(rs => {
-            x.account = { portraits: rs };
+          self.accountSvc.findPortraitsByAccountId(x.accountId).subscribe(rs => {
+            x.account = { id: x.accountId, portraits: rs };
             if (!ps || ps.length === 0) {
               event.participants.push(x);
             } else {
+              // ps[0].account = { portraits: rs };
               ps[0].status = 'joined';
             }
-            const xs = self.events.filter(x => x.id === event.id);
+            const xs = self.events.filter(r => r.id === event.id);
             xs[0] = event;
 
             self.toastSvc.success('Join Event Successfully!', '',
@@ -75,10 +76,10 @@ export class EventComponent implements OnInit {
         });
       } else { // if there is no paticipant;
         self.eventSvc.join(self.account.id, event.id).subscribe((x: any) => {
-          self.accountSvc.findPortraitByAccountId(x.accountId).subscribe(rs => {
-            x.account = { portraits: rs };
+          self.accountSvc.findPortraitsByAccountId(x.accountId).subscribe(rs => {
+            x.account = { id: x.accountId, portraits: rs };
             event.participants.push(x);
-            const xs = self.events.filter(x => x.id === event.id);
+            const xs = self.events.filter(r => r.id === event.id);
             xs[0] = event;
 
             self.toastSvc.success('Join Event Successfully!', '',

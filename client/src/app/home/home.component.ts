@@ -43,15 +43,13 @@ export class HomeComponent implements OnInit {
             // check if has portrait in database and check if use google account as username
             self.accountSvc.getIdentities(userId).subscribe((x: any) => {
               if (x) {
-                const provider = x[0].provider;
                 const profile = x[0].profile;
-                let account;
-                if (provider === 'google') {
-                  account = self.update3rdAccount(userId, profile.displayName, profile.photos[0].value, provider);
-                } else if ( provider === 'facebook') {
-                  account = self.update3rdAccount(userId, profile.givenName, profile.photos[0].value, provider);
-                }
-                self.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: account });
+                const account = self.get3rdAccount(userId, x[0]);
+                self.accountSvc.update3rdAccount(account).subscribe(acc => {
+                  self.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: account });
+                });
+              } else {
+                console.log('exception: failed to save 3rd login into userIdentity table');
               }
             });
         }
@@ -62,11 +60,12 @@ export class HomeComponent implements OnInit {
       }
     });
 
-    self.eventSvc.find({ include: [{'owner': 'portraits'}, 'groups', 'categories', {'participants': [{'account': 'portraits'}]},
-     'address'], order: 'modified DESC' }).subscribe(
-      (ps: Event[]) => {
-        self.events = ps;
-      });
+    self.eventSvc.find({ include: [{'owner': 'portraits'}, 'groups', 'categories',
+      {'participants': [{'account': 'portraits'}]},
+      'address'], order: 'modified DESC' }).subscribe(
+       (ps: Event[]) => {
+         self.events = ps;
+       });
 
     self.groupSvc.find({ include: ['pictures', 'qrcodes', 'categories'], order: 'modified DESC' }).subscribe(
       (r: Group[]) => {
@@ -82,25 +81,23 @@ export class HomeComponent implements OnInit {
       }
   }
 
-  update3rdAccount(userId, username, photoUrl, provider) {
+  get3rdAccount(userId, identity) {
     const self = this;
+    const profile = identity.profile;
+    const photoUrl = profile.photos[0].value;
     const account = new Account();
     account.id = userId;
-    account.username = username; // profile.name.givenName;
+    if (identity.provider === 'google') {
+      account.username = profile.displayName;
+    } else if (identity.provider === 'facebook') {
+      account.username = profile.givenName;
+    }
     account.type = 'user';
     const portraits = [new Portrait({
-      name: provider + '.' + account.username,
-      url: photoUrl, index: 0, accountId: userId
+      name: identity.provider + '.' + account.username, url: photoUrl, index: 1, accountId: userId
     })];
     account.portraits = portraits;
-    self.accountSvc.findPortraitByAccountId(userId).subscribe(r => {
-      if (r && r.length > 0) {
-        self.accountSvc.patchAttributes(userId, { 'username': username }).subscribe(() => { });
-      } else {
-        self.accountSvc.patchAttributes(userId, { 'username': username, 'portraits': portraits })
-          .subscribe(() => { });
-      }
-    });
+
     return account;
   }
 

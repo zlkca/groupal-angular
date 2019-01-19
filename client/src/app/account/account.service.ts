@@ -3,7 +3,7 @@ import { Observable, merge, EMPTY } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { AccountApi, Account, LoopBackFilter, Portrait, PortraitApi, LoopBackAuth } from '../lb-sdk';
+import { AccountApi, Account, LoopBackFilter, Portrait, PortraitApi, LoopBackAuth, AccountIdentity } from '../lb-sdk';
 import { NgRedux } from '@angular-redux/store';
 import { AccountActions } from './account.actions';
 
@@ -40,15 +40,8 @@ export class AccountService {
     return this.authApi.getCurrentUserData();
   }
 
-  getIdentities(userId) {
+  getIdentities(userId): Observable<AccountIdentity[]> {
     return this.accountApi.getIdentities(userId);
-    // .subscribe((x: UserIdentity) => {
-    //   if (x) {
-    //     return JSON.parse(x.profile);
-    //   } else {
-    //     return null;
-    //   }
-    // });
   }
 
   login(username: string, password: string, rememberMe: boolean = true): Observable<Account> {
@@ -162,27 +155,48 @@ export class AccountService {
       const picturesToAdd: Portrait[] = newPictures ? newPictures.filter(newPic => !newPic.id) : [];
 
       picturesToRemove.map(pic => {
-        return this.portraitApi.deleteById(pic.id).subscribe(x => {});
+        self.portraitApi.deleteById(pic.id).subscribe(x => {});
       });
 
       if (picturesToAdd.length > 0) {
         picturesToAdd.map(pic => {
           pic.accountId = id;
-          this.portraitApi.patchOrCreate(pic).subscribe(x => { });
+          self.portraitApi.patchOrCreate(pic).subscribe(x => {});
         });
       }
 
       if (picturesToUpdate.length > 0) {
         picturesToUpdate.map(pic => {
           pic.accountId = id;
-          return self.portraitApi.patchOrCreate(pic);
+          self.portraitApi.patchOrCreate(pic).subscribe(x => {});
         });
       }
-
     });
   }
 
-  findPortraitByAccountId(userId) {
+  findPortraitsByAccountId(userId): Observable<Portrait[]> {
     return this.portraitApi.find({ where: { 'accountId': userId } });
+  }
+
+  update3rdAccount(account: Account) {
+    const self = this;
+
+    return self.findPortraitsByAccountId(account.id).pipe(
+      map((r: Portrait[]) => {
+        // return self.updatePictures(r.id, data.portraits);
+        if (r && r.length > 0) {
+          return self.patchAttributes(account.id, { 'username': account.username }).subscribe(() => { });
+        } else {
+          return self.patchAttributes(account.id, { 'username': account.username, 'portraits': account.portraits }).subscribe(() => { });
+        }
+      })
+    );
+    // self.accountSvc.findPortraitByAccountId(account.id).subscribe(r => {
+    //   if (r && r.length > 0) {
+    //     self.accountSvc.patchAttributes(account.id, { 'username': account.username }).subscribe(() => { });
+    //   } else {
+    //     self.accountSvc.patchAttributes(account.id, { 'username': account.username, 'portraits': account.portraits }).subscribe(() => { });
+    //   }
+    // });
   }
 }
