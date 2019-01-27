@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { EventService } from '../event.service';
 import { AccountService } from '../../account/account.service';
 import { ToastrService } from '../../../../node_modules/ngx-toastr';
+import { CommentService } from '../../comment/comment.service';
 
 @Component({
   selector: 'app-event-detail',
@@ -14,14 +15,18 @@ import { ToastrService } from '../../../../node_modules/ngx-toastr';
 export class EventDetailComponent implements OnInit {
   event;
   account;
+  comments;
   APP_URL = environment.APP_URL;
   constructor(
     private eventSvc: EventService,
     private sharedSvc: SharedService,
     private route: ActivatedRoute,
     private accountSvc: AccountService,
-    private toastSvc: ToastrService
-  ) { }
+    private toastSvc: ToastrService,
+    private commentSvc: CommentService
+  ) {
+
+  }
 
   ngOnInit() {
     const self = this;
@@ -37,6 +42,12 @@ export class EventDetailComponent implements OnInit {
         (ps: any) => {
           self.event = ps[0];
         });
+
+      self.commentSvc.find({
+        where: {eventId: id},
+        include: [{'from': 'portraits'}]}).subscribe(comments => {
+        self.comments = comments;
+      });
     });
 
     this.accountSvc.getCurrent().subscribe(account => {
@@ -73,8 +84,12 @@ export class EventDetailComponent implements OnInit {
     return this.sharedSvc.isPastDate(event.toDateTime);
   }
 
-  onAfterPostComment(event) {
-    this.toastSvc.success('Post Comment Successfully!', '',
-    { timeOut: 2000, positionClass: 'toast-bottom-right' });
+  onAfterPostComment(e) {
+    const self = this;
+    self.commentSvc.find({
+      where: {eventId: self.event.id},
+      include: [{'from': 'portraits'}] }).subscribe(comments => {
+      self.comments = comments;
+    });
   }
 }

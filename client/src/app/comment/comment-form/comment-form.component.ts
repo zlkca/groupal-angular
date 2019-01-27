@@ -5,11 +5,11 @@ import { NgRedux } from '@angular-redux/store';
 import { AccountService } from '../../account/account.service';
 
 @Component({
-  selector: 'app-comment',
-  templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.scss']
+  selector: 'app-comment-form',
+  templateUrl: './comment-form.component.html',
+  styleUrls: ['./comment-form.component.scss']
 })
-export class CommentComponent implements OnInit {
+export class CommentFormComponent implements OnInit {
 
   form;
   account;
@@ -63,4 +63,3 @@ export class CommentComponent implements OnInit {
     return this.accountSvc.getPortrait(account);
   }
 }
-

@@ -30,8 +30,9 @@
       </div>
       
       <div class="row">
-        <app-comment [event]="event" [author]="account" (afterPost)="onAfterPostComment($event)"></app-comment>
+        <app-comment-form [event]="event" [author]="account" (afterPost)="onAfterPostComment($event)"></app-comment-form>
       </div>
+      <app-comment-list [comments]="comments" [account]="account"></app-comment-list>
     </div>
     <div class="btn-holder">
       <!-- <div class="btn btn-primary btn-xs pull-right" *ngIf="!isPast(event) && !joined(event)" (click)="join(event)" i18n="@@Join">Join</div>

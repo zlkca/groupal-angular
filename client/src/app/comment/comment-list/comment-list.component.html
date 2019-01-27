@@ -1,0 +1,21 @@
+
+
+<div class="col-xs-12" class="comment-list"><!--  message-list -->
+  <ul class="z-dialog">
+      <li *ngFor="let comment of comments" class="row">
+        <div *ngIf="comment" class="comment-row">
+          <div class="{{getDirection(comment)}}-portrait">
+            <div class="{{getDirection(comment)}}-dialog-photo img-round">
+              <img [src]="getPortrait(comment)"/>
+            </div>
+          </div>
+          <div class="{{getDirection(comment)}}-dialog">
+            <div class="{{getDirection(comment)}}-dialog-box">
+                <div class="dialog-heading">{{comment.created}}</div>
+                <div class="dialog-body">{{comment.body}}</div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+</div>

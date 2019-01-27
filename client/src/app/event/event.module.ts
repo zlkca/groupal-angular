@@ -8,6 +8,8 @@ import { EventFormComponent } from './event-form/event-form.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { EventDetailComponent } from './event-detail/event-detail.component';
+import { CommentModule } from '../comment/comment.module';
+import { CommentService } from '../comment/comment.service';
 
 @NgModule({
   imports: [
@@ -16,6 +18,7 @@ import { EventDetailComponent } from './event-detail/event-detail.component';
     ReactiveFormsModule,
     NgbModule,
     SharedModule,
+    CommentModule,
   ],
   exports: [
     EventListComponent,
@@ -27,6 +30,7 @@ import { EventDetailComponent } from './event-detail/event-detail.component';
     EventFormComponent,
     EventListComponent,
     EventDetailComponent
-  ]
+  ],
+  providers: [CommentService]
 })
 export class EventModule { }
