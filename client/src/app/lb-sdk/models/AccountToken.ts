@@ -9,6 +9,7 @@ export interface AccountTokenInterface {
   "ttl"?: number;
   "scopes"?: Array<any>;
   "created"?: Date;
+  "accountId"?: number;
   "userId"?: number;
   account?: Account;
 }
@@ -18,6 +19,7 @@ export class AccountToken implements AccountTokenInterface {
   "ttl": number;
   "scopes": Array<any>;
   "created": Date;
+  "accountId": number;
   "userId": number;
   account: Account;
   constructor(data?: AccountTokenInterface) {
@@ -70,6 +72,10 @@ export class AccountToken implements AccountTokenInterface {
           name: 'created',
           type: 'Date'
         },
+        "accountId": {
+          name: 'accountId',
+          type: 'number'
+        },
         "userId": {
           name: 'userId',
           type: 'number'
@@ -81,7 +87,7 @@ export class AccountToken implements AccountTokenInterface {
           type: 'Account',
           model: 'Account',
           relationType: 'belongsTo',
-                  keyFrom: 'userId',
+                  keyFrom: 'accountId',
           keyTo: 'id'
         },
       }

@@ -1,6 +1,6 @@
 <div class="row uploader">
   <div class="col-5 left-side preview">
-    <img *ngIf="images && images.length > 0" src="{{images[0]}}" />
+    <img *ngIf="urls && urls.length > 0" [src]="urls[0]" />
   </div>
   <div class="col-7 right-side">
     <input hidden type="file" #uploader (change)="onFileChange($event)" />

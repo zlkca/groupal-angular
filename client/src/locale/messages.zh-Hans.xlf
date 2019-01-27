@@ -71,7 +71,7 @@
         <target>注册</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/header/header.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Username" datatype="html">
@@ -79,6 +79,10 @@
         <target>用户名</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/account/user-form/user-form.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/account/profile-form/profile-form.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
@@ -129,6 +133,10 @@
           <context context-type="sourcefile">app/account/profile-form/profile-form.component.html</context>
           <context context-type="linenumber">13</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/account/signup-form/signup-form.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Type" datatype="html">
         <source>Type</source>
@@ -148,6 +156,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/account/user-form/user-form.component.html</context>
           <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/account/profile-form/profile-form.component.html</context>
+          <context context-type="linenumber">31</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/group/group-form/group-form.component.html</context>
@@ -327,7 +339,11 @@
         <target>人加入了此活动</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/event/event.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/event/event-detail/event-detail.component.html</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Join" datatype="html">
@@ -408,6 +424,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/feedback-form/feedback-form.component.html</context>
           <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Post" datatype="html">
+        <source>Post</source>
+        <target>发表</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/comment/comment.component.html</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="CreateAnAccount" datatype="html">

@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class ImageUploaderComponent implements OnInit {
   @Input() uploadUrl;
-  @Input() images;
+  @Input() urls;
 
   @Output() afterDelete = new EventEmitter();
   @Output() afterUpload = new EventEmitter();

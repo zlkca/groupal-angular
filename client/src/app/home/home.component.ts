@@ -43,9 +43,8 @@ export class HomeComponent implements OnInit {
             // check if has portrait in database and check if use google account as username
             self.accountSvc.getIdentities(userId).subscribe((x: any) => {
               if (x) {
-                const profile = x[0].profile;
                 const account = self.get3rdAccount(userId, x[0]);
-                self.accountSvc.update3rdAccount(account).subscribe(acc => {
+                self.accountSvc.update3rdAccount(account).subscribe(() => {
                   self.ngRedux.dispatch({ type: AccountActions.UPDATE, payload: account });
                 });
               } else {
@@ -94,7 +93,7 @@ export class HomeComponent implements OnInit {
     }
     account.type = 'user';
     const portraits = [new Portrait({
-      name: identity.provider + '.' + account.username, url: photoUrl, index: 1, accountId: userId
+      name: identity.provider + '.' + account.username, url: photoUrl, index: 1, accountId: parseInt(userId, 10)
     })];
     account.portraits = portraits;
 

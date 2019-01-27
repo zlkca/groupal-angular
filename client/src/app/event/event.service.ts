@@ -5,14 +5,20 @@ import { throwError as observableThrowError, Observable } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 
 import { EventApi, LoopBackFilter, Event, Category, CategoryApi, Picture, PictureApi, ParticipantApi, Participant } from '../lb-sdk';
+import { environment } from '../../environments/environment';
+import { SharedService } from '../shared/shared.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
 
-  constructor(private eventApi: EventApi,
-    private participantApi: ParticipantApi
+  APP_URL = environment.APP_URL;
+
+  constructor(
+    private eventApi: EventApi,
+    private participantApi: ParticipantApi,
+    private sharedSvc: SharedService
   ) { }
 
   create(event: Event): Observable<Event> {
@@ -183,4 +189,14 @@ export class EventService {
       })
     );
   }
+
+  getNumOfGoing(event) {
+    if (event && event.participants && event.participants) {
+      const participants = event.participants.filter((p: any) => p.status === 'joined');
+      return participants.length;
+    } else {
+      return 0;
+    }
+  }
+
 }

@@ -79,7 +79,8 @@ const appRoutes: Routes = [
     ImageUploaderModule,
     CategoryModule
   ],
-  exports: [FeedbackFormComponent
+  exports: [
+    FeedbackFormComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

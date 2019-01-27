@@ -1,0 +1,21 @@
+
+<form class="comment-form" [formGroup]="form">
+  <!-- <div class="row">
+      <span class="error-msg">{{errMsg}}</span>
+  </div> -->
+  
+  <div class="row form-group">
+    <div class="col-2">
+        <p>
+          <img [src]="portrait">
+        </p>
+    </div>
+
+    <div class="col-8">
+        <input class="form-control" name="comment" formControlName="comment" />
+    </div>
+    <div class="col-2">
+        <button class="btn btn-primary" (click)="postComment()" i18n="@@Post">Post</button>
+    </div>
+  </div>
+</form>

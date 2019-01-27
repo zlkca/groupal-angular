@@ -21,7 +21,7 @@ export class ProfileFormComponent implements OnInit, OnChanges {
     'user'
   ];
   portraitUploadUrl: string;
-  portraits; // preview pictures
+  urls; // preview pictures
 
   @Input() account: Account;
   @Output() valueSave = new EventEmitter();
@@ -46,28 +46,11 @@ export class ProfileFormComponent implements OnInit, OnChanges {
     this.portraitUploadUrl = this.sharedSvc.getContainerUrl() + 'portraits/upload';
   }
 
-  setPictures(account) {
-    if (account.portraits && account.portraits.length > 0) {
-      const pic = account.portraits[0];
-      if (pic.url && pic.url.indexOf('https://') > 0) {
-        this.portraits = [
-          this.sharedSvc.getContainerUrl() + pic.url,
-        ];
-      } else {
-        this.portraits = [
-          pic.url,
-        ];
-      }
-    } else {
-      this.portraits = [''];
-    }
-  }
-
   ngOnChanges(changes) {
     if (this.form && changes.account.currentValue) {
       const account = changes.account.currentValue;
       this.form.patchValue(account);
-      this.setPictures(account);
+      this.urls = [ this.accountSvc.getPortrait(account) ];
     }
   }
 
@@ -81,22 +64,39 @@ export class ProfileFormComponent implements OnInit, OnChanges {
 
   onAfterPortraitUpload(e) {
     const self = this;
-    this.portraits = [
+    const portraits = this.account.portraits;
+    this.urls = [
       this.sharedSvc.getContainerUrl() + 'portraits/download/' + e.name,
     ];
 
-    this.account.portraits = [
-      new Portrait({
-        name: self.account.username,
-        index: 1,
-        url: 'portraits/download/' + e.name,
-        accountId: self.account.id,
-        // width: 100,
-        // height: 100,
-        // created: null,
-        // modified: null
-      })
-    ];
+    if (portraits && portraits.length > 0) {
+      this.account.portraits = [
+        new Portrait({
+          id: portraits[0].id,
+          name: self.account.username,
+          index: 1,
+          url: 'portraits/download/' + e.name,
+          accountId: self.account.id,
+          // width: 100,
+          // height: 100,
+          // created: null,
+          // modified: null
+        })
+      ];
+    } else {
+      this.account.portraits = [
+        new Portrait({
+          name: self.account.username,
+          index: 1,
+          url: 'portraits/download/' + e.name,
+          accountId: self.account.id,
+          // width: 100,
+          // height: 100,
+          // created: null,
+          // modified: null
+        })
+      ];
+    }
   }
 
   save() {
@@ -112,14 +112,13 @@ export class ProfileFormComponent implements OnInit, OnChanges {
     //   v.password = this.accountSvc.DEFAULT_PASSWORD;
     // }
     delete account.password;
+
     if (account.id) {
-      // self.accountSvc.replaceById(account.id, account).subscribe((r: any) => {
-      self.accountSvc.patchAttributes(account.id, account).subscribe((r: any) => {
+      self.accountSvc.patchAccount(account.id, account).subscribe((r: any) => {
         self.valueSave.emit({ name: 'OnUpdateAccount' });
       },
       err => {
-        this.toastSvc.warning('Save Account Fail!', '',
-        { timeOut: 2000, positionClass: 'toast-bottom-right' });
+        this.toastSvc.warning('Save Account Fail!', '', { timeOut: 2000, positionClass: 'toast-bottom-right' });
       });
     } else {
       // self.accountSvc.create(account).subscribe((r: any) => {

@@ -15,7 +15,7 @@ import { EventDetailComponent } from './event-detail/event-detail.component';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    SharedModule
+    SharedModule,
   ],
   exports: [
     EventListComponent,
@@ -23,6 +23,10 @@ import { EventDetailComponent } from './event-detail/event-detail.component';
     EventComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  declarations: [EventComponent, EventFormComponent, EventListComponent, EventDetailComponent]
+  declarations: [EventComponent,
+    EventFormComponent,
+    EventListComponent,
+    EventDetailComponent
+  ]
 })
 export class EventModule { }

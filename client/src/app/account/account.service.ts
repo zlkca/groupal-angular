@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable, merge, EMPTY } from 'rxjs';
+import { Observable, merge, EMPTY, from } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { AccountApi, Account, LoopBackFilter, Portrait, PortraitApi, LoopBackAuth, AccountIdentity } from '../lb-sdk';
 import { NgRedux } from '@angular-redux/store';
 import { AccountActions } from './account.actions';
+import { SharedService } from '../shared/shared.service';
 
 declare var gapi;
 
@@ -18,12 +19,14 @@ const TWO_WEEKS = 60 * 60 * 24 * 7 * 2;
 export class AccountService {
 
   DEFAULT_PASSWORD = '';
+  APP_URL = environment.APP_URL;
 
   constructor(
     private ngRedux: NgRedux<Account>,
     private accountApi: AccountApi,
     private portraitApi: PortraitApi,
-    private authApi: LoopBackAuth
+    private authApi: LoopBackAuth,
+    private sharedSvc: SharedService
   ) { }
 
   signup(account: Account): Observable<Account> {
@@ -109,7 +112,7 @@ export class AccountService {
     const self = this;
     return this.accountApi.create(account).pipe(
       map((r: Account) => {
-        self.updatePictures(r.id, account.portraits);
+        // self.updatePictures(r.id, account.portraits);
       })
     );
   }
@@ -118,10 +121,11 @@ export class AccountService {
     const self = this;
     return this.accountApi.patchAttributes(id, data).pipe(
       map((r: Account) => {
-        self.updatePictures(r.id, data.portraits);
+        // self.updatePictures(id, data.portraits);
       })
     );
   }
+
   // replaceOrCreate(account: Account): Observable<any> {
   //   return this.accountApi.replaceOrCreate(account);
   // }
@@ -130,7 +134,7 @@ export class AccountService {
     const self = this;
     return this.accountApi.replaceById(id, account).pipe(
       map((r: Account) => {
-        self.updatePictures(r.id, account.portraits);
+        // self.updatePictures(r.id, account.portraits);
       })
     );
   }
@@ -147,6 +151,7 @@ export class AccountService {
     }
   }
 
+  // deprecated
   updatePictures(id: number, newPictures: Portrait[] = null) {
     const self = this;
     this.accountApi.getPortraits(id).subscribe((pictures: Portrait[]) => {
@@ -174,29 +179,54 @@ export class AccountService {
     });
   }
 
+  patchAccount(id: number, data: any): Observable<any> {
+    const self = this;
+    return this.accountApi.patchAttributes(id, data).pipe(
+      map((r: Account) => {
+        if (data.portraits && data.portraits.length > 0) {
+          // self.updatePortrait(id, data.portraits);
+          self.portraitApi.patchOrCreate(data.portraits[0]).subscribe(() => {
+
+          });
+        }
+      })
+    );
+  }
+
   findPortraitsByAccountId(userId): Observable<Portrait[]> {
     return this.portraitApi.find({ where: { 'accountId': userId } });
   }
 
   update3rdAccount(account: Account) {
     const self = this;
+    return new Observable( (observer) => {
+      self.portraitApi.find({ where: { 'accountId': account.id } }).subscribe(
+        (r: Portrait[]) => {
+          if (r && r.length > 0) {
+            self.patchAccount(account.id, { 'username': account.username }).subscribe( () => {
+              observer.next(account);
+              observer.complete();
+            });
+          } else {
+            self.patchAccount(account.id, { 'username': account.username, 'portraits': account.portraits }).subscribe( () => {
+              observer.next(account);
+              observer.complete();
+            });
+          }
+        });
+        return () => {};
+    });
+  }
 
-    return self.findPortraitsByAccountId(account.id).pipe(
-      map((r: Portrait[]) => {
-        // return self.updatePictures(r.id, data.portraits);
-        if (r && r.length > 0) {
-          return self.patchAttributes(account.id, { 'username': account.username }).subscribe(() => { });
-        } else {
-          return self.patchAttributes(account.id, { 'username': account.username, 'portraits': account.portraits }).subscribe(() => { });
-        }
-      })
-    );
-    // self.accountSvc.findPortraitByAccountId(account.id).subscribe(r => {
-    //   if (r && r.length > 0) {
-    //     self.accountSvc.patchAttributes(account.id, { 'username': account.username }).subscribe(() => { });
-    //   } else {
-    //     self.accountSvc.patchAttributes(account.id, { 'username': account.username, 'portraits': account.portraits }).subscribe(() => { });
-    //   }
-    // });
+  getPortrait(account) {
+    if (account && account.portraits && account.portraits.length > 0) {
+      if (account.portraits[0].url.indexOf('https://') > -1) { // for 3rd login photos
+        return account.portraits[0].url;
+      } else {
+        return this.sharedSvc.getContainerUrl() + account.portraits[0].url;
+      }
+    } else {
+      return this.APP_URL + '/assets/images/portrait.png';
+    }
   }
 }

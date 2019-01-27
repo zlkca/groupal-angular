@@ -120,15 +120,6 @@ export class EventComponent implements OnInit {
     }
   }
 
-  getNumOfGoing(event) {
-    if (event && event.participants && event.participants) {
-      const participants = event.participants.filter((p: any) => p.status === 'joined');
-      return participants.length;
-    } else {
-      return 0;
-    }
-  }
-
   getOwnerPortrait(event) {
     if (event.owner && event.owner.portraits.length > 0) {
       if (event.owner.portraits[0].url.indexOf('https://') > -1) {
@@ -142,15 +133,11 @@ export class EventComponent implements OnInit {
   }
 
   getPaticipantPortrait(p) {
-    if (p && p.account && p.account.portraits.length > 0) {
-      if (p.account.portraits[0].url.indexOf('https://') > -1) {
-        return p.account.portraits[0].url;
-      } else {
-        return this.sharedSvc.getContainerUrl() + p.account.portraits[0].url;
-      }
-    } else {
-      return this.APP_URL + '/assets/images/portrait.png';
-    }
+    return this.accountSvc.getPortrait(p.account);
+  }
+
+  getNumOfGoing(event) {
+    return this.eventSvc.getNumOfGoing(event);
   }
 
   isPast(event) {

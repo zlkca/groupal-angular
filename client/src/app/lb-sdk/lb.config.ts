@@ -22,7 +22,7 @@ import { environment } from '../../environments/environment';
 * }
 **/
 export class LoopBackConfig {
-  private static path: string = environment.API_BASE;
+  private static path: string = environment.API_URL;
   private static version: string | number = 'api';
   private static authPrefix: string = '';
   private static debug: boolean = true;

@@ -3,6 +3,7 @@ import { SharedService } from '../../shared/shared.service';
 import { environment } from '../../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { EventService } from '../event.service';
+import { AccountService } from '../../account/account.service';
 
 @Component({
   selector: 'app-event-detail',
@@ -15,21 +16,30 @@ export class EventDetailComponent implements OnInit {
   constructor(
     private eventSvc: EventService,
     private sharedSvc: SharedService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private accountSvc: AccountService
   ) { }
 
   ngOnInit() {
+    const self = this;
+
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
-      const self = this;
+
       self.eventSvc.find({
-        where: {'id': id},
-        include: [{'owner': 'portraits'}, 'groups', 'categories', {'participants': [{'account': 'portraits'}]}, 'address'],
-        order: 'modified DESC' }).subscribe(
+        where: { 'id': id },
+        include: [{ 'owner': 'portraits' }, 'groups', 'categories', { 'participants': [{ 'account': 'portraits' }] }, 'address'],
+        order: 'modified DESC'
+      }).subscribe(
         (ps: any) => {
           self.event = ps[0];
         });
     });
+    // this.accountSvc.getCurrent().subscribe(account => {
+    //   self.account = account;
+    // });
+
+
   }
 
   getDisplayDateTimeRange(event) {
@@ -42,12 +52,7 @@ export class EventDetailComponent implements OnInit {
   }
 
   getNumOfGoing(event) {
-    if (event && event.participants && event.participants) {
-      const participants = event.participants.filter((p: any) => p.status === 'joined');
-      return participants.length;
-    } else {
-      return 0;
-    }
+    return this.eventSvc.getNumOfGoing(event);
   }
 
   getOwnerPortrait(event) {
@@ -59,11 +64,7 @@ export class EventDetailComponent implements OnInit {
   }
 
   getPaticipantPortrait(p) {
-    if (p && p.account && p.account.portraits.length > 0) {
-      return this.sharedSvc.getContainerUrl() + p.account.portraits[0].url;
-    } else {
-      return this.APP_URL + '/assets/images/portrait.png';
-    }
+    return this.accountSvc.getPortrait(p.account);
   }
 
   isPast(event) {

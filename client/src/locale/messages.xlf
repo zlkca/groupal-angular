@@ -16,32 +16,18 @@
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Hello" datatype="html">
-        <source>Hello</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/header/header.component.html</context>
-          <context context-type="linenumber">33</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Admin" datatype="html">
         <source>Admin</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/header/header.component.html</context>
-          <context context-type="linenumber">38</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Logout" datatype="html">
-        <source>Logout</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/header/header.component.html</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Login" datatype="html">
         <source>Login</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/header/header.component.html</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/account/login-form/login-form.component.html</context>
@@ -56,7 +42,14 @@
         <source>Signup</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/header/header.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Logout" datatype="html">
+        <source>Logout</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/header/header.component.html</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Username" datatype="html">
@@ -287,7 +280,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/event/event-detail/event-detail.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Join" datatype="html">
@@ -360,6 +353,13 @@
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Post" datatype="html">
+        <source>Post</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/comment/comment.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="CreateAnAccount" datatype="html">
         <source>Create an Account</source>
         <context-group purpose="location">
@@ -372,13 +372,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/account/login-form/login-form.component.html</context>
           <context context-type="linenumber">37</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="SignInWithFacebook" datatype="html">
-        <source>Sign In with Facebook</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/account/login-form/login-form.component.html</context>
-          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="CreateNewAccount" datatype="html">

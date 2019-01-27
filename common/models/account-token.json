@@ -12,7 +12,7 @@
     "account": {
       "type": "belongsTo",
       "model": "Account",
-      "foreignKey": "userId"
+      "foreignKey": "accountId"
     }
   },
   "acls": [],

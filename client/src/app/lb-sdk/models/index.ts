@@ -15,5 +15,6 @@ export * from './Portrait';
 export * from './AccountIdentity';
 export * from './AccountCredential';
 export * from './AccountToken';
+export * from './Comment';
 export * from './BaseModels';
 export * from './FireLoopRef';

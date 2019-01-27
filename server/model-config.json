@@ -95,5 +95,9 @@
   "AccountToken": {
     "dataSource": "mysqlDs",
     "public": true
+  },
+  "Comment": {
+    "dataSource": "mysqlDs",
+    "public": true
   }
 }

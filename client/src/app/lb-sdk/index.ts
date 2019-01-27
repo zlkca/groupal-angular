@@ -64,6 +64,7 @@ import { PortraitApi } from './services/custom/Portrait';
 import { AccountIdentityApi } from './services/custom/AccountIdentity';
 import { AccountCredentialApi } from './services/custom/AccountCredential';
 import { AccountTokenApi } from './services/custom/AccountToken';
+import { CommentApi } from './services/custom/Comment';
 /**
 * @module SDKBrowserModule
 * @description
@@ -110,6 +111,7 @@ export class SDKBrowserModule {
         AccountIdentityApi,
         AccountCredentialApi,
         AccountTokenApi,
+        CommentApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }
