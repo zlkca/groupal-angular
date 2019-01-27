@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Comment, CommentApi } from '../../lb-sdk';
 import { NgRedux } from '@angular-redux/store';
 import { AccountService } from '../../account/account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comment-form',
@@ -23,7 +24,8 @@ export class CommentFormComponent implements OnInit {
     private fb: FormBuilder,
     private commentSvc: CommentApi,
     private ngRedux: NgRedux<Account>,
-    private accountSvc: AccountService
+    private accountSvc: AccountService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -48,15 +50,20 @@ export class CommentFormComponent implements OnInit {
     const v = this.form.value;
     const c = new Comment(v);
     c.eventId = self.event.id;
-    c.fromId = self.author.id;
-    if (!c.created) {
-      c.created = new Date();
+    if (self.author) {
+      c.fromId = self.author.id;
+      if (!c.created) {
+        c.created = new Date();
+      }
+      c.modified = new Date();
+      self.commentSvc.create(c).subscribe((r: any) => {
+        self.afterPost.emit({ name: 'OnPostComment' });
+        self.form.reset();
+      });
+    } else {
+      self.router.navigate(['login']);
     }
-    c.modified = new Date();
-    self.commentSvc.create(c).subscribe((r: any) => {
-      self.afterPost.emit({ name: 'OnPostComment' });
-      self.form.reset();
-    });
+
   }
 
   getPortrait(account) {
