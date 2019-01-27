@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { EventService } from '../event.service';
 import { AccountService } from '../../account/account.service';
+import { ToastrService } from '../../../../node_modules/ngx-toastr';
 
 @Component({
   selector: 'app-event-detail',
@@ -12,12 +13,14 @@ import { AccountService } from '../../account/account.service';
 })
 export class EventDetailComponent implements OnInit {
   event;
+  account;
   APP_URL = environment.APP_URL;
   constructor(
     private eventSvc: EventService,
     private sharedSvc: SharedService,
     private route: ActivatedRoute,
-    private accountSvc: AccountService
+    private accountSvc: AccountService,
+    private toastSvc: ToastrService
   ) { }
 
   ngOnInit() {
@@ -35,11 +38,10 @@ export class EventDetailComponent implements OnInit {
           self.event = ps[0];
         });
     });
-    // this.accountSvc.getCurrent().subscribe(account => {
-    //   self.account = account;
-    // });
 
-
+    this.accountSvc.getCurrent().subscribe(account => {
+      self.account = account;
+    });
   }
 
   getDisplayDateTimeRange(event) {
@@ -69,5 +71,10 @@ export class EventDetailComponent implements OnInit {
 
   isPast(event) {
     return this.sharedSvc.isPastDate(event.toDateTime);
+  }
+
+  onAfterPostComment(event) {
+    this.toastSvc.success('Post Comment Successfully!', '',
+    { timeOut: 2000, positionClass: 'toast-bottom-right' });
   }
 }

@@ -30,7 +30,7 @@
       </div>
       
       <div class="row">
-        <app-comment></app-comment>
+        <app-comment [event]="event" [author]="account" (afterPost)="onAfterPostComment($event)"></app-comment>
       </div>
     </div>
     <div class="btn-holder">

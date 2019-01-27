@@ -14,7 +14,6 @@ export interface CommentInterface {
   "created"?: Date;
   "modified"?: Date;
   "id"?: number;
-  "accountId"?: number;
   event?: Event;
   from?: Account;
   to?: Account;
@@ -29,7 +28,6 @@ export class Comment implements CommentInterface {
   "created": Date;
   "modified": Date;
   "id": number;
-  "accountId": number;
   event: Event;
   from: Account;
   to: Account;
@@ -98,10 +96,6 @@ export class Comment implements CommentInterface {
           name: 'id',
           type: 'number'
         },
-        "accountId": {
-          name: 'accountId',
-          type: 'number'
-        },
       },
       relations: {
         event: {
@@ -117,7 +111,7 @@ export class Comment implements CommentInterface {
           type: 'Account',
           model: 'Account',
           relationType: 'belongsTo',
-                  keyFrom: 'accountId',
+                  keyFrom: 'fromId',
           keyTo: 'id'
         },
         to: {
@@ -125,7 +119,7 @@ export class Comment implements CommentInterface {
           type: 'Account',
           model: 'Account',
           relationType: 'belongsTo',
-                  keyFrom: 'accountId',
+                  keyFrom: 'toId',
           keyTo: 'id'
         },
       }

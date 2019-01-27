@@ -15,8 +15,9 @@ export class CommentComponent implements OnInit {
   account;
   portrait;
 
-  @Output() afterSend = new EventEmitter();
+  @Output() afterPost = new EventEmitter();
   @Input() author;
+  @Input() event;
 
   constructor(
     private fb: FormBuilder,
@@ -38,7 +39,7 @@ export class CommentComponent implements OnInit {
   createForm() {
     return this.fb.group({
       // author: ['', [Validators.required, Validators.minLength(3)]],
-      comment: ['', Validators.maxLength(750)]
+      body: ['', Validators.maxLength(750)]
     });
   }
 
@@ -46,12 +47,14 @@ export class CommentComponent implements OnInit {
     const self = this;
     const v = this.form.value;
     const c = new Comment(v);
+    c.eventId = self.event.id;
+    c.fromId = self.author.id;
     if (!c.created) {
       c.created = new Date();
     }
     c.modified = new Date();
     self.commentSvc.create(c).subscribe((r: any) => {
-      self.afterSend.emit({ name: 'OnPostComment' });
+      self.afterPost.emit({ name: 'OnPostComment' });
       self.form.reset();
     });
   }

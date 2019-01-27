@@ -39,12 +39,12 @@
     "from": {
       "type": "belongsTo",
       "model": "Account",
-      "foreignKey": "accountId"
+      "foreignKey": "fromId"
     },
     "to": {
       "type": "belongsTo",
       "model": "Account",
-      "foreignKey": "accountId"
+      "foreignKey": "toId"
     }
   },
   "acls": [],
