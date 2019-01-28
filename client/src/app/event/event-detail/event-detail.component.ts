@@ -6,6 +6,7 @@ import { EventService } from '../event.service';
 import { AccountService } from '../../account/account.service';
 import { ToastrService } from '../../../../node_modules/ngx-toastr';
 import { CommentService } from '../../comment/comment.service';
+// import { Comment } from '../../lb-sdk';
 
 @Component({
   selector: 'app-event-detail',

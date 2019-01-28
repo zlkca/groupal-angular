@@ -1,6 +1,7 @@
-$portrait-size: 32px;
-$portrait-top: 25px;
-$triangle-top: 8px;
+$portrait-size: 34px;
+$portrait-top: 13px;
+$triangle-size: 6px;
+$triangle-top: 10px;
 $gap: 10px;
 
 .z-dialog{
@@ -10,57 +11,86 @@ $gap: 10px;
 
   .comment-row{
     width: 100%;
+    margin-top:15px;
   }
 }
-.l-dialog{
-  float:left;
-  width: -webkit-calc(100% - #{$portrait-size} - #{$gap});
-  width:    -moz-calc(100% - #{$portrait-size} - #{$gap});
-  width:         calc(100% - #{$portrait-size} - #{$gap});
-}
-.r-dialog{
-  float:right;
+
+.dialog{
   width: -webkit-calc(100% - #{$portrait-size} - #{$gap});
   width:    -moz-calc(100% - #{$portrait-size} - #{$gap});
   width:         calc(100% - #{$portrait-size} - #{$gap});
 }
 
+.r-name{
+  float:left;
+  padding-left: 13px;
+  font-size: 12px;
+}
+
+.l-name{
+  float:right;
+  padding-right: 13px;
+  font-size: 12px;
+}
+
+.r-dt{
+  float:right;
+  padding-left: 13px;
+  font-size: 10px;
+}
+
+.l-dt{
+  float:left;
+  padding-right: 13px;
+  font-size: 10px;
+}
+
+.l-dialog{
+  float:left;
+  padding-right: $gap;
+}
+
+.r-dialog, .l-name{
+  float:right;
+  padding-left: $gap;
+}
+
 .l-dialog-box{
-	margin-top:15px;
+	margin-top:0px;
 	width: 100%;
-    float: left;
-    border: 1px solid #d4d4d4;
-    border-radius: 2px;
-    padding: 10px 15px;
-    position: relative;
+  float: left;
+  border: 1px solid #d4d4d4;
+  border-radius: 2px;
+  padding: 10px 15px;
+  position: relative;
 }
 
 .l-dialog-box:before{
 	position:absolute;
 	top: $triangle-top;
-	right:-15px;
+	right:-$triangle-size;
 	display:inline-block;
-	border-top: 15px solid transparent;
-    border-left: 15px solid #ccc;
-    border-right: 0 solid #ccc;
-    border-bottom: 15px solid transparent;
-    content:" ";
+	border-top: $triangle-size solid transparent;
+  border-left: $triangle-size solid #ccc;
+  border-right: 0 solid #ccc;
+  border-bottom: $triangle-size solid transparent;
+  content:" ";
 }
 
 .l-dialog-box:after {
     position: absolute;
     top: $triangle-top + 1;
-    right: -14px;
+    right: -$triangle-size + 1px;
     display: inline-block;
-    border-top: 14px solid transparent;
-    border-left: 14px solid #fff;
+    border-top: ($triangle-size - 1px) solid transparent;
+    border-left: ($triangle-size - 1px) solid #fff;
     border-right: 0 solid #fff;
-    border-bottom: 14px solid transparent;
+    border-bottom: ($triangle-size - 1px) solid transparent;
     content: " ";
 }
 
 .r-dialog-box{
-	margin-top:24px;
+	margin-top: 0px;
 	width: 100%;
     float: left;
     border: 1px solid #d4d4d4;
@@ -73,31 +103,19 @@ $gap: 10px;
   float:left;
   width: $portrait-size + $gap;
 	padding-top: $portrait-top;
-	padding-right:5px;
-	padding-left:5px;
+	padding-right:0px;
+	padding-left:0px;
 }
 
 .l-portrait{
   float: right;
   width: $portrait-size + $gap;
 	padding-top: $portrait-top;
-	padding-left:5px;
-	padding-right:5px;
-}
-
-.r-dialog{
-	max-width:600px;
-	float:left;
-	padding-left:20px;
+	padding-left:0px;
 	padding-right:0px;
 }
 
-.l-dialog{
-	max-width:600px;
-	float:right;
-	padding-left:0px;
-	padding-right:20px;
-}
+
 
 .r-dialog-box:before{
 	position:absolute;

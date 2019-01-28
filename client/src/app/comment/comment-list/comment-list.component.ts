@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AccountService } from '../../account/account.service';
+import { SharedService } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-comment-list',
@@ -12,7 +13,8 @@ export class CommentListComponent implements OnInit {
   @Input() comments;
 
   constructor(
-    private accountSvc: AccountService
+    private accountSvc: AccountService,
+    private sharedSvc: SharedService
   ) { }
 
   ngOnInit() {
@@ -28,5 +30,10 @@ export class CommentListComponent implements OnInit {
   }
   getPortrait(comment) {
     return this.accountSvc.getPortrait(comment.from);
+  }
+
+  getDisplayDateTime(comment) {
+    return this.sharedSvc.getDisplayDate(comment.created) + ' '
+      + this.sharedSvc.getDisplayTime(comment.created);
   }
 }

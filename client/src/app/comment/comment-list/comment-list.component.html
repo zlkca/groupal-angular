@@ -9,10 +9,11 @@
               <img [src]="getPortrait(comment)"/>
             </div>
           </div>
-          <div class="{{getDirection(comment)}}-dialog">
+          <div class="{{getDirection(comment)}}-dt">{{getDisplayDateTime(comment)}}</div>
+          <div class="{{getDirection(comment)}}-name">{{comment.from.username}}</div>
+          <div class="dialog {{getDirection(comment)}}-dialog">
             <div class="{{getDirection(comment)}}-dialog-box">
-                <div class="dialog-heading">{{comment.created}}</div>
-                <div class="dialog-body">{{comment.body}}</div>
+              <div class="dialog-body">{{comment.body}}</div>
             </div>
           </div>
         </div>
