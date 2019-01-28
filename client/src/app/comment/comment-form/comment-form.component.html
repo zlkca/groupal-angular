@@ -4,18 +4,14 @@
   </div> -->
   
   <div class="row form-group">
-    <div class="col-2">
-        <p>
-          <img [src]="portrait">
-        </p>
+    <div class="portrait">
+      <p>
+        <img [src]="portrait">
+      </p>
     </div>
+    <input placeholder="Public comment" class="form-control" name="body" formControlName="body" />
+    <button class="btn btn-primary" (click)="postComment()" i18n="@@Post">Post</button>
 
-    <div class="col-8">
-        <input class="form-control" name="body" formControlName="body" />
-    </div>
-    <div class="col-2">
-        <button class="btn btn-primary" (click)="postComment()" i18n="@@Post">Post</button>
-    </div>
   </div>
 </form>
 

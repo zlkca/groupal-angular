@@ -185,7 +185,7 @@ export class AccountService {
       map((r: Account) => {
         if (data.portraits && data.portraits.length > 0) {
           // self.updatePortrait(id, data.portraits);
-          self.portraitApi.patchOrCreate(data.portraits[0]).subscribe(() => {
+          self.portraitApi.replaceOrCreate(data.portraits[0]).subscribe(() => {
 
           });
         }

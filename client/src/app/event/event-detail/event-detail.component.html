@@ -29,9 +29,8 @@
         </div>
       </div>
       
-      <div class="row">
-        <app-comment-form [event]="event" [author]="account" (afterPost)="onAfterPostComment($event)"></app-comment-form>
-      </div>
+      <app-comment-form [event]="event" [author]="account" (afterPost)="onAfterPostComment($event)"></app-comment-form>
+
       <app-comment-list [comments]="comments" [account]="account"></app-comment-list>
     </div>
     <div class="btn-holder">
