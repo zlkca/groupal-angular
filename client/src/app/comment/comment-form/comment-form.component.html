@@ -9,9 +9,15 @@
         <img [src]="portrait">
       </p>
     </div>
-    <input placeholder="Public comment" class="form-control" name="body" formControlName="body" />
-    <button class="btn btn-primary" (click)="postComment()" i18n="@@Post">Post</button>
-
+    <!-- <input placeholder="Public comment" class="form-control" name="body" formControlName="body" />
+    <button class="btn btn-primary" (click)="postComment()" i18n="@@Post">Post</button> -->
+    <div class="input-group comment-input">
+      <input type="text" class="form-control" placeholder="Public comment" aria-label="Public comment" aria-describedby="basic-addon2" name="body" formControlName="body"/>
+      <div class="input-group-append">
+        <span class="input-group-text" id="basic-addon2" (click)="postComment()" i18n="@@Post">Post</span>
+      </div>
+    </div>
+      
   </div>
 </form>
 

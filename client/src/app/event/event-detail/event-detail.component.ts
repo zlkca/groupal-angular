@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SharedService } from '../../shared/shared.service';
 import { environment } from '../../../environments/environment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '../event.service';
 import { AccountService } from '../../account/account.service';
 import { ToastrService } from '../../../../node_modules/ngx-toastr';
@@ -21,6 +21,7 @@ export class EventDetailComponent implements OnInit {
   constructor(
     private eventSvc: EventService,
     private sharedSvc: SharedService,
+    private router: Router,
     private route: ActivatedRoute,
     private accountSvc: AccountService,
     private toastSvc: ToastrService,
@@ -92,5 +93,73 @@ export class EventDetailComponent implements OnInit {
       include: [{'from': 'portraits'}] }).subscribe(comments => {
       self.comments = comments;
     });
+  }
+
+
+  join(event) {
+    const self = this;
+    if (self.account && self.account.id) {
+      if (event && event.participants && event.participants.length > 0) {
+        self.eventSvc.join(self.account.id, event.id).subscribe((x: any) => {
+          const ps = event.participants.filter(p => p.accountId === self.account.id);
+          self.accountSvc.findPortraitsByAccountId(x.accountId).subscribe(rs => {
+            x.account = { id: x.accountId, portraits: rs };
+            if (!ps || ps.length === 0) {
+              event.participants.push(x);
+            } else {
+              // ps[0].account = { portraits: rs };
+              ps[0].status = 'joined';
+            }
+            // const xs = self.events.filter(r => r.id === event.id);
+            // xs[0] = event;
+
+            self.toastSvc.success('Join Event Successfully!', '',
+              { timeOut: 2000, positionClass: 'toast-bottom-right' });
+          });
+        });
+      } else { // if there is no paticipant;
+        self.eventSvc.join(self.account.id, event.id).subscribe((x: any) => {
+          self.accountSvc.findPortraitsByAccountId(x.accountId).subscribe(rs => {
+            x.account = { id: x.accountId, portraits: rs };
+            event.participants.push(x);
+            // const xs = self.events.filter(r => r.id === event.id);
+            // xs[0] = event;
+
+            self.toastSvc.success('Join Event Successfully!', '',
+              { timeOut: 2000, positionClass: 'toast-bottom-right' });
+          });
+        });
+
+      }
+    } else {
+      self.router.navigate(['login']);
+    }
+  }
+
+  quit(event) {
+    if (event && this.account && this.account.id) {
+      this.eventSvc.quit(this.account.id, event.id).subscribe(() => {
+        const ps = event.participants.filter(x => x.accountId === this.account.id);
+        if (ps && ps.length > 0) {
+          ps[0].status = 'cancelled';
+        }
+        this.toastSvc.success('Quit Event Successfully!', '',
+          { timeOut: 2000, positionClass: 'toast-bottom-right' });
+      });
+    }
+  }
+
+  joined(event) {
+    if (this.account && event && event.participants && event.participants.length > 0) {
+      const accountId = this.account.id;
+      const participants = event.participants.filter((p: any) => p.accountId === accountId);
+      if (participants && participants.length > 0) {
+        return participants[0].status === 'joined';
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 }

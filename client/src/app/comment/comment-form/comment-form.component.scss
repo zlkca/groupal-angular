@@ -19,21 +19,30 @@
 .comment-form{
   .portrait{
     width: 50px;
-    height: 46px;
+    height: 38px;
     display: block;
     float: left;
+    margin-top: -4px;
   }
 
-  input{
-    width: calc(100% - 60px - 60px);
-    height: 46px;
-    float: left;
-  }
+  // input{
+  //   width: calc(100% - 60px - 60px);
+  //   height: 46px;
+  //   float: left;
+  // }
 
-  button{
-    margin-left: 10px;
-    float: left;
-    width: 60px;
+  // button{
+  //   margin-left: 10px;
+  //   float: left;
+  //   width: 60px;
+  // }
+
+  .comment-input{
+    width: calc(100% - 60px);
+    height: 38px;
+  }
+  .input-group-append{
+    height: 38px;
   }
 
   p {
