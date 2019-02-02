@@ -2,6 +2,7 @@
 import {
   Account,
   Address,
+  QRCode,
   Group,
   Category,
   Participant
@@ -21,6 +22,7 @@ export interface EventInterface {
   "id"?: number;
   owner?: Account;
   address?: Address;
+  qrcodes?: QRCode[];
   groups?: Group[];
   categories?: Category[];
   participants?: Participant[];
@@ -39,6 +41,7 @@ export class Event implements EventInterface {
   "id": number;
   owner: Account;
   address: Address;
+  qrcodes: QRCode[];
   groups: Group[];
   categories: Category[];
   participants: Participant[];
@@ -132,6 +135,14 @@ export class Event implements EventInterface {
           relationType: 'belongsTo',
                   keyFrom: 'addressId',
           keyTo: 'id'
+        },
+        qrcodes: {
+          name: 'qrcodes',
+          type: 'QRCode[]',
+          model: 'QRCode',
+          relationType: 'hasMany',
+                  keyFrom: 'id',
+          keyTo: 'entityId'
         },
         groups: {
           name: 'groups',

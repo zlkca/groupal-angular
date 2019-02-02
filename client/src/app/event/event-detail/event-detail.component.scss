@@ -36,6 +36,14 @@ $primary-color:#003e7e;
       padding-top:8px;
       height: 40px;
       font-size: 18px;
+      float: left;
+      width: calc(100% - 80px);
+    }
+
+    .qrcode{
+      width:80px;
+      height:80px;
+      float: left;
     }
   }
 
@@ -110,6 +118,7 @@ $primary-color:#003e7e;
     margin-left: 0px;
     margin-right: 0px;
   }
+
 }
 .btn-holder{
   width: 100%;

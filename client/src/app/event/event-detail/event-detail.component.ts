@@ -16,6 +16,7 @@ import { CommentService } from '../../comment/comment.service';
 export class EventDetailComponent implements OnInit {
   event;
   account;
+  qrcodeUrl;
   comments;
   APP_URL = environment.APP_URL;
   constructor(
@@ -38,11 +39,15 @@ export class EventDetailComponent implements OnInit {
 
       self.eventSvc.find({
         where: { 'id': id },
-        include: [{ 'owner': 'portraits' }, 'groups', 'categories', { 'participants': [{ 'account': 'portraits' }] }, 'address'],
+        include: ['groups', 'categories', 'address', 'qrcodes',
+          { 'owner': 'portraits' },
+          { 'participants': [{ 'account': 'portraits' }] },
+        ],
         order: 'modified DESC'
       }).subscribe(
         (ps: any) => {
           self.event = ps[0];
+          self.qrcodeUrl = self.getQrCodeUrl(self.event);
         });
 
       self.commentSvc.find({
@@ -55,6 +60,15 @@ export class EventDetailComponent implements OnInit {
     this.accountSvc.getCurrent().subscribe(account => {
       self.account = account;
     });
+  }
+
+  getQrCodeUrl(event) {
+    const codes = event.qrcodes.filter(x =>  x.entityType === 'Event' );
+    if (codes && codes.length > 0) {
+      return this.sharedSvc.getContainerUrl() + event.qrcodes[0].url;
+    } else {
+      return null;
+    }
   }
 
   getDisplayDateTimeRange(event) {

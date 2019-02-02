@@ -8,6 +8,7 @@ import { NgRedux } from '@angular-redux/store';
 import { EventService } from '../../event/event.service';
 import { GroupService } from '../../group/group.service';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from '../../../../node_modules/rxjs';
 
 @Component({
   selector: 'app-admin-event',
@@ -33,7 +34,19 @@ export class AdminEventComponent implements OnInit {
 
   ngOnInit() {
     const self = this;
-    self.loadEventList();
+    self.loadEventList().subscribe(
+      (ps: Event[]) => {
+        self.events = ps;
+        if (ps && ps.length > 0) {
+          self.event = ps[0];
+        } else {
+          self.event = new Event();
+        }
+      }
+    );
+    // this.route.queryParams.subscribe(params => {
+    //   self.groupId = params['group_id'];
+    // });
   }
 
   add() {
@@ -41,48 +54,55 @@ export class AdminEventComponent implements OnInit {
   }
 
   onAfterSave(event) {
-    this.loadEventList();
+    const self = this;
+    self.loadEventList().subscribe(
+      (ps: Event[]) => {
+        self.events = ps;
+        self.event = event;
+      }
+    );
     this.toastSvc.success('Save Event Successfully!', '',
     { timeOut: 2000, positionClass: 'toast-bottom-right' });
   }
 
   onAfterDelete(event) {
-    this.loadEventList();
+    const self = this;
+    self.loadEventList().subscribe(
+      (ps: Event[]) => {
+        self.events = ps;
+        if (ps && ps.length > 0) {
+          self.event = ps[0];
+        } else {
+          self.event = new Event();
+        }
+      }
+    );
     this.toastSvc.success('Remove Event Successfully!', '',
     { timeOut: 2000, positionClass: 'toast-bottom-right' });
 
-    this.event = new Event();
-    this.event.id = null;
-    this.event.name = '';
-    this.event.description = '';
-    this.event.price = null;
-    this.event.groupId = null;
+    // this.event = new Event();
+    // this.event.id = null;
+    // this.event.name = '';
+    // this.event.description = '';
+    // this.event.price = null;
+    // this.event.groupId = null;
   }
 
   onSelect(event) {
     this.event = event.event;
   }
 
-  loadEventList() {
+  loadEventList(): Observable<Event[]> {
     const self = this;
-    this.route.queryParams.subscribe(params => {
-      self.groupId = params['group_id'];
 
-      if (self.account.type === 'super') {
-        const query = { include: ['groups', 'categories', 'address'] };
-        self.eventSvc.find(query).subscribe(
-          (ps: Event[]) => {
-            self.events = ps;
-          });
-      } else if (self.account.type === 'user') {
-        const query = { where: { ownerId: self.account.id }, include: ['groups', 'categories', 'address'] };
-        // const query = { include: ['groups', 'categories'] };
-        self.eventSvc.find(query).subscribe(
-          (ps: Event[]) => {
-            self.events = ps;
-          });
-      }
-    });
+    if (self.account.type === 'super') {
+      const query = { include: ['groups', 'categories', 'address'] };
+      return self.eventSvc.find(query);
+    } else { // if (self.account.type === 'user')
+      const query = { where: { ownerId: self.account.id }, include: ['groups', 'categories', 'address'] };
+      // const query = { include: ['groups', 'categories'] };
+      return self.eventSvc.find(query);
+    }
   }
 
 }

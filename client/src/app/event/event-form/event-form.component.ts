@@ -9,7 +9,7 @@ import { EventService } from '../event.service';
 import { GroupService } from '../../group/group.service';
 import { CategoryService } from '../../category/category.service';
 // import { MultiImageUploaderComponent } from '../../shared/multi-image-uploader/multi-image-uploader.component';
-import { Account, Group, Event, Category, LoopBackConfig, Picture, Address, AddressApi } from '../../lb-sdk';
+import { Account, Group, Event, Category, LoopBackConfig, Picture, Address, AddressApi, QRCode } from '../../lb-sdk';
 import { Jsonp } from '@angular/http';
 import { map } from '../../../../node_modules/rxjs/operators';
 import { SharedService } from '../../shared/shared.service';
@@ -25,6 +25,15 @@ export class EventFormComponent implements OnInit, OnChanges {
   currentAccount;
   address = '';
   location = { city: '', street_name: '', street_number: '', sub_locality: '', postal_code: '', province: '', lat: 0, lng: 0 };
+
+  urls = [];
+  qrcodes: string[] = [];
+  qrcodeUploadUrl: string; // = this.sharedSvc.getContainerUrl() + 'qrcodes/upload';
+  // qrcodeUploadUrl: string = [
+  //   LoopBackConfig.getPath(),
+  //   LoopBackConfig.getApiVersion(),
+  //   'Containers/qrcodes/upload'
+  // ].join('/');
 
   // colorList:Color[] = [];
   // id: number;
@@ -56,6 +65,7 @@ export class EventFormComponent implements OnInit, OnChanges {
     private router: Router
   ) {
     this.form = this.createForm();
+    this.qrcodeUploadUrl = this.sharedSvc.getContainerUrl() + 'qrcodes/upload';
   }
 
   createForm() {
@@ -63,7 +73,7 @@ export class EventFormComponent implements OnInit, OnChanges {
       name: new FormControl('', [Validators.required, Validators.minLength(3)]),
       description: new FormControl('', [Validators.maxLength(980)]),
       price: new FormControl(),
-      groupId: new FormControl(),
+      // groupId: new FormControl(),
       categoryId: new FormControl(),
       // street: ['', Validators.required],
       // postal_code:['', Validators.required]
@@ -82,11 +92,11 @@ export class EventFormComponent implements OnInit, OnChanges {
     this.form.get('name').setValue(event.name);
     this.form.get('description').setValue(event.description);
     // this.form.get('ownerId').setValue(event.ownerId);
-    if (event.groups && event.groups.length > 0) {
-      this.form.get('groupId').setValue(event.groups[0].id);
-    } else {
-      this.form.get('groupId').setValue(null);
-    }
+    // if (event.groups && event.groups.length > 0) {
+    //   this.form.get('groupId').setValue(event.groups[0].id);
+    // } else {
+    //   this.form.get('groupId').setValue(null);
+    // }
     if (event.categories && event.categories.length > 0) {
       this.form.get('categoryId').setValue(event.categories[0].id);
     } else {
@@ -94,6 +104,37 @@ export class EventFormComponent implements OnInit, OnChanges {
     }
     this.form.get('eventDate').setValue(this.sharedSvc.getDate(event.fromDateTime));
     // this.form.get('categories')['controls'][0].setValue(group.categories[0].id);
+  }
+
+  setPictures(event) {
+    if (event.qrcodes && event.qrcodes.length > 0) {
+      const qrcode = event.qrcodes[0];
+      this.qrcodes = [
+        this.sharedSvc.getContainerUrl() + qrcode.url,
+      ];
+    } else {
+      this.qrcodes = [''];
+    }
+  }
+
+  onAfterQRCodeUpload(e) {
+    const self = this;
+    this.qrcodes = [
+      self.sharedSvc.getContainerUrl() + 'qrcodes/download/' + e.name,
+    ];
+
+    this.event.qrcodes = [
+      new QRCode({
+        name: e.name,
+        entityType: 'Event',
+        entityId: self.event.id,
+        index: 1,
+        url: 'qrcodes/download/' + e.name,
+      })
+    ];
+    this.urls = [
+      this.sharedSvc.getContainerUrl() + 'qrcodes/download/' + e.name,
+    ];
   }
 
   ngOnInit() {
@@ -143,6 +184,8 @@ export class EventFormComponent implements OnInit, OnChanges {
       } else {
         this.address = '';
       }
+
+      this.setPictures(event);
     }
   }
 
@@ -171,12 +214,12 @@ export class EventFormComponent implements OnInit, OnChanges {
 
   getCheckedCategories() {
     const cs = [];
-    for (let i = 0; i < this.categoryList.length; i++) {
-      let c = this.categoryList[i];
-      // if (this.categories.get(i.toString()).value) {
-      //     cs.push(c);
-      // }
-    }
+    // for (let i = 0; i < this.categoryList.length; i++) {
+    //   let c = this.categoryList[i];
+    //   // if (this.categories.get(i.toString()).value) {
+    //   //     cs.push(c);
+    //   // }
+    // }
     return cs;
   }
 
@@ -219,11 +262,12 @@ export class EventFormComponent implements OnInit, OnChanges {
   save() {
     const self = this;
     const catIds = [this.form.get('categoryId').value];
-    const groupIds = [this.form.get('groupId').value];
+    const groupIds = [1]; // [this.form.get('groupId').value];
 
     this.categorySvc.find({ where: { id: { inq: catIds } } }).subscribe(cats => {
       const v = self.form.value;
       v.categories = cats;
+      v.qrcodes = self.event.qrcodes;
 
       self.groupSvc.find({ where: { id: { inq: groupIds } } }).subscribe(groups => {
         v.groups = groups;
@@ -262,10 +306,16 @@ export class EventFormComponent implements OnInit, OnChanges {
           if (event.id) {
             self.eventSvc.replaceById(event.id, event).subscribe((r: any) => {
               self.afterSave.emit({ event: r, action: 'update' });
+              if (event.qrcodes && event.qrcodes.length > 0) {
+                self.eventSvc.replaceOrCreateQRCode(event, event.qrcodes[0]).subscribe();
+              }
             });
           } else {
             self.eventSvc.create(event).subscribe((r: any) => {
               self.afterSave.emit({ event: r, action: 'save' });
+              if (event.qrcodes && event.qrcodes.length > 0) {
+                self.eventSvc.replaceOrCreateQRCode(event, event.qrcodes[0]).subscribe();
+              }
             });
           }
         });

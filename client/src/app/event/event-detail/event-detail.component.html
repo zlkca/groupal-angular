@@ -3,6 +3,7 @@
       <h4>
         <div class="title-xs">{{event.name}}</div>
       </h4>
+      <img *ngIf="qrcodeUrl" class="qrcode" [src]="qrcodeUrl" />
     </div>
 
     <div class="body">
@@ -20,7 +21,7 @@
         <div class="participants">
           <div *ngFor="let p of event.participants" class="participant">
             <span class="portrait-frame" *ngIf="p.status === 'joined'">
-              <img class="portrait" [src]="getPaticipantPortrait(p)">
+              <img class="portrait" [src]="getPaticipantPortrait(p)" />
             </span>
           </div>
         </div>

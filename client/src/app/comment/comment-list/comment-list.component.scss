@@ -21,6 +21,10 @@ $gap: 10px;
   width:         calc(100% - #{$portrait-size} - #{$gap});
 }
 
+.dialog-body{
+  word-break: break-all;
+}
+
 .r-name{
   float:left;
   padding-left: 13px;

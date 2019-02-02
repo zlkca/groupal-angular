@@ -72,6 +72,14 @@
       "type": "belongsTo",
       "model": "Address",
       "foreignKey": "addressId"
+    },    
+    "qrcodes": {
+      "type": "hasMany",
+      "model": "QRCode",
+      "foreignKey": "entityId",
+      "options": {
+        "nestRemoting": true
+      }
     }
   },
   "acls": [

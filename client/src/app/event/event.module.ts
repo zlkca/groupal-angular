@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { EventDetailComponent } from './event-detail/event-detail.component';
 import { CommentModule } from '../comment/comment.module';
 import { CommentService } from '../comment/comment.service';
+import { ImageUploaderModule } from '../image-uploader/image-uploader.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { CommentService } from '../comment/comment.service';
     NgbModule,
     SharedModule,
     CommentModule,
+    ImageUploaderModule
   ],
   exports: [
     EventListComponent,

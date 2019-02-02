@@ -4,7 +4,7 @@ import { throwError as observableThrowError, Observable } from 'rxjs';
 // import { fromPromise } from 'rxjs/observable/fromPromise';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 
-import { EventApi, LoopBackFilter, Event, Category, CategoryApi, Picture, PictureApi, ParticipantApi, Participant } from '../lb-sdk';
+import { EventApi, LoopBackFilter, Event, Picture, ParticipantApi, Participant, QRCodeApi, QRCode } from '../lb-sdk';
 import { environment } from '../../environments/environment';
 import { SharedService } from '../shared/shared.service';
 
@@ -18,7 +18,8 @@ export class EventService {
   constructor(
     private eventApi: EventApi,
     private participantApi: ParticipantApi,
-    private sharedSvc: SharedService
+    private sharedSvc: SharedService,
+    private qrCodeApi: QRCodeApi
   ) { }
 
   create(event: Event): Observable<Event> {
@@ -42,9 +43,6 @@ export class EventService {
         // mergeMap((r: Group) => {
         //   return self.updateLogos(r.id, group.pictures);
         // }),
-        // mergeMap((r: Group) => {
-        //   return self.updateQRCodes(r.id, group.qrcodes);
-        // }),
         // mergeMap((prod: Event) => {
         //   eventId = prod.id;
         //   if (event.pictures && event.pictures.length) {
@@ -58,6 +56,14 @@ export class EventService {
         // })
         })
       );
+  }
+
+  replaceOrCreateQRCode(event: Event, qrCode: QRCode): Observable<QRCode> {
+    const self = this;
+    if (event.qrcodes && event.qrcodes.length > 0) {
+      qrCode.id = event.qrcodes[0].id;
+    }
+    return self.qrCodeApi.replaceOrCreate(qrCode);
   }
 
   updateEventImages(id: number, newPictures: Picture[] = null): Observable<any> {
