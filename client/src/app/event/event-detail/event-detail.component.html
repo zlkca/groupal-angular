@@ -1,20 +1,20 @@
 <div class="event-item" *ngIf="event">
     <div class="head">
-      <h4>
-        <div class="title-xs">{{event.name}}</div>
-      </h4>
-      <img *ngIf="qrcodeUrl" class="qrcode" [src]="qrcodeUrl" />
+      <div class="head-text-area">
+          <div class="title-xs head-text">{{event.name}}</div>
+          <div *ngIf="event.fromDateTime" class="text-xs dt-row">
+              <img src="/assets/svg/clock.svg">
+              {{getDisplayDateTimeRange(event)}}
+          </div>
+          <div *ngIf="event.addressId" class="text-xs addr-row">
+              <img src="/assets/svg/map-marker.svg">
+              {{event.address?.formattedAddress}}
+          </div>
+      </div>
+      <img class="qrcode" [src]="qrcodeUrl" />
     </div>
 
     <div class="body">
-      <div *ngIf="event.fromDateTime" class="text-xs">
-          <img src="/assets/svg/clock.svg">
-          {{getDisplayDateTimeRange(event)}}
-      </div>
-      <div *ngIf="event.addressId" class="text-xs">
-          <img src="/assets/svg/map-marker.svg">
-          {{event.address?.formattedAddress}}
-      </div>
       <div class="text-sm">{{event.description}}</div>
   
       <div class="row participants-row">
@@ -29,9 +29,9 @@
           {{getNumOfGoing(event)}}&nbsp;<span i18n="@@PeopleAreGoing">people are going</span>
         </div>
       </div>
-      <div class="btn-holder">
-        <div class="btn btn-primary btn-xs pull-right" *ngIf="!isPast(event) && !joined(event)" (click)="join(event)" i18n="@@Join">Join</div>
-        <div class="btn btn-primary btn-xs pull-right" *ngIf="!isPast(event) && joined(event)" (click)="quit(event)" i18n="@@Cancel">Cancel</div>
+      <div class="btn-holder" *ngIf="!isPast(event)">
+        <div class="btn btn-primary btn-xs pull-right" *ngIf="!joined(event)" (click)="join(event)" i18n="@@Join">Join</div>
+        <div class="btn btn-primary btn-xs pull-right" *ngIf="joined(event)" (click)="quit(event)" i18n="@@Cancel">Cancel</div>
       </div>
       <app-comment-form [event]="event" [author]="account" (afterPost)="onAfterPostComment($event)"></app-comment-form>
 

@@ -67,7 +67,7 @@ export class EventDetailComponent implements OnInit {
     if (codes && codes.length > 0) {
       return this.sharedSvc.getContainerUrl() + event.qrcodes[0].url;
     } else {
-      return null;
+      return this.APP_URL + '/assets/images/empty.png';
     }
   }
 
