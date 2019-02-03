@@ -7,6 +7,8 @@ import { AccountService } from '../../account/account.service';
 import { ToastrService } from '../../../../node_modules/ngx-toastr';
 import { CommentService } from '../../comment/comment.service';
 // import { Comment } from '../../lb-sdk';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-event-detail',
@@ -26,7 +28,8 @@ export class EventDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private accountSvc: AccountService,
     private toastSvc: ToastrService,
-    private commentSvc: CommentService
+    private commentSvc: CommentService,
+    private ngbModel: NgbModal
   ) {
 
   }
@@ -175,5 +178,9 @@ export class EventDetailComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  openQrCodeDlg(content) {
+    this.ngbModel.open(content, { centered: true });
   }
 }

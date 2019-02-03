@@ -62,7 +62,7 @@ export class EventFormComponent implements OnInit, OnChanges {
     private sharedSvc: SharedService,
     private addressApi: AddressApi,
     private rx: NgRedux<IPicture>,
-    private router: Router
+    private router: Router,
   ) {
     this.form = this.createForm();
     this.qrcodeUploadUrl = this.sharedSvc.getContainerUrl() + 'qrcodes/upload';

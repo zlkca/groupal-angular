@@ -72,18 +72,18 @@
   </div> -->
 
   <div class="row image-uploader">
-      <div class="field-label label-sm" i18n="@@QRCode">QR Code</div>
-      <app-image-uploader [bResize]="false" [urls]="urls"
-        [uploadUrl]="qrcodeUploadUrl" 
-        [images]="qrcodes" 
-        (afterUpload)="onAfterQRCodeUpload($event)">
-      </app-image-uploader>
-    </div>
+    <div class="field-label label-sm" i18n="@@QRCode">QR Code</div>
+    <app-image-uploader [bResize]="false" [urls]="urls"
+      [uploadUrl]="qrcodeUploadUrl" 
+      [images]="qrcodes" 
+      (afterUpload)="onAfterQRCodeUpload($event)">
+    </app-image-uploader>
+  </div>
 
   <div class="row form-group">
       <div class="field-label label-sm" i18n="@@Category">Category</div>
       <select class="form-control" name="category" formControlName="categoryId">
-          <option *ngFor="let c of categoryList" [value]="c.id">{{c.name}}</option>
+        <option *ngFor="let c of categoryList" [value]="c.id">{{c.name}}</option>
       </select>
   </div>
   <!-- <div class="row">
