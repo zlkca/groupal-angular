@@ -181,6 +181,8 @@ export class EventDetailComponent implements OnInit {
   }
 
   openQrCodeDlg(content) {
-    this.ngbModel.open(content, { centered: true });
+    if (this.qrcodeUrl.indexOf('empty.png') === -1) {
+      this.ngbModel.open(content, { centered: true });
+    }
   }
 }

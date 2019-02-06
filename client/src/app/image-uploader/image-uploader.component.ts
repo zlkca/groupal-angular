@@ -12,7 +12,7 @@ export class ImageUploaderComponent implements OnInit {
   @Input() uploadUrl;
   @Input() urls;
 
-  @Input() bResize = true;
+  @Input() size = 'sm';
   @Output() afterDelete = new EventEmitter();
   @Output() afterUpload = new EventEmitter();
 
@@ -31,7 +31,7 @@ export class ImageUploaderComponent implements OnInit {
       const file = event.target.files[0];
 
       image.onload = function(imageEvent) {
-        const blob = self.getBlob(image, self.bResize); // type:x, size:y
+        const blob = self.getBlob(image, self.size); // type:x, size:y
         const picFile = new File([blob], file.name);
 
         self.postFile(self.uploadUrl, picFile).subscribe(x => {
@@ -112,15 +112,20 @@ export class ImageUploaderComponent implements OnInit {
     return { 'w': Math.round(rw), 'h': Math.round(rh), 'padding_top': Math.round((frame_h - rh) / 2) };
   }
 
-  getBlob(image, bResize = true) {
+  getBlob(image, size = 'sm') {
     const canvas = document.createElement('canvas');
-    if (bResize) {
-      const d = this.resizeImage(320, 240, image.width, image.height);
+    if (size === 'sm') {
+      const d = this.resizeImage(240, 320, image.width, image.height);
+      canvas.width = d.w;
+      canvas.height = d.h;
+    } else if (size === 'lg') {
+      const d = this.resizeImage(320, 480, image.width, image.height);
       canvas.width = d.w;
       canvas.height = d.h;
     } else {
-      canvas.width = image.width;
-      canvas.height = image.height;
+      const d = this.resizeImage(240, 320, image.width, image.height);
+      canvas.width = d.w;
+      canvas.height = d.h;
     }
     canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
     const dataUrl = canvas.toDataURL('image/jpeg');

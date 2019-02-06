@@ -137,6 +137,11 @@ $qrcode-h: 120px;
   height: 36px;
   padding-right: 10px;
 }
+
+.qrcode-lg{
+  width: 100%;
+}
+
 @media (max-width: 767px){
   .event-list{
     .list-group{
